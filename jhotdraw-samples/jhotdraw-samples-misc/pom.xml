@@ -78,7 +78,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar --add-opens java.base/java.lang=ALL-UNNAMED
                         --add-opens java.base/java.lang=ALL-UNNAMED
                     </argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
