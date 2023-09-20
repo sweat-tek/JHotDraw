@@ -27,6 +27,7 @@ public class Main {
     /**
      * Creates a new instance.
      */
+
     @FeatureEntryPoint("Main")
     public static void main(String[] args) {
         // Debug resource bundle
