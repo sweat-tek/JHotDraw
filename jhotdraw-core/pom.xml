@@ -42,7 +42,7 @@
 	 </dependency>
 	 <dependency>
 	  <groupId>dk.sdu.mmmi</groupId>
-	  <artifactId>featuretracer</artifactId>
+	  <artifactId>featuretracerlite</artifactId>
 	  <version>1.0</version>
 	  <type>jar</type>
 	 </dependency>
