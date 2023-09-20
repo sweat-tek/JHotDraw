@@ -7,7 +7,9 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.ImageHolderFigure;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -16,8 +18,11 @@ import java.io.*;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import org.jhotdraw.draw.*;
+
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+
 import org.jhotdraw.draw.event.TransformRestoreEdit;
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
@@ -25,7 +30,9 @@ import org.jhotdraw.draw.handle.ResizeHandleKit;
 import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
 import org.jhotdraw.util.*;
 
 /**
@@ -67,6 +74,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint("Image")
     public SVGImageFigure(double x, double y, double width, double height) {
         rectangle = new Rectangle2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
@@ -230,8 +238,8 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
-            rectangle.clone(),
-            get(TRANSFORM)
+                rectangle.clone(),
+                get(TRANSFORM)
         };
     }
 
@@ -361,11 +369,10 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
      * imageData array instead of cloning it. Do not modify the imageData
      * array after invoking this method.
      *
-     *
-     * @param imageData The image data. If this is null, a buffered image must
-     * be provided.
+     * @param imageData     The image data. If this is null, a buffered image must
+     *                      be provided.
      * @param bufferedImage An image constructed from the imageData. If this
-     * is null, imageData must be provided.
+     *                      is null, imageData must be provided.
      */
     @Override
     public void setImage(byte[] imageData, BufferedImage bufferedImage) {
