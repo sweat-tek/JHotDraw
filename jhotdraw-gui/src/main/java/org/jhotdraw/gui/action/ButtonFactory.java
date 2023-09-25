@@ -39,6 +39,8 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.plaf.ColorChooserUI;
 import javax.swing.text.StyledEditorKit;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.action.edit.CopyAction;
 import org.jhotdraw.action.edit.CutAction;
 import org.jhotdraw.action.edit.DuplicateAction;
@@ -931,6 +933,7 @@ public class ButtonFactory {
                 editor, attributeKey, labelKey, labels, defaultAttributes, colorShape, null, dsp);
     }
 
+    @FeatureEntryPoint("ButtonFactory.createSelectionColorChooserButton")
     public static JPopupButton createSelectionColorChooserButton(final DrawingEditor editor,
             final AttributeKey<Color> attributeKey, String labelKey,
             ResourceBundleUtil labels,
