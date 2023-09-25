@@ -5,3 +5,6 @@ nb-configuration.xml
 .idea/*
 *.ftf
 /jhotdraw-samples/jhotdraw-samples-misc/nbproject/
+/jhotdraw-core/src/main/resources/org/jhotdraw/META-INF/aop.xml
+/jhotdraw-core/pom.xml
+/jhotdraw-samples/jhotdraw-samples-misc/pom.xml
