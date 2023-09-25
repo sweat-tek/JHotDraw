@@ -36,7 +36,6 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "SelectionColorChooserHandler")
     public SelectionColorChooserHandler(DrawingEditor editor, AttributeKey<Color> key, JColorChooser colorChooser, JPopupMenu popupMenu) {
         super(editor);
         this.key = key;
