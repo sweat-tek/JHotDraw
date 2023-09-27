@@ -368,12 +368,6 @@ public class SVGTextFigure
             Point2D.Double p0 = new Point2D.Double(0, 0);
             tx.transform(p0, p0);
             p.y -= p0.y;
-            /*
-             try {
-             tx.inverseTransform(p, p);
-             } catch (NoninvertibleTransformException ex) {
-             ex.printStackTrace();
-             }*/
         }
         return (float) Math.abs(p.y);
     }
