@@ -327,7 +327,6 @@ public class SVGTextFigure
 
     @Override
     public int getTextColumns() {
-        //return (getText() == null) ? 4 : Math.min(getText().length(), 4);
         return 4;
     }
 
