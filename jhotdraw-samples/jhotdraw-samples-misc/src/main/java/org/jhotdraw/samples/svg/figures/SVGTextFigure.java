@@ -75,9 +75,12 @@ public class SVGTextFigure
         setConnectable(false);
     }
 
-    // DRAWING
+
     @Override
     protected void drawText(java.awt.Graphics2D g) {
+        /*
+            This method is empty for some reason
+        */
     }
 
     @Override
@@ -123,7 +126,7 @@ public class SVGTextFigure
                 text = " ";
             }
             FontRenderContext frc = getFontRenderContext();
-            HashMap<TextAttribute, Object> textAttributes = new HashMap<TextAttribute, Object>();
+            HashMap<TextAttribute, Object> textAttributes = new HashMap<>();
             textAttributes.put(TextAttribute.FONT, getFont());
             if (get(FONT_UNDERLINE)) {
                 textAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -188,7 +191,7 @@ public class SVGTextFigure
                 text = " ";
             }
             FontRenderContext frc = getFontRenderContext();
-            HashMap<TextAttribute, Object> textAttributes = new HashMap<TextAttribute, Object>();
+            HashMap<TextAttribute, Object> textAttributes = new HashMap<>();
             textAttributes.put(TextAttribute.FONT, getFont());
             if (get(FONT_UNDERLINE)) {
                 textAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -295,11 +298,11 @@ public class SVGTextFigure
 
     @Override
     public <T> void set(AttributeKey<T> key, T newValue) {
-        if (key.equals(SVGAttributeKeys.TRANSFORM)
-                || key.equals(SVGAttributeKeys.FONT_FACE)
-                || key.equals(SVGAttributeKeys.FONT_BOLD)
-                || key.equals(SVGAttributeKeys.FONT_ITALIC)
-                || key.equals(SVGAttributeKeys.FONT_SIZE)) {
+        if (key.equals(AttributeKeys.TRANSFORM)
+                || key.equals(AttributeKeys.FONT_FACE)
+                || key.equals(AttributeKeys.FONT_BOLD)
+                || key.equals(AttributeKeys.FONT_ITALIC)
+                || key.equals(AttributeKeys.FONT_SIZE)) {
             invalidate();
         }
         super.set(key, newValue);
@@ -329,7 +332,7 @@ public class SVGTextFigure
 
     @Override
     public Font getFont() {
-        return SVGAttributeKeys.getFont(this);
+        return AttributeKeys.getFont(this);
     }
 
     @Override
@@ -390,7 +393,7 @@ public class SVGTextFigure
 
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
+        LinkedList<Handle> handles = new LinkedList<>();
         switch (detailLevel % 2) {
             case -1: // Mouse hover handles
                 handles.add(new BoundsOutlineHandle(this, false, true));
@@ -406,6 +409,8 @@ public class SVGTextFigure
                 break;
             case 1:
                 TransformHandleKit.addTransformHandles(this, handles);
+                break;
+            default:
                 break;
         }
         return handles;
