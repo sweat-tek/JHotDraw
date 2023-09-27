@@ -39,7 +39,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.plaf.ColorChooserUI;
 import javax.swing.text.StyledEditorKit;
-
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.action.edit.CopyAction;
 import org.jhotdraw.action.edit.CutAction;
 import org.jhotdraw.action.edit.DuplicateAction;
@@ -409,6 +409,7 @@ public class ButtonFactory {
      * JToolBar.
      *
      */
+    @FeatureEntryPoint("ButtonFactory.addToolTo")
     public static JToggleButton addToolTo(JToolBar tb, DrawingEditor editor,
             Tool tool, String labelKey,
             ResourceBundleUtil labels) {
