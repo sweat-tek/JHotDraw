@@ -207,10 +207,7 @@ public class SVGTextFigure
                     break;
             }
             tx.rotate(rotates[0]);
-            /*
-             if (get(TRANSFORM) != null) {
-             tx.preConcatenate(get(TRANSFORM));
-             }*/
+
             cachedTextShape = tx.createTransformedShape(textLayout.getOutline(tx));
             cachedTextShape = textLayout.getOutline(tx);
         }
@@ -338,18 +335,15 @@ public class SVGTextFigure
     @Override
     public Color getTextColor() {
         return get(FILL_COLOR);
-        //   return get(TEXT_COLOR);
     }
 
     @Override
     public Color getFillColor() {
         return get(FILL_COLOR) == null || get(FILL_COLOR).equals(Color.white) ? Color.black : Color.WHITE;
-        //  return get(FILL_COLOR);
     }
 
     @Override
     public void setFontSize(float size) {
-        // put(FONT_SIZE,  new Double(size));
         Point2D.Double p = new Point2D.Double(0, size);
         AffineTransform tx = get(TRANSFORM);
         if (tx != null) {
@@ -367,7 +361,6 @@ public class SVGTextFigure
 
     @Override
     public float getFontSize() {
-        //   return get(FONT_SIZE).floatValue();
         Point2D.Double p = new Point2D.Double(0, get(FONT_SIZE));
         AffineTransform tx = get(TRANSFORM);
         if (tx != null) {
