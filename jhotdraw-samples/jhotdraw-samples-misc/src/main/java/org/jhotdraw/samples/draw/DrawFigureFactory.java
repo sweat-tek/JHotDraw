@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.draw;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.ImageFigure;
 import org.jhotdraw.draw.figure.EllipseFigure;
 import org.jhotdraw.draw.figure.BezierFigure;
@@ -38,6 +39,7 @@ import org.jhotdraw.xml.DefaultDOMFactory;
  * @version $Id$
  */
 public class DrawFigureFactory extends DefaultDOMFactory {
+
 
     private static final Object[][] CLASS_TAGS = {
         {DefaultDrawing.class, "drawing"},
