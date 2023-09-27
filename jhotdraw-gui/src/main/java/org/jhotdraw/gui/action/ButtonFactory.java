@@ -39,7 +39,6 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.plaf.ColorChooserUI;
 import javax.swing.text.StyledEditorKit;
-
 import org.jhotdraw.action.edit.CopyAction;
 import org.jhotdraw.action.edit.CutAction;
 import org.jhotdraw.action.edit.DuplicateAction;
