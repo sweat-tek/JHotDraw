@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.action.edit.DuplicateAction;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
@@ -58,7 +57,6 @@ public class ToolsToolBar extends AbstractToolBar {
         setName(labels.getString("tools.toolbar"));
     }
 
-    @FeatureEntryPoint("ToolsToolBar.createDisclosedComponent")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
