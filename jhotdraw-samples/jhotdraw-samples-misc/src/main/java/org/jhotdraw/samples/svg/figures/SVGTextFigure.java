@@ -420,9 +420,9 @@ public class SVGTextFigure
     @Override
     public Tool getTool(Point2D.Double p) {
         if (isEditable() && contains(p)) {
-            TextEditingTool tool = new TextEditingTool(this);
-            return tool;
+            return new TextEditingTool(this);
         }
+
         return null;
     }
 
