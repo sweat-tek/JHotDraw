@@ -10,6 +10,8 @@ package org.jhotdraw.samples.svg.figures;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+
+//import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -80,6 +82,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         this(x, y, width, height, 0, 0);
     }
 
+    //@FeatureEntryPoint(value = "rect figure constructor")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -88,6 +91,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     // DRAWING
     @Override
+    //@FeatureEntryPoint(value = "drawRectangle")
     protected void drawFill(Graphics2D g) {
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
             g.fill(roundrect.getBounds2D());
@@ -97,6 +101,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     @Override
+    //@FeatureEntryPoint(value = "drawRectangleStroke")
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
             g.draw(roundrect.getBounds2D());
@@ -108,26 +113,33 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             double aw = roundrect.arcwidth / 2d;
             double ah = roundrect.archeight / 2d;
             p.moveTo((roundrect.x + aw), (float) roundrect.y);
-            p.lineTo((roundrect.x + roundrect.width - aw), (float) roundrect.y);
-            p.curveTo((roundrect.x + roundrect.width - aw * ACV), (float) roundrect.y,
-                    (roundrect.x + roundrect.width), (float) (roundrect.y + ah * ACV),
-                    (roundrect.x + roundrect.width), (roundrect.y + ah));
-            p.lineTo((roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah));
-            p.curveTo(
-                    (roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah * ACV),
-                    (roundrect.x + roundrect.width - aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x + roundrect.width - aw), (roundrect.y + roundrect.height));
-            p.lineTo((roundrect.x + aw), (roundrect.y + roundrect.height));
-            p.curveTo((roundrect.x + aw * ACV), (roundrect.y + roundrect.height),
-                    (roundrect.x), (roundrect.y + roundrect.height - ah * ACV),
-                    (float) roundrect.x, (roundrect.y + roundrect.height - ah));
-            p.lineTo((float) roundrect.x, (roundrect.y + ah));
-            p.curveTo((roundrect.x), (roundrect.y + ah * ACV),
-                    (roundrect.x + aw * ACV), (float) (roundrect.y),
-                    (float) (roundrect.x + aw), (float) (roundrect.y));
+
+            drawLinesAndCurves(p, aw, ah);
+
             p.closePath();
             g.draw(p);
         }
+    }
+
+    protected void drawLinesAndCurves(Path2D.Double p, double aw, double ah) {
+        p.lineTo((roundrect.x + roundrect.width - aw), (float) roundrect.y);
+        p.curveTo((roundrect.x + roundrect.width - aw * ACV), (float) roundrect.y,
+                (roundrect.x + roundrect.width), (float) (roundrect.y + ah * ACV),
+                (roundrect.x + roundrect.width), (roundrect.y + ah));
+
+        p.lineTo((roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah));
+        p.curveTo(
+                (roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah * ACV),
+                (roundrect.x + roundrect.width - aw * ACV), (roundrect.y + roundrect.height),
+                (roundrect.x + roundrect.width - aw), (roundrect.y + roundrect.height));
+        p.lineTo((roundrect.x + aw), (roundrect.y + roundrect.height));
+        p.curveTo((roundrect.x + aw * ACV), (roundrect.y + roundrect.height),
+                (roundrect.x), (roundrect.y + roundrect.height - ah * ACV),
+                (float) roundrect.x, (roundrect.y + roundrect.height - ah));
+        p.lineTo((float) roundrect.x, (roundrect.y + ah));
+        p.curveTo((roundrect.x), (roundrect.y + ah * ACV),
+                (roundrect.x + aw * ACV), (float) (roundrect.y),
+                (float) (roundrect.x + aw), (float) (roundrect.y));
     }
 
     // SHAPE AND BOUNDS
@@ -255,10 +267,10 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         if (cachedHitShape == null) {
             if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
                 cachedHitShape = new GrowStroke(
-                        (float) SVGAttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
-                        (float) SVGAttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
+                        (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
+                        (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
             } else {
-                cachedHitShape = SVGAttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
+                cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
             }
         }
         return cachedHitShape;
@@ -273,7 +285,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
         if (get(TRANSFORM) != null
-                || //              (tx.getType() & (AffineTransform.TYPE_TRANSLATION | AffineTransform.TYPE_MASK_SCALE)) != tx.getType()) {
+                ||
                 (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 set(TRANSFORM, (AffineTransform) tx.clone());
@@ -288,18 +300,19 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             setBounds(
                     (Point2D.Double) tx.transform(anchor, anchor),
                     (Point2D.Double) tx.transform(lead, lead));
-            if (get(FILL_GRADIENT) != null
-                    && !get(FILL_GRADIENT).isRelativeToFigureBounds()) {
-                Gradient g = FILL_GRADIENT.getClone(this);
-                g.transform(tx);
-                set(FILL_GRADIENT, g);
-            }
-            if (get(STROKE_GRADIENT) != null
-                    && !get(STROKE_GRADIENT).isRelativeToFigureBounds()) {
-                Gradient g = STROKE_GRADIENT.getClone(this);
-                g.transform(tx);
-                set(STROKE_GRADIENT, g);
-            }
+            setGradient("fill", tx);
+            setGradient("stroke", tx);
+        }
+    }
+
+    protected void setGradient(String type, AffineTransform tx) {
+        AttributeKey<Gradient> gradientType = (type.equals("fill") ? FILL_GRADIENT : STROKE_GRADIENT);
+
+        if (get(gradientType) != null
+                && !get(gradientType).isRelativeToFigureBounds()) {
+            Gradient g = gradientType.getClone(this);
+            g.transform(tx);
+            set(gradientType, g);
         }
     }
 
@@ -325,7 +338,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     // EDITING
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
+        LinkedList<Handle> handles = new LinkedList<>();
         switch (detailLevel % 2) {
             case -1: // Mouse hover handles
                 handles.add(new BoundsOutlineHandle(this, false, true));
@@ -346,12 +359,14 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     // CLONING
     @Override
+    // this function actually creates the rectangle from some abstract I guess, if it returns null object, no rectangle is drawn
     public SVGRectFigure clone() {
-        SVGRectFigure that = (SVGRectFigure) super.clone();
-        that.roundrect = (RoundRectangle2D.Double) this.roundrect.clone();
-        that.cachedTransformedShape = null;
-        that.cachedHitShape = null;
-        return that;
+        SVGRectFigure newFigure = new SVGRectFigure(); //the super classes might not have attribute values so it is fine to just call the constructor without assigning attrib values to it
+        newFigure.roundrect = new RoundRectangle2D.Double();
+        newFigure.cachedTransformedShape = null;
+        newFigure.cachedHitShape = null;
+
+        return newFigure;
     }
 
     @Override
