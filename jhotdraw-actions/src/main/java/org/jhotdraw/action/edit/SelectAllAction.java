@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.action.edit;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -64,6 +65,7 @@ public class SelectAllAction extends AbstractSelectionAction {
      * @param target The target of the action. Specify null for the currently
      * focused component.
      */
+    @FeatureEntryPoint(value = "AutomaticSelection")
     public SelectAllAction(JComponent target) {
         super(target);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
@@ -71,6 +73,7 @@ public class SelectAllAction extends AbstractSelectionAction {
     }
 
     @Override
+    @FeatureEntryPoint(value = "AutomaticSelection")
     public void actionPerformed(ActionEvent evt) {
         JComponent c = target;
         if (c == null && (KeyboardFocusManager.getCurrentKeyboardFocusManager().
@@ -90,6 +93,7 @@ public class SelectAllAction extends AbstractSelectionAction {
     }
 
     @Override
+    @FeatureEntryPoint(value = "AutomaticSelection")
     protected void updateEnabled() {
         if (target != null) {
             setEnabled(target.isEnabled());
