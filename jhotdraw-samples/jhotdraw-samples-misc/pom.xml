@@ -40,6 +40,11 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>dk.sdu.cbse</groupId>
+            <artifactId>featuretracerlite</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -59,7 +64,19 @@
       <configuration>
            <mainClass>org.jhotdraw.samples.svg.Main</mainClass>
       </configuration>
-</plugin>         
+</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"C:\Users\freja\.m2\repository\org\aspectj\aspectjweaver\1.9.9\aspectjweaver-1.9.9.jar" --add-opens java.base/java.lang=ALL-UNNAMED
+                    </argLine>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <forkMode>always</forkMode>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
