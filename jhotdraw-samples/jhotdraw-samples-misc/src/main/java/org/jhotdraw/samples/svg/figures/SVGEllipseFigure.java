@@ -213,8 +213,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     // EDITING
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
-        Collection<Handle> handles = HandleHelper.createHandles(detailLevel, this);
-        return handles;
+        return HandleHelper.createHandles(detailLevel, this);
     }
 
     // CONNECTING
