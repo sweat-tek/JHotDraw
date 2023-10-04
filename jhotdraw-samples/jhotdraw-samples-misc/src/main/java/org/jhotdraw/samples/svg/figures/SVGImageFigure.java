@@ -19,15 +19,11 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.jhotdraw.draw.*;
 
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 
 import org.jhotdraw.draw.event.TransformRestoreEdit;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.ResizeHandleKit;
-import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 
