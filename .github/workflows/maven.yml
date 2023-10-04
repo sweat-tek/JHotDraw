@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-    environment: USER_TOKEN
     runs-on: ubuntu-latest
 
     steps:
