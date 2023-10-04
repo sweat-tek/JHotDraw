@@ -109,6 +109,7 @@ public class DeleteAction extends TextAction {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
         labels.configureAction(this, ID);
     }
+
     @FeatureEntryPoint(value = "delete")
     @Override
     public void actionPerformed(ActionEvent evt) {

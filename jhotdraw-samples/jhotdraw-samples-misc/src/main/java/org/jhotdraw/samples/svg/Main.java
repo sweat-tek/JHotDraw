@@ -27,7 +27,7 @@ public class Main {
     /**
      * Creates a new instance.
      */
-//    @FeatureEntryPoint(value = "Main")
+
     public static void main(String[] args) {
         // Debug resource bundle
         ResourceBundleUtil.setVerbose(true);
