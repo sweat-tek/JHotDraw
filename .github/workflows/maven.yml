@@ -17,6 +17,6 @@ jobs:
 
     - name: Build JHotDraw
       env:
-        USER_NAME: ${{ github.actor }}
-        TOKEN: ${{ github.token }}
+        USER_NAME: ${{ secrets.USER_NAME }}
+        TOKEN: ${{ secrets.USER_TOKEN }}
       run: mvn clean install -DskipTests -s .maven-settings.xml -f pom.xml
