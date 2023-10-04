@@ -77,19 +77,19 @@
            <mainClass>org.jhotdraw.samples.svg.Main</mainClass>
       </configuration>
 </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:"C:\Users\kkost\.m2\repository\org\aspectj\aspectjweaver\1.9.9\aspectjweaver-1.9.9.jar"
-                        --add-opens java.base/java.lang=ALL-UNNAMED
-                    </argLine>
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <forkMode>always</forkMode>
-                </configuration>
-            </plugin>
-        </plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+            <configuration>
+                <argLine>
+                    -javaagent:"C:\Users\Bruger\.m2\repository\org\aspectj\aspectjweaver\1.9.9\aspectjweaver-1.9.9.jar"
+                    --add-opens java.base/java.lang=ALL-UNNAMED
+                </argLine>
+                <useSystemClassLoader>true</useSystemClassLoader>
+                <forkMode>always</forkMode>
+            </configuration>
+        </plugin>
+    </plugins>
     </build>
 </project>
