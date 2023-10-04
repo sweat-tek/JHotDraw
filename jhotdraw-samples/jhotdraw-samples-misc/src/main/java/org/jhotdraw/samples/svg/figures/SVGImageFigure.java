@@ -8,6 +8,7 @@
 package org.jhotdraw.samples.svg.figures;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.figure.ImageHolderFigure;
 
 import java.awt.*;
@@ -18,8 +19,6 @@ import java.io.*;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import org.jhotdraw.draw.*;
 
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 
@@ -84,7 +83,6 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     // DRAWING
     @Override
     public void draw(Graphics2D g) {
-        //super.draw(g);
         double opacity = get(OPACITY);
         opacity = Math.min(Math.max(0d, opacity), 1d);
         if (opacity != 0d) {
@@ -151,8 +149,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     @Override
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
-        Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
-        return r;
+        return (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
     }
 
     /**
@@ -190,8 +187,8 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     private Shape getHitShape() {
         if (cachedHitShape == null) {
             cachedHitShape = new GrowStroke(
-                    (float) SVGAttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
-                    (float) SVGAttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
+                    (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
+                    (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
         }
         return cachedHitShape;
     }
@@ -252,7 +249,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     @Override
     public Collection<Action> getActions(Point2D.Double p) {
         final ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
-        LinkedList<Action> actions = new LinkedList<Action>();
+        LinkedList<Action> actions = new LinkedList<>();
         if (get(TRANSFORM) != null) {
             actions.add(new AbstractAction(labels.getString("edit.removeTransform.text")) {
                 private static final long serialVersionUID = 1L;
@@ -401,10 +398,9 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     @Override
     public BufferedImage getBufferedImage() {
         if (bufferedImage == null && imageData != null) {
-            //System.out.println("recreateing bufferedImage");
             try {
                 bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 // If we can't create a buffered image from the image data,
                 // there is no use to keep the image data and try again, so
@@ -444,16 +440,13 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
 
     @Override
     public void loadImage(File file) throws IOException {
-        InputStream in = new FileInputStream(file);
-        try {
+        try (InputStream in = new FileInputStream(file)) {
             loadImage(in);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             IOException e = new IOException(labels.getFormatted("file.failedToLoadImage.message", file.getName()));
             e.initCause(t);
             throw e;
-        } finally {
-            in.close();
         }
     }
 
@@ -468,7 +461,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
         BufferedImage img;
         try {
             img = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             img = null;
         }
         if (img == null) {

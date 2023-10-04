@@ -31,7 +31,7 @@ import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
+public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure{
 
     private static final long serialVersionUID = 1L;
     private Ellipse2D.Double ellipse;
