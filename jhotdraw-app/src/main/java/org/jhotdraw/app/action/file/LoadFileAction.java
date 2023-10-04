@@ -18,8 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.api.gui.URIChooser;
@@ -77,7 +75,6 @@ public class LoadFileAction extends AbstractSaveUnsavedChangesAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "Open PNG")
     public LoadFileAction(Application app, View view) {
         super(app, view);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
