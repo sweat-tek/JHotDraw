@@ -10,6 +10,8 @@ package org.jhotdraw.samples.svg.figures;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -79,7 +81,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public SVGRectFigure(double x, double y, double width, double height) {
         this(x, y, width, height, 0, 0);
     }
-
+    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -87,6 +89,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // DRAWING
+    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     @Override
     protected void drawFill(Graphics2D g) {
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
@@ -96,6 +99,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
@@ -129,6 +133,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             g.draw(p);
         }
     }
+
 
     // SHAPE AND BOUNDS
     public double getX() {
@@ -217,6 +222,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Checks if a Point2D.Double is inside the figure.
      */
+
     @Override
     public boolean contains(Point2D.Double p) {
         return getHitShape().contains(p);
