@@ -41,8 +41,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
+<!--    <build>-->
+<!--        <plugins>-->
 <!--            <plugin>-->
 <!--                 <groupId>org.codehaus.mojo</groupId>-->
 <!--                 <artifactId>exec-maven-plugin</artifactId>-->
@@ -60,6 +60,6 @@
 <!--                       <mainClass>org.jhotdraw.samples.svg.Main</mainClass>-->
 <!--                  </configuration>-->
 <!--            </plugin>-->
-        </plugins>
-    </build>
+<!--        </plugins>-->
+<!--    </build>-->
 </project>
