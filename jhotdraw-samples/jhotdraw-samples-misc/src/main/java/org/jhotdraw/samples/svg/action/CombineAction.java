@@ -7,7 +7,6 @@
  */
 package org.jhotdraw.samples.svg.action;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import java.awt.geom.AffineTransform;
@@ -62,7 +61,6 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @Override
-    @FeatureEntryPoint(value = "AutomaticSelection")
     protected void updateEnabledState() {
         if (getView() != null) {
             setEnabled(isCombineAction ? canGroup() : canUngroup());
@@ -71,7 +69,6 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
-    @FeatureEntryPoint(value = "AutomaticSelection")
     protected boolean canGroup() {
         boolean canCombine = getView().getSelectionCount() > 1;
         if (canCombine) {
@@ -85,7 +82,6 @@ public class CombineAction extends AbstractSelectedAction {
         return canCombine;
     }
 
-    @FeatureEntryPoint(value = "AutomaticSelection")
     protected boolean canUngroup() {
         return getView() != null && getView().getSelectionCount() == 1
                 && prototype != null
@@ -95,7 +91,6 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @Override
-    @FeatureEntryPoint(value = "AutomaticSelection")
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (isCombineAction) {
             combineActionPerformed(e);
@@ -104,7 +99,6 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
-    @FeatureEntryPoint(value = "AutomaticSelection")
     public void combineActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
@@ -116,8 +110,6 @@ public class CombineAction extends AbstractSelectedAction {
             for (Figure f : ungroupedPaths) {
                 ungroupedPathsIndices[i] = drawing.indexOf(f);
                 ungroupedPathsChildCounts[i] = ((CompositeFigure) f).getChildCount();
-                //System.out.print("CombineAction indices[" + i + "] = " + ungroupedPathsIndices[i]);
-                //System.out.println(" childCount[" + i + "] = " + ungroupedPathsChildCounts[i]);
                 i++;
             }
             final CompositeFigure group = (CompositeFigure) prototype.clone();
@@ -127,7 +119,7 @@ public class CombineAction extends AbstractSelectedAction {
 
                 @Override
                 public String getPresentationName() {
-                    return labels.getTextProperty("edit.combinePaths");
+                    return labels.getTextProperty(ID);
                 }
 
                 @Override
@@ -141,24 +133,18 @@ public class CombineAction extends AbstractSelectedAction {
                     super.undo();
                     splitPath(view, group, ungroupedPaths, ungroupedPathsIndices, ungroupedPathsChildCounts);
                 }
-
-                @Override
-                public boolean addEdit(UndoableEdit anEdit) {
-                    return super.addEdit(anEdit);
-                }
             };
             fireUndoableEditHappened(edit);
         }
     }
 
     @SuppressWarnings("unchecked")
-    @FeatureEntryPoint(value = "AutomaticSelection")
     public void splitActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
         if (canUngroup()) {
             final CompositeFigure group = (CompositeFigure) view.getSelectedFigures().iterator().next();
-            final LinkedList<Figure> ungroupedPaths = new LinkedList<Figure>();
+            final LinkedList<Figure> ungroupedPaths = new LinkedList<>();
             final int[] ungroupedPathsIndices = new int[group.getChildCount()];
             final int[] ungroupedPathsChildCounts = new int[group.getChildCount()];
             int i = 0;
@@ -198,10 +184,9 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
-    @FeatureEntryPoint(value = "AutomaticSelection")
     public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         view.clearSelection();
-        Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
+        Iterator<Figure> groupedFigures = new LinkedList<>(group.getChildren()).iterator();
         group.basicRemoveAllChildren();
         view.getDrawing().remove(group);
         SVGPathFigure pathFigure = (SVGPathFigure) group;
@@ -221,7 +206,6 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @SuppressWarnings("unchecked")
-    @FeatureEntryPoint(value = "AutomaticSelection")
     public void combinePaths(DrawingView view, CompositeFigure group, Collection<Figure> figures, int groupIndex) {
         view.getDrawing().basicRemoveAll(figures);
         view.clearSelection();
@@ -232,8 +216,7 @@ public class CombineAction extends AbstractSelectedAction {
         AffineTransform tx = figures.iterator().next().get(TRANSFORM);
         for (Figure f : figures) {
             AffineTransform ftx = f.get(TRANSFORM);
-            if (ftx == tx || ftx != null && tx != null && ftx.equals(tx)) {
-            } else {
+            if (!(ftx == tx || ftx != null && tx != null && ftx.equals(tx))) {
                 tx = null;
                 break;
             }
@@ -250,15 +233,15 @@ public class CombineAction extends AbstractSelectedAction {
             if (tx == null) {
                 path.flattenTransform();
             }
-            List<Figure> children = new LinkedList<Figure>(path.getChildren());
+            List<Figure> children = new LinkedList<>(path.getChildren());
             path.basicRemoveAllChildren();
             for (Figure child : children) {
                 SVGBezierFigure bez = (SVGBezierFigure) child;
-                child.willChange();
-                group.basicAdd(child);
+                bez.willChange();
+                group.basicAdd(bez);
             }
         }
         group.changed();
         view.addToSelection(group);
     }
-}
+}   
