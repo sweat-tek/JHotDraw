@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.net.*;
 import javax.swing.*;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 
 /**
  * Image processing methods.
@@ -23,6 +24,7 @@ public class Images {
     /**
      * Prevent instance creation.
      */
+    @FeatureEntryPoint(value = "InsertImage")
     private Images() {
     }
 

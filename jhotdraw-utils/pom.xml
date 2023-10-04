@@ -15,5 +15,11 @@
 			<version>6.8.21</version>
 			<scope>test</scope>
 		</dependency>
+	 <dependency>
+	  <groupId>dk.sdu.mmmi</groupId>
+	  <artifactId>featuretracer</artifactId>
+	  <version>1.0</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 </project>
