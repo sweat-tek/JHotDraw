@@ -18,9 +18,6 @@
  */
 package org.jhotdraw.samples.svg;
 
-
-import org.junit.Test;
-
 /**
  *
  * @author jcs
