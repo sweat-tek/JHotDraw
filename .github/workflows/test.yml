@@ -19,7 +19,7 @@ jobs:
         env:
             SECRET_USER_NAME: ${{ github.repository_owner }}
             SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
-        run: cp .github/settings.xml $HOME/.m2/settings.xml
+        run: cp .github/artifacts/settings.xml $HOME/.m2/settings.xml
 
       - name: Build
         env:
