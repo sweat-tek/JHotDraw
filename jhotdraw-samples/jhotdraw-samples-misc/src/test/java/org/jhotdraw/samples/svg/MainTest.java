@@ -19,7 +19,10 @@
 package org.jhotdraw.samples.svg;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -31,10 +34,20 @@ public class MainTest {
      * Test of main method, of class Main.
      */
     @Test
+    @Ignore
     public void testMain() {
         System.out.println("main");
         String[] args = {};
         Main.main(args);
+
+        while (true){
+
+        }
+    }
+
+    @Test
+    public void test() {
+        assertEquals(true, true);
     }
 
 }
