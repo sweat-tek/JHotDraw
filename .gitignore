@@ -1,6 +1,7 @@
 target
 *.patch
 *.class
+*.pom
 nb-configuration.xml
 .idea/*
 *.ftf
