@@ -10,6 +10,8 @@ package org.jhotdraw.samples.svg.figures;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
@@ -57,6 +59,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
 
     // DRAWING
     @Override
+    @FeatureEntryPoint("SVGEllipseFigure")
     protected void drawFill(Graphics2D g) {
         if (ellipse.width > 0 && ellipse.height > 0) {
             g.fill(ellipse);

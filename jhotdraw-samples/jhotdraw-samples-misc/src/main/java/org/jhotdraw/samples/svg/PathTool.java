@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.BezierFigure;
 import java.util.*;
 import org.jhotdraw.draw.*;
@@ -48,6 +49,7 @@ public class PathTool extends BezierTool {
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint("createPath")
     protected SVGPathFigure createPath() {
         SVGPathFigure f = pathPrototype.clone();
         getEditor().applyDefaultAttributesTo(f);
