@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import java.awt.geom.AffineTransform;
@@ -91,6 +92,7 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @Override
+    @FeatureEntryPoint(value = "Group")
     public void actionPerformed(java.awt.event.ActionEvent e) {
         if (isCombineAction) {
             combineActionPerformed(e);
@@ -99,6 +101,7 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
+    @FeatureEntryPoint(value = "Group")
     public void combineActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
@@ -146,6 +149,7 @@ public class CombineAction extends AbstractSelectedAction {
     }
 
     @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "Group")
     public void splitActionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         Drawing drawing = view.getDrawing();
@@ -191,6 +195,7 @@ public class CombineAction extends AbstractSelectedAction {
         }
     }
 
+    @FeatureEntryPoint(value = "Group")
     public void splitPath(DrawingView view, CompositeFigure group, List<Figure> ungroupedPaths, int[] ungroupedPathsIndices, int[] ungroupedPathsChildCounts) {
         view.clearSelection();
         Iterator<Figure> groupedFigures = new LinkedList<Figure>(group.getChildren()).iterator();
@@ -212,7 +217,7 @@ public class CombineAction extends AbstractSelectedAction {
         view.addToSelection(ungroupedPaths);
     }
 
-    @SuppressWarnings("unchecked")
+    @FeatureEntryPoint(value = "Group")
     public void combinePaths(DrawingView view, CompositeFigure group, Collection<Figure> figures, int groupIndex) {
         view.getDrawing().basicRemoveAll(figures);
         view.clearSelection();
