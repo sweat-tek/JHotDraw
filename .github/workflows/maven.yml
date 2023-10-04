@@ -1,0 +1,22 @@
+name: Java CI with Maven
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+        distribution: 'teumurin'
+
+    - name: Checkout JHotDraw
+      uses: actions/checkout@v4
+
+    - name: Build JHotDraw
+      env:
+        USER_NAME: ${{ secrets.GITHUB_ACTOR }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn clean install -DskipTests -s .maven-settings.xml -f pom.xml
