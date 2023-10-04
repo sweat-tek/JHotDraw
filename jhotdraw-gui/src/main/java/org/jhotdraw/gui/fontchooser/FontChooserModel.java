@@ -26,6 +26,7 @@ import javax.swing.tree.TreeModel;
  * @author Werner Randelshofer
  * @version $Id$
  */
+
 public interface FontChooserModel extends TreeModel {
 
     /**
