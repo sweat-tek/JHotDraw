@@ -1,0 +1,35 @@
+name: Java compile test
+
+on: 
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 18
+        uses: actions/setup-java@v3
+        with:
+          java-version: '18'
+          distribution: 'adopt'
+
+      - name: Insert settings.xml
+        env:
+            SECRET_USER_NAME: ${{ github.repository_owner }}
+            SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
+        run: cp .github/settings.xml $HOME/.m2/settings.xml
+
+      - name: Build
+        env:
+          SECRET_USER_NAME: ${{ github.repository_owner }}
+          SECRET_USER_TOKEN: ${{ secrets.SECRET_USER_TOKEN }}
+        run: mvn --batch-mode -DskipTests package -f ./pom.xml
+
+      - name: Test
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true -Daggregate=true test -f ./pom.xml
+
+      - name: Publish Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
