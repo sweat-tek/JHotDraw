@@ -72,7 +72,7 @@ public class DuplicateAction extends AbstractSelectionAction {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
         labels.configureAction(this, ID);
     }
-@FeatureEntryPoint(value="DuplicateAction")
+    @FeatureEntryPoint(value="DuplicateAction")
     @Override
     public void actionPerformed(ActionEvent evt) {
         JComponent c = target;
