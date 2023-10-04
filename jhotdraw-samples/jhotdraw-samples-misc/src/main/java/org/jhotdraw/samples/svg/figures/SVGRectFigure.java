@@ -223,7 +223,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
      * Checks if a Point2D.Double is inside the figure.
      */
 
-    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     @Override
     public boolean contains(Point2D.Double p) {
         return getHitShape().contains(p);

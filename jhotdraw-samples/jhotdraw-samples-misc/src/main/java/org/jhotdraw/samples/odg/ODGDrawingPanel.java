@@ -154,7 +154,6 @@ public class ODGDrawingPanel extends JPanel {
         return a;
     }
 
-    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     private void addCreationButtonsTo(JToolBar tb, final DrawingEditor editor) {
         // AttributeKeys for the entitie sets
         HashMap<AttributeKey<?>, Object> attributes;
