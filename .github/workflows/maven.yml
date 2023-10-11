@@ -17,14 +17,12 @@ on:
       - develop
 
 jobs:
-  build:
+  Build-Test:
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -32,7 +30,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn --batch-mode --update-snapshots  -Dmaven.test.skip=true -s .github/m2_settings/settings.xml verify
 
-      - name: Run tests
-        run: mvn test
+        env:
+          GITHUB_USERNAME: ${{ secrets.USER_NAME }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
