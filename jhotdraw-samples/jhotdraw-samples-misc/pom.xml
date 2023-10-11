@@ -10,7 +10,7 @@
     </repositories>
     <parent>
         <groupId>org.jhotdraw</groupId>
-        <artifactId>jhotdraw</artifactId>
+        <artifactId>jhotdraw-samples</artifactId>
         <version>9.1-SNAPSHOT</version>
     </parent>
     <artifactId>jhotdraw-samples-misc</artifactId>
