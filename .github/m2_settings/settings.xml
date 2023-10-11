@@ -11,6 +11,11 @@
             <id>github</id>
             <repositories>
                 <repository>
+                    <name>GitHub External Packages</name>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/sweat-tek/MavenRepository</url>
+                </repository>
+                <repository>
                     <id>central</id>
                     <url>https://repo1.maven.org/maven2</url>
                 </repository>
