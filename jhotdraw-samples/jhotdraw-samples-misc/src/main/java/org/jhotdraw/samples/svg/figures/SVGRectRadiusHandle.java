@@ -111,8 +111,8 @@ public class SVGRectRadiusHandle extends AbstractHandle {
         CompositeFigureEdit edit = new CompositeFigureEdit(svgRect, labels.getString("attribute.roundRectRadius"));
         edit.setVerbose(true);
         fireUndoableEditHappened(edit);
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_WIDTH_PROPERTY, oldValue.width, newValue.width));
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldValue.height, newValue.height));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.getArcWidthProperty(), oldValue.width, newValue.width));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.getArcHeightProperty(), oldValue.height, newValue.height));
         fireUndoableEditHappened(edit);
     }
 
@@ -151,8 +151,8 @@ public class SVGRectRadiusHandle extends AbstractHandle {
                     = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             CompositeFigureEdit edit = new CompositeFigureEdit(owner, labels.getString("attribute.roundRectRadius"));
             fireUndoableEditHappened(edit);
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_WIDTH_PROPERTY, oldArc.width, newArc.width));
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldArc.height, newArc.height));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.getArcWidthProperty(), oldArc.width, newArc.width));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.getArcHeightProperty(), oldArc.height, newArc.height));
             fireUndoableEditHappened(edit);
         }
     }

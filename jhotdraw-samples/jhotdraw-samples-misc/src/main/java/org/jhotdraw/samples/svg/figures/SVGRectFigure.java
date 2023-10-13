@@ -40,11 +40,11 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     /**
      * Identifies the {@code arcWidth} JavaBeans property.
      */
-    public static final String ARC_WIDTH_PROPERTY = "arcWidth";
+    private static final String ARC_WIDTH_PROPERTY = "arcWidth";
     /**
      * Identifies the {@code arcHeight} JavaBeans property.
      */
-    public static final String ARC_HEIGHT_PROPERTY = "arcHeight";
+    private static final String ARC_HEIGHT_PROPERTY = "arcHeight";
     /**
      * The variable acv is used for generating the locations of the control
      * points for the rounded rectangle using path.curveTo.
@@ -156,13 +156,16 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public double getArcHeight() {
         return roundrect.archeight;
     }
+    public static String getArcWidthProperty(){ return ARC_WIDTH_PROPERTY; }
+    public static String getArcHeightProperty(){ return ARC_HEIGHT_PROPERTY; }
+
 
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
         roundrect.arcwidth = newValue;
         firePropertyChange(ARC_WIDTH_PROPERTY, oldValue, newValue);
     }
-    
+
     public void setArcHeight(double newValue) {
         double oldValue = roundrect.archeight;
         roundrect.archeight = newValue;
