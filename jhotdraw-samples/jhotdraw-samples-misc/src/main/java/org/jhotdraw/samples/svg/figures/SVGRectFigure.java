@@ -59,8 +59,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         double cv = 4.0 / 3.0 * a * b / c;
         ACV = (1.0 - cv);
     }
-    /**
-     */
+
     private RoundRectangle2D.Double roundrect;
     /**
      * This is used to perform faster drawing.
@@ -150,32 +149,20 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return roundrect.height;
     }
 
-    /**
-     * Gets the arc width.
-     */
     public double getArcWidth() {
         return roundrect.arcwidth;
     }
 
-    /**
-     * Gets the arc height.
-     */
     public double getArcHeight() {
         return roundrect.archeight;
     }
 
-    /**
-     * Sets the arc width.
-     */
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
         roundrect.arcwidth = newValue;
         firePropertyChange(ARC_WIDTH_PROPERTY, oldValue, newValue);
     }
-
-    /**
-     * Sets the arc height.
-     */
+    
     public void setArcHeight(double newValue) {
         double oldValue = roundrect.archeight;
         roundrect.archeight = newValue;
