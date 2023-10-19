@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import java.awt.*;
 import javax.swing.*;
@@ -48,11 +49,12 @@ public class ArrangeToolBar extends AbstractToolBar {
         }
     }
 
+    @FeatureEntryPoint(value = "arrangeToolBar")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
-            case 1: 
+            case 1:
                 p = new JPanel();
                 p.setOpaque(false);
                 p.setBorder(new EmptyBorder(5, 5, 5, 8));
@@ -66,7 +68,8 @@ public class ArrangeToolBar extends AbstractToolBar {
                 GridBagConstraints gbc;
                 AbstractButton btn;
                 AbstractSelectedAction d;
-                btn = new JButton(d = new BringToFrontAction(editor));
+                //btn = new JButton(d = new BringToFrontAction(editor));
+                btn = new JButton(d = new ArrangeAction(editor, "edit.bringToFront"));
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
@@ -76,7 +79,8 @@ public class ArrangeToolBar extends AbstractToolBar {
                 gbc.gridy = 0;
                 gbc.anchor = GridBagConstraints.EAST;
                 p.add(btn, gbc);
-                btn = new JButton(d = new SendToBackAction(editor));
+                //btn = new JButton(d = new SendToBackAction(editor));
+                btn = new JButton(d = new ArrangeAction(editor, "edit.sendToBack"));
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
@@ -90,7 +94,7 @@ public class ArrangeToolBar extends AbstractToolBar {
                 gbc.weighty = 1f;
                 p.add(btn, gbc);
 
-            break;
+                break;
         }
         return p;
     }
