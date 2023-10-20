@@ -18,7 +18,6 @@
  */
 package org.jhotdraw.samples.svg;
 
-
 import org.junit.Test;
 
 /**
@@ -36,10 +35,12 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        /*while (true){
-
-        }*/
-
+        // Timeout for 2 mintues
+        try {
+            Thread.sleep(120000);
+        } catch (InterruptedException ex) {
+            // Ignore
+        }
     }
 
 }
