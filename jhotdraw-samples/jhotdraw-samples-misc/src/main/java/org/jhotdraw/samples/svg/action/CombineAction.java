@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import java.awt.geom.AffineTransform;
@@ -51,6 +52,7 @@ public class CombineAction extends AbstractSelectedAction {
         this(editor, prototype, true);
     }
 
+    @FeatureEntryPoint("Thomas")
     public CombineAction(DrawingEditor editor, SVGPathFigure prototype, boolean isGroupingAction) {
         super(editor);
         this.prototype = prototype;

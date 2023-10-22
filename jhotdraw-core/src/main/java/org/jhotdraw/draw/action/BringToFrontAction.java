@@ -13,7 +13,6 @@ import java.util.*;
 import javax.swing.undo.*;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.util.ResourceBundleUtil;
-import dk.sdu.mmmi.featuretracer.*;
 
 /**
  * ToFrontAction.
