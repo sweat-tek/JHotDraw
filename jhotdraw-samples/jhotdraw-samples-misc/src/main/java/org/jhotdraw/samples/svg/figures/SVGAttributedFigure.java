@@ -77,7 +77,7 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
      * This method is invoked before the rendered image of the figure is
      * composited.
      */
-    @FeatureEntryPoint(value = "Draw rectangle")
+    @FeatureEntryPoint(value = "SVGAttributedFigure.drawFigure")
     public void drawFigure(Graphics2D g) {
         AffineTransform savedTransform = null;
         if (get(TRANSFORM) != null) {
