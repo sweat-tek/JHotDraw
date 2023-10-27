@@ -28,7 +28,8 @@ public class SVGRectFigureTest {
 
     /**
      * Test the state of the figure after calling drawStroke().
-     * Test for boundary value analysis, as the figure is a branch if the arcwidth and archeight are 0 using assertEquals().
+     * Test for boundary value analysis, as the figure is a branch
+     * if the arcwidth and archeight are 0 using assertEquals().
      */
     @Test
     public void drawStrokeCheckState() {
@@ -52,6 +53,20 @@ public class SVGRectFigureTest {
     public void drawStrokeIfBranchValue0() {
         svgRectFigure.roundrect.arcwidth = 0;
         svgRectFigure.roundrect.archeight = 0;
+
+        svgRectFigure.drawStroke(mockGraphics2D);
+
+        verify(mockGraphics2D, times(1)).draw(any());
+    }
+
+    /**
+     * Test that drawStroke() calls Graphics2D.draw() if the figure is a branch.
+     * Tests else branch of drawStroke(), where values are not 0.
+     */
+    @Test
+    public void drawStrokeElseBranch() {
+        svgRectFigure.roundrect.arcwidth = 1;
+        svgRectFigure.roundrect.archeight = 1;
 
         svgRectFigure.drawStroke(mockGraphics2D);
 
