@@ -333,7 +333,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
                 TransformHandleKit.addTransformHandles(this, handles);
                 break;
             default:
-                break;
+                assert false;
         }
         return handles;
     }
