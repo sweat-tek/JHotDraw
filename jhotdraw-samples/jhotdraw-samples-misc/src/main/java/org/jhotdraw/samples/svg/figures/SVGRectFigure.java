@@ -60,7 +60,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         ACV = (1.0 - cv);
     }
 
-    private RoundRectangle2D.Double roundrect;
+    protected RoundRectangle2D.Double roundrect; //used to be private, but changed to protected for testing purposes
     /**
      * This is used to perform faster drawing.
      */
@@ -98,14 +98,17 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    /**
+     * We have to generate the path for the round rectangle manually,
+     * because the path of a Java RoundRectangle is drawn counterclockwise
+     * whereas an SVG rect needs to be drawn clockwise.
+     * @param g
+     */
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
             g.draw(roundrect.getBounds2D());
         } else {
-            // We have to generate the path for the round rectangle manually,
-            // because the path of a Java RoundRectangle is drawn counter clockwise
-            // whereas an SVG rect needs to be drawn clockwise.
             Path2D.Double p = new Path2D.Double();
             double aw = roundrect.arcwidth / 2d;
             double ah = roundrect.archeight / 2d;
