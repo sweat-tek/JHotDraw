@@ -23,7 +23,8 @@ public class ArrangeAction extends AbstractSelectedAction {
     public ArrangeAction(DrawingEditor editor, String orderType) {
         super(editor);
         this.orderType = orderType;
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+        ResourceBundleUtil labels = getResourceBundle();
+        //ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
         labels.configureAction(this, orderType);
         updateEnabledState();
     }
@@ -39,7 +40,7 @@ public class ArrangeAction extends AbstractSelectedAction {
 
             @Override
             public String getPresentationName() {
-                return resourceLabels(orderType);
+                return getResourceBundle().getTextProperty(orderType);
                 /*if (BRING_TO_FRONT.equals(orderType)) {
                     resourceLabels (BRING_TO_FRONT);
                 } else if (SEND_TO_BACK.equals(orderType)) {
@@ -50,14 +51,13 @@ public class ArrangeAction extends AbstractSelectedAction {
 
             @Override
             public void redo() throws CannotRedoException {
-                super.redo();
+                //super.redo();
                 arrangeFigures(view, figures, orderType);
             }
 
             @Override
             public void undo() throws CannotUndoException {
-                super.undo();
-                //BringToFrontAction.bringToFront(view, figures);
+                //super.undo();
                 // Reverse the action by calling the opposite order type
                 if (BRING_TO_FRONT.equals(orderType)) {
                     arrangeFigures(view, figures, SEND_TO_BACK);
@@ -89,10 +89,10 @@ public class ArrangeAction extends AbstractSelectedAction {
             }*/
         }
     }
-    public static String resourceLabels (String ID){
+    public static ResourceBundleUtil getResourceBundle(){
         ResourceBundleUtil labels
                 = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        return labels.getTextProperty(ID);
+        return labels;
     }
 
 }

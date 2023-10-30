@@ -28,6 +28,9 @@ public class ArrangeToolBar extends AbstractToolBar {
     private static final long serialVersionUID = 1L;
     private SelectionComponentDisplayer displayer;
 
+    private String ID_SendToBack = ArrangeAction.SEND_TO_BACK; //(mig)
+    private String ID_BringToFront = ArrangeAction.BRING_TO_FRONT; //(mig)
+
     /**
      * Creates new instance.
      */
@@ -69,7 +72,7 @@ public class ArrangeToolBar extends AbstractToolBar {
                 AbstractButton btn;
                 AbstractSelectedAction d;
                 //btn = new JButton(d = new BringToFrontAction(editor));
-                btn = new JButton(d = new ArrangeAction(editor, "edit.bringToFront"));
+                btn = new JButton(d = new ArrangeAction(editor, ID_BringToFront)); // (my change)
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
@@ -80,7 +83,7 @@ public class ArrangeToolBar extends AbstractToolBar {
                 gbc.anchor = GridBagConstraints.EAST;
                 p.add(btn, gbc);
                 //btn = new JButton(d = new SendToBackAction(editor));
-                btn = new JButton(d = new ArrangeAction(editor, "edit.sendToBack"));
+                btn = new JButton(d = new ArrangeAction(editor, ID_SendToBack)); // (my change
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
