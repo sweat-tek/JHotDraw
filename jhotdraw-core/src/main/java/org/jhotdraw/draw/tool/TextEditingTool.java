@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.event.*;
@@ -66,6 +67,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     /**
      * If the pressed figure is a TextHolderFigure it can be edited.
      */
+    @FeatureEntryPoint("Edit Text")
     @Override
     public void mousePressed(MouseEvent e) {
         if (typingTarget != null) {
