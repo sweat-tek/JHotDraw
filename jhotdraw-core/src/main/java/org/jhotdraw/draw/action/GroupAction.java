@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.GroupFigure;
@@ -73,6 +74,8 @@ public class GroupAction extends AbstractSelectedAction {
                 && getView().getSelectedFigures().iterator().next().getClass().equals(
                         prototype.getClass());
     }
+
+    @FeatureEntryPoint("GroupAction")
 
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
