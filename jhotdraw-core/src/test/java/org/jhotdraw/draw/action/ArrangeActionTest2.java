@@ -116,59 +116,64 @@ public class ArrangeActionTest2 {
     @Test
     public void arrangeFiguresBestCaseOneFigure() {
         //Bring to front
+        testBringToFront(view, drawing, selectedFigure, figure, figure);
         //figure in the front
-        Figure frontFigure = drawing.getFiguresFrontToBack().get(0);
+        /*Figure frontFigure = drawing.getFiguresFrontToBack().get(0);
         assertSame(figure, frontFigure);
 
         ArrangeAction.arrangeFigures(view, selectedFigure, ArrangeAction.BRING_TO_FRONT); //send figure to the front
 
         //figure in the front
         Figure frontFigureNew = drawing.getFiguresFrontToBack().get(0);
-        assertSame(figure, frontFigureNew);
+        assertSame(figure, frontFigureNew);*/
 
         //Send to back
+        testSendToBack(view, drawing, selectedFigure, figure, figure);
         // figure at the back
-        Figure backFigure = drawing.getFiguresFrontToBack().get(drawing.getFiguresFrontToBack().size() - 1);
+        /*Figure backFigure = drawing.getFiguresFrontToBack().get(drawing.getFiguresFrontToBack().size() - 1);
         assertSame(figure, backFigure);
 
         ArrangeAction.arrangeFigures(view, selectedFigure, ArrangeAction.SEND_TO_BACK); //send figure to the back
 
         // figure at the back
         Figure backFigureNew = drawing.getFiguresFrontToBack().get(drawing.getFiguresFrontToBack().size() - 1);
-        assertSame(figure, backFigureNew);
+        assertSame(figure, backFigureNew);*/
     }
 
     @Test
     public void arrangeFiguresBestCaseAlreadyArranged() {
         //Bring to front
         //figure1 in the front
-        Figure frontFigure = drawing1.getFiguresFrontToBack().get(0);
-        assertSame(figure1, frontFigure);
+        /*Figure frontFigure = drawing1.getFiguresFrontToBack().get(0);
+        assertSame(figure1, frontFigure);*/
 
         Set<Figure> selectedFigure1 = new LinkedHashSet<>();
         selectedFigure1.add(figure1);
         when(view1.getSelectedFigures()).thenReturn(selectedFigure1);
 
-        ArrangeAction.arrangeFigures(view1, selectedFigure1, ArrangeAction.BRING_TO_FRONT); //send figure to the front
+        /*ArrangeAction.arrangeFigures(view1, selectedFigure1, ArrangeAction.BRING_TO_FRONT); //send figure to the front
 
         //figure1 in the front
         Figure frontFigureNew = drawing1.getFiguresFrontToBack().get(0);
-        assertSame(figure1, frontFigureNew);
+        assertSame(figure1, frontFigureNew);*/
+
+        testBringToFront(view1, drawing1, selectedFigure1, figure1, figure1);
 
         //Send to back
         // figure3 at the back
-        Figure backFigure = drawing1.getFiguresFrontToBack().get(drawing1.getFiguresFrontToBack().size() - 1);
-        assertSame(figure3, backFigure);
+        /*Figure backFigure = drawing1.getFiguresFrontToBack().get(drawing1.getFiguresFrontToBack().size() - 1);
+        assertSame(figure3, backFigure);*/
 
         Set<Figure> selectedFigure3 = new LinkedHashSet<>();
         selectedFigure1.add(figure3);
         when(view1.getSelectedFigures()).thenReturn(selectedFigure3);
 
-        ArrangeAction.arrangeFigures(view1, selectedFigure3, ArrangeAction.SEND_TO_BACK); //send figure to the back
+        /*ArrangeAction.arrangeFigures(view1, selectedFigure3, ArrangeAction.SEND_TO_BACK); //send figure to the back
 
         // figure at the back
         Figure backFigureNew = drawing1.getFiguresFrontToBack().get(drawing1.getFiguresFrontToBack().size() - 1);
-        assertSame(figure3, backFigureNew);
+        assertSame(figure3, backFigureNew);*/
+        testSendToBack(view1, drawing1, selectedFigure3, figure3, figure3);
     }
 
     @Test
@@ -189,6 +194,7 @@ public class ArrangeActionTest2 {
         Figure frontFigureNew = drawing1.getFiguresFrontToBack().get(0);
         assertSame(figure2, frontFigureNew);*/
 
+        //gammelt
         /*// figure1 in the front
         Figure frontFigure = drawing.getFiguresFrontToBack().iterator().next(); // Z-order
         assertSame(figure1, frontFigure);
@@ -212,6 +218,7 @@ public class ArrangeActionTest2 {
         Figure backFigureNew = drawing1.getFiguresFrontToBack().get(drawing1.getFiguresFrontToBack().size() - 1);
         assertSame(figure2, backFigureNew);*/
 
+        //gammelt
         /*// figure at the back
         Figure backFigure = drawing.getFiguresFrontToBack().get(0); // Z-order, from back to front.
         assertSame(figure1, backFigure);

@@ -1,0 +1,177 @@
+{
+  "className": "org.jhotdraw.draw.action.Acceptencetest.ArrangeActionAcceptanceTest",
+  "name": "Arrange Action Acceptance",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.draw.action.Acceptencetest.ArrangeActionAcceptanceTest",
+      "testMethodName": "sendingFigureToBack",
+      "description": "Sending figure to back",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "I have tree figures in my drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I have tree figures in my drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 57917600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "I select one figure",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I select one figure"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2095400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "I choose the send to back option",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I choose the send to back option"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 633800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the selected figure should be positioned behind the other figures",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the selected figure should be positioned behind the other figures"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 227200,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 151955400
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 151955400
+    },
+    {
+      "className": "org.jhotdraw.draw.action.Acceptencetest.ArrangeActionAcceptanceTest",
+      "testMethodName": "bringingFigureToFront",
+      "description": "Bringing figure to front",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "I have tree figures in my drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I have tree figures in my drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 358300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "I select one figure",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I select one figure"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 141500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "I choose the bring to front option",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "I choose the bring to front option"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 167200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the selected figure should be positioned in front of the other figures",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the selected figure should be positioned in front of the other figures"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 114200,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 2376200
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 2376200
+    }
+  ],
+  "tagMap": {}
+}
