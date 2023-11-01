@@ -52,7 +52,6 @@ public class CombineAction extends AbstractSelectedAction {
         this(editor, prototype, true);
     }
 
-    @FeatureEntryPoint("Thomas")
     public CombineAction(DrawingEditor editor, SVGPathFigure prototype, boolean isGroupingAction) {
         super(editor);
         this.prototype = prototype;
