@@ -25,7 +25,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 57917600,
+              "durationInNanos": 70081100,
               "depth": 0,
               "parentFailed": false
             },
@@ -41,7 +41,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 2095400,
+              "durationInNanos": 2952800,
               "depth": 0,
               "parentFailed": false
             },
@@ -57,7 +57,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 633800,
+              "durationInNanos": 678500,
               "depth": 0,
               "parentFailed": false
             },
@@ -73,7 +73,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 227200,
+              "durationInNanos": 235100,
               "depth": 0,
               "parentFailed": false
             }
@@ -81,11 +81,11 @@
           "explicitArguments": [],
           "derivedArguments": [],
           "status": "SUCCESS",
-          "durationInNanos": 151955400
+          "durationInNanos": 159478400
         }
       ],
       "casesAsTable": false,
-      "durationInNanos": 151955400
+      "durationInNanos": 159478400
     },
     {
       "className": "org.jhotdraw.draw.action.Acceptencetest.ArrangeActionAcceptanceTest",
@@ -110,7 +110,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 358300,
+              "durationInNanos": 262400,
               "depth": 0,
               "parentFailed": false
             },
@@ -126,7 +126,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 141500,
+              "durationInNanos": 111300,
               "depth": 0,
               "parentFailed": false
             },
@@ -142,7 +142,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 167200,
+              "durationInNanos": 145600,
               "depth": 0,
               "parentFailed": false
             },
@@ -158,7 +158,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 114200,
+              "durationInNanos": 99600,
               "depth": 0,
               "parentFailed": false
             }
@@ -166,11 +166,11 @@
           "explicitArguments": [],
           "derivedArguments": [],
           "status": "SUCCESS",
-          "durationInNanos": 2376200
+          "durationInNanos": 1975200
         }
       ],
       "casesAsTable": false,
-      "durationInNanos": 2376200
+      "durationInNanos": 1975200
     }
   ],
   "tagMap": {}
