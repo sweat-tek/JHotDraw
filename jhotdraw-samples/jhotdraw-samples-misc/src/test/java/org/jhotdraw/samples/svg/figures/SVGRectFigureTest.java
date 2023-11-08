@@ -1,7 +1,5 @@
 package org.jhotdraw.samples.svg.figures;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -13,18 +11,6 @@ public class SVGRectFigureTest {
     SVGRectFigure svgRectFigure = new SVGRectFigure();
     Graphics2D mockGraphics2D = mock(Graphics2D.class);
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void transform() {
-    }
 
     /**
      * Test the state of the figure after calling drawStroke().

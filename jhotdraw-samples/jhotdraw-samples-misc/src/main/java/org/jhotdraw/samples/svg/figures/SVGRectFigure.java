@@ -81,7 +81,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         this(x, y, width, height, 0, 0);
     }
 
-    @FeatureEntryPoint("RectangleEntry")
+    //@FeatureEntryPoint("RectangleEntry")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
