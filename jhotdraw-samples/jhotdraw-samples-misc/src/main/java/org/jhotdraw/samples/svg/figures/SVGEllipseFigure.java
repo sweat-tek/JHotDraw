@@ -7,20 +7,25 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.util.*;
-
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+
+import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGEllipse represents a SVG ellipse and a SVG circle element.
@@ -96,6 +101,8 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
+        // Assertion: The drawing area must not be null
+        assert r != null : "Drawing area is null";
         if (get(TRANSFORM) == null) {
             double g = SVGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d + 1;
             Geom.grow(r, g, g);
@@ -116,6 +123,9 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return getHitShape().contains(p);
     }
 
+    /*
+     * This method is used to determine the transformed shape of the figure.
+     */
     private Shape getTransformedShape() {
         if (cachedTransformedShape != null) {
             return cachedTransformedShape;
@@ -128,6 +138,9 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return cachedTransformedShape;
     }
 
+    /*
+     * This method is used to determine the hit shape of the figure.
+     */
     private Shape getHitShape() {
         if (cachedHitShape != null) {
             return cachedHitShape;
@@ -141,6 +154,10 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         }
         return cachedHitShape;
     }
+
+    /*
+     * This method is used to determine the drawing area of the figure.
+     */
 
     @Override
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
@@ -189,6 +206,9 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    /*
+     * This method is used to restore the transform of the figure.
+     */
     @Override
     public void restoreTransformTo(Object geometry) {
         Object[] restoreData = (Object[]) geometry;
@@ -199,13 +219,16 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    /*
+     * This method is used to get the transform restore data of the figure.
+     */
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
-            ellipse.clone(),
-            TRANSFORM.getClone(this),
-            FILL_GRADIENT.getClone(this),
-            STROKE_GRADIENT.getClone(this)};
+                ellipse.clone(),
+                TRANSFORM.getClone(this),
+                FILL_GRADIENT.getClone(this),
+                STROKE_GRADIENT.getClone(this)};
     }
 
     // ATTRIBUTES
@@ -218,6 +241,9 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     // CONNECTING
     // COMPOSITE FIGURES
     // CLONING
+    /*
+     * This method is used to clone the figure.
+     */
     @Override
     public SVGEllipseFigure clone() {
         SVGEllipseFigure that = (SVGEllipseFigure) super.clone();
