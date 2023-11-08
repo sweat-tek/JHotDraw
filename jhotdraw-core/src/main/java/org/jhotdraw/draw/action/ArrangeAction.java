@@ -87,6 +87,7 @@ public class ArrangeAction extends AbstractSelectedAction {
             /*for (Figure figure : figures) {
                 drawing.sendToBack(figure);
             }*/
+
         }
     }
     public static ResourceBundleUtil getResourceBundle(){

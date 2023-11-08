@@ -20,15 +20,20 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SendToBackAction extends AbstractSelectedAction {
+public class SendToBackAction extends ArrangeAction {
 
-    private static final long serialVersionUID = 1L;
-    public static final String ID = "edit.sendToBack";
+    //private static final long serialVersionUID = 1L;
+    public static final String ID = SEND_TO_BACK;
+
+    public SendToBackAction(DrawingEditor editor) {
+        super(editor, ID);
+    }
+
 
     /**
      * Creates a new instance.
      */
-    public SendToBackAction(DrawingEditor editor) {
+    /*public SendToBackAction(DrawingEditor editor) {
         super(editor);
         ResourceBundleUtil labels
                 = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
@@ -41,7 +46,8 @@ public class SendToBackAction extends AbstractSelectedAction {
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
-        sendToBack(view, figures);
+        ArrangeAction.arrangeFigures(view, figures, ArrangeAction.SEND_TO_BACK);
+        //sendToBack(view, figures);
         fireUndoableEditHappened(new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 
@@ -71,5 +77,5 @@ public class SendToBackAction extends AbstractSelectedAction {
         for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
             drawing.sendToBack(figure);
         }
-    }
+    }*/
 }

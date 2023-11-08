@@ -47,6 +47,7 @@ import org.jhotdraw.samples.svg.figures.SVGGroupFigure;
 public class SVGApplicationModel extends DefaultApplicationModel {
 
     private static final long serialVersionUID = 1L;
+
     /**
      * Client property on the URIFileChooser.
      */
@@ -121,7 +122,9 @@ public class SVGApplicationModel extends DefaultApplicationModel {
         m.put(UngroupAction.ID, new UngroupAction(editor, new SVGGroupFigure()));
         m.put(CombineAction.ID, new CombineAction(editor));
         m.put(SplitAction.ID, new SplitAction(editor));
+        //m.put(ArrangeAction.BRING_TO_FRONT, new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
         m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
+        //m.put(ArrangeAction.SEND_TO_BACK, new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
         m.put(SendToBackAction.ID, new SendToBackAction(editor));
         return m;
     }

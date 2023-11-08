@@ -20,23 +20,28 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class BringToFrontAction extends AbstractSelectedAction {
+public class BringToFrontAction extends ArrangeAction {
 
-    private static final long serialVersionUID = 1L;
-    public static final String ID = "edit.bringToFront";
+    //private static final long serialVersionUID = 1L;
+    public static final String ID = BRING_TO_FRONT;
+
+    public BringToFrontAction(DrawingEditor editor) {
+        super(editor, ID);
+
+    }
 
     /**
      * Creates a new instance.
      */
-    public BringToFrontAction(DrawingEditor editor) {
+    /*public BringToFrontAction(DrawingEditor editor) {
         super(editor);
         ResourceBundleUtil labels
                 = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
         labels.configureAction(this, ID);
         updateEnabledState();
-    }
+    }*/
 
-    @FeatureEntryPoint(value = "bringToFront_actionPreformed")
+    /*@FeatureEntryPoint(value = "bringToFront_actionPreformed")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
@@ -72,4 +77,6 @@ public class BringToFrontAction extends AbstractSelectedAction {
             drawing.bringToFront(figure);
         }
     }
+    */
+
 }
