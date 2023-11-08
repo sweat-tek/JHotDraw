@@ -16,24 +16,28 @@ public class SVGTextFigureTest {
     }
 
     @Test
-    public void setCoordinatesTest() {
+    public void setRotationTest() {
         // Arrange
-        Point2D.Double[] point = new Point2D.Double[]{
-                new Point2D.Double(1, 2),
-                new Point2D.Double(3, 4),
-                new Point2D.Double(5, 6),
-                new Point2D.Double(7, 8)
-        };
+        double[] rotation = new double[]{90.0};
 
         // Act
-        textFigure.setCoordinates(point);
+        textFigure.setRotates(rotation);
 
         //Assert
-        assertArrayEquals(textFigure.getCoordinates(), point);
+        assertArrayEquals(textFigure.getRotates(), rotation, 0.1);
     }
 
     @Test
-    public void containsTest() {
-        
+    public void moveTest() {
+        // Arrange
+        Point2D.Double[] coordinates = new Point2D.Double[]{
+                new Point2D.Double(100, 100)
+        };
+
+        // Act
+        textFigure.setCoordinates(coordinates);
+
+        //Assert
+        assertArrayEquals(textFigure.getCoordinates(), coordinates);
     }
 }
