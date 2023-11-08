@@ -6,8 +6,6 @@ import org.jhotdraw.samples.svg.figures.jgivenstages.ThenEllipseDrawing;
 import org.jhotdraw.samples.svg.figures.jgivenstages.WhenEllipseDrawing;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class SVGEllipseFigureBDDTest extends ScenarioTest<GivenEllipseDrawing, WhenEllipseDrawing, ThenEllipseDrawing> {
     @Test
     public void testEllipseDrawing() {
