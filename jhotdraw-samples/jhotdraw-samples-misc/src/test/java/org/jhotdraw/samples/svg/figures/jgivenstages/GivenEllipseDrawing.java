@@ -10,8 +10,7 @@ public class GivenEllipseDrawing extends Stage<GivenEllipseDrawing> {
     @ProvidedScenarioState
     Drawing drawing;
 
-    public GivenEllipseDrawing the_user_has_selected_the_ellipse_drawing_tool() {
+    public void the_user_has_selected_the_ellipse_drawing_tool() {
         this.drawing = new QuadTreeDrawing();
-        return this;
     }
 }
