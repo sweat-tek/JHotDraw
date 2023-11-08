@@ -58,7 +58,7 @@ public abstract class AbstractFigure
     /**
      * Creates a new instance.
      */
-    public AbstractFigure() {
+    protected AbstractFigure() {
     }
 
     // DRAWING
@@ -320,6 +320,7 @@ public abstract class AbstractFigure
      return new HashSet();
      }
      */
+    
     @Override
     public AbstractFigure clone() {
         AbstractFigure that = (AbstractFigure) super.clone();
