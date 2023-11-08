@@ -6,7 +6,6 @@ import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.samples.svg.figures.SVGTextFigure;
 
-import java.awt.geom.Point2D;
 import java.util.List;
 
 import static com.tngtech.jgiven.impl.util.AssertionUtil.assertNotNull;
