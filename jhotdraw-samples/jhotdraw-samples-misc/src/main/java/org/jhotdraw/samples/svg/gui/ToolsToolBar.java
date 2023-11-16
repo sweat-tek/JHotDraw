@@ -186,9 +186,11 @@ public class ToolsToolBar extends AbstractToolBar {
         list.add(a = new SplitAction(editor));
         disposables.add(a);
         list.add(null); // separator
-        list.add(a = new BringToFrontAction(editor));
+        //list.add(a = new BringToFrontAction(editor));
+        list.add(a = new ArrangeAction(editor, ArrangeAction.BRING_TO_FRONT));
         disposables.add(a);
-        list.add(a = new SendToBackAction(editor));
+        //list.add(a = new SendToBackAction(editor));
+        list.add(a = new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
         disposables.add(a);
         return list;
     }

@@ -84,12 +84,9 @@ public class ArrangeAction extends AbstractSelectedAction {
             for (Figure figure : drawing.sort(figures)) {
                 drawing.sendToBack(figure);
             }
-            /*for (Figure figure : figures) {
-                drawing.sendToBack(figure);
-            }*/
-
         }
     }
+
     public static ResourceBundleUtil getResourceBundle(){
         ResourceBundleUtil labels
                 = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");

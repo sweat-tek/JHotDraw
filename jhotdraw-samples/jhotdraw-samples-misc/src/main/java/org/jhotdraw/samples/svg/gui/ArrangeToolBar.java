@@ -76,7 +76,8 @@ public class ArrangeToolBar extends AbstractToolBar {
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
-                labels.configureToolBarButton(btn, BringToFrontAction.ID);
+                //labels.configureToolBarButton(btn, BringToFrontAction.ID);
+                labels.configureToolBarButton(btn, ArrangeAction.BRING_TO_FRONT);
                 btn.putClientProperty("hideActionText", Boolean.TRUE);
                 gbc = new GridBagConstraints();
                 gbc.gridy = 0;
@@ -87,7 +88,8 @@ public class ArrangeToolBar extends AbstractToolBar {
                 disposables.add(d);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
-                labels.configureToolBarButton(btn, SendToBackAction.ID);
+                //labels.configureToolBarButton(btn, SendToBackAction.ID);
+                labels.configureToolBarButton(btn, ArrangeAction.SEND_TO_BACK);
                 btn.putClientProperty("hideActionText", Boolean.TRUE);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 gbc = new GridBagConstraints();

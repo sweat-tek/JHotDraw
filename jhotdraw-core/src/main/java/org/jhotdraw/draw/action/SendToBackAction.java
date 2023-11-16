@@ -21,7 +21,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @version $Id$
  */
 public class SendToBackAction extends ArrangeAction {
-
+//skal bare slettes
     //private static final long serialVersionUID = 1L;
     public static final String ID = SEND_TO_BACK;
 
