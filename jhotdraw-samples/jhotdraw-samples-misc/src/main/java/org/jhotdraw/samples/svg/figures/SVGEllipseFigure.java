@@ -117,12 +117,13 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     private Shape getTransformedShape() {
-        if (cachedTransformedShape == null) {
-            if (get(TRANSFORM) == null) {
-                cachedTransformedShape = ellipse;
-            } else {
-                cachedTransformedShape = get(TRANSFORM).createTransformedShape(ellipse);
-            }
+        if (cachedTransformedShape != null) {
+            return cachedTransformedShape;
+        }
+        if (get(TRANSFORM) == null) {
+            cachedTransformedShape = ellipse;
+        } else {
+            cachedTransformedShape = get(TRANSFORM).createTransformedShape(ellipse);
         }
         return cachedTransformedShape;
     }
