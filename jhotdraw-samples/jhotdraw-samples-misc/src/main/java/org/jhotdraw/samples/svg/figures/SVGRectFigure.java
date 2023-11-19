@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
-//import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -82,7 +81,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         this(x, y, width, height, 0, 0);
     }
 
-    //@FeatureEntryPoint(value = "rect figure constructor")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -91,8 +89,10 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     // DRAWING
     @Override
-    //@FeatureEntryPoint(value = "drawRectangle")
     protected void drawFill(Graphics2D g) {
+
+        assert roundrect != null;
+
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
             g.fill(roundrect.getBounds2D());
         } else {
@@ -101,8 +101,10 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     @Override
-    //@FeatureEntryPoint(value = "drawRectangleStroke")
     protected void drawStroke(Graphics2D g) {
+
+        assert roundrect != null;
+
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
             g.draw(roundrect.getBounds2D());
         } else {
@@ -195,17 +197,26 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
      * Convenience method for setting both the arc width and the arc height.
      */
     public void setArc(double width, double height) {
+
+        assert roundrect != null;
+
         setArcWidth(width);
         setArcHeight(height);
     }
 
     @Override
     public Rectangle2D.Double getBounds() {
+
+        assert roundrect != null;
+
         return (Rectangle2D.Double) roundrect.getBounds2D();
     }
 
     @Override
     public Rectangle2D.Double getDrawingArea() {
+
+        assert roundrect != null;
+
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
         if (get(TRANSFORM) == null) {
@@ -236,6 +247,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     @Override
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
+
+        assert roundrect != null;
+
         invalidateTransformedShape();
         roundrect.x = Math.min(anchor.x, lead.x);
         roundrect.y = Math.min(anchor.y, lead.y);
@@ -250,6 +264,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     private Shape getTransformedShape() {
+
+        assert roundrect != null;
+
         if (cachedTransformedShape == null) {
             if (getArcHeight() == 0 || getArcWidth() == 0) {
                 cachedTransformedShape = roundrect.getBounds2D();
