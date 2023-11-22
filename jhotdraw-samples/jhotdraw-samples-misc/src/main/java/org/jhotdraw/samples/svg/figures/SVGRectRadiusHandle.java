@@ -11,7 +11,7 @@ import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.*;
-import org.jhotdraw.draw.*;
+
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import org.jhotdraw.draw.event.CompositeFigureEdit;
 import org.jhotdraw.draw.handle.AbstractHandle;
@@ -95,7 +95,7 @@ public class SVGRectRadiusHandle extends AbstractHandle {
             }
         }
         Rectangle2D.Double r = owner.getBounds();
-        owner.setArc(
+        owner.setBothArcs(
                 Math.min(owner.getWidth(), Math.max(0, p.x - r.x)),
                 Math.min(owner.getHeight(), Math.max(0, p.y - r.y)));
         owner.changed();
@@ -145,7 +145,7 @@ public class SVGRectRadiusHandle extends AbstractHandle {
         }
         if (!newArc.equals(oldArc)) {
             owner.willChange();
-            owner.setArc(newArc.width, newArc.height);
+            owner.setBothArcs(newArc.width, newArc.height);
             owner.changed();
             ResourceBundleUtil labels
                     = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");

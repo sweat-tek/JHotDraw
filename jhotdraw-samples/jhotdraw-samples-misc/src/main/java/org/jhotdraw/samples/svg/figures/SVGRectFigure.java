@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
@@ -26,6 +25,7 @@ import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 /**
@@ -37,13 +37,9 @@ import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * Identifies the {@code arcWidth} JavaBeans property.
-     */
+
     private static final String ARC_WIDTH_PROPERTY = "arcWidth";
-    /**
-     * Identifies the {@code arcHeight} JavaBeans property.
-     */
+
     private static final String ARC_HEIGHT_PROPERTY = "arcHeight";
     /**
      * The variable acv is used for generating the locations of the control
@@ -60,7 +56,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         ACV = (1.0 - cv);
     }
 
-    protected RoundRectangle2D.Double roundrect; //used to be private, but changed to protected for testing purposes
+    protected RoundRectangle2D.Double roundrect;
     /**
      * This is used to perform faster drawing.
      */
@@ -70,9 +66,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
      */
     private transient Shape cachedHitShape;
 
-    /**
-     * Creates a new instance.
-     */
     public SVGRectFigure() {
         this(0, 0, 0, 0);
     }
@@ -81,9 +74,8 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         this(x, y, width, height, 0, 0);
     }
 
-    //@FeatureEntryPoint("RectangleEntry")
-    public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
-        roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
+    public SVGRectFigure(double x, double y, double width, double height, double arcWidth, double arcHeight) {
+        roundrect = new RoundRectangle2D.Double(x, y, width, height, arcWidth, arcHeight);
         SVGAttributeKeys.setDefaults(this);
         setConnectable(false);
     }
@@ -99,7 +91,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     /**
-     * We have to generate the path for the round rectangle manually,
+     * Path for the round rectangle must be generated manually,
      * because the path of a Java RoundRectangle is drawn counterclockwise
      * whereas an SVG rect needs to be drawn clockwise.
      * @param g
@@ -175,10 +167,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         firePropertyChange(ARC_HEIGHT_PROPERTY, oldValue, newValue);
     }
 
-    /**
-     * Convenience method for setting both the arc width and the arc height.
-     */
-    public void setArc(double width, double height) {
+    public void setBothArcs(double width, double height) {
         setArcWidth(width);
         setArcHeight(height);
     }
@@ -210,9 +199,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return r;
     }
 
-    /**
-     * Checks if a Point2D.Double is inside the figure.
-     */
     @Override
     public boolean contains(Point2D.Double p) {
         return getHitShape().contains(p);
@@ -258,11 +244,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
-    /**
-     * Transforms the figure.
-     *
-     * @param tx The transformation.
-     */
     @Override
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
@@ -278,7 +259,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             executeTransform(tx);
         }
     }
-
     private void executeTransform(AffineTransform tx){
         Point2D.Double anchor = getStartPoint();
         Point2D.Double lead = getEndPoint();
