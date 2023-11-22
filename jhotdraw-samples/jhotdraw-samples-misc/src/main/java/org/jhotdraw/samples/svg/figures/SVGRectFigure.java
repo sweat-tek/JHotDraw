@@ -80,7 +80,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         setConnectable(false);
     }
 
-    // DRAWING
+    /**
+     * Drawing
+     */
     @Override
     protected void drawFill(Graphics2D g) {
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
@@ -90,12 +92,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
-    /**
-     * Path for the round rectangle must be generated manually,
-     * because the path of a Java RoundRectangle is drawn counterclockwise
-     * whereas an SVG rect needs to be drawn clockwise.
-     * @param g
-     */
+
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
@@ -105,6 +102,12 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
+    /**
+     * Path for the round rectangle must be generated manually,
+     * because the path of a Java RoundRectangle is drawn counterclockwise
+     * whereas an SVG rect needs to be drawn clockwise.
+     * @param g
+     */
     private void drawPath(Graphics2D g) {
         Path2D.Double p = new Path2D.Double();
         double aw = roundrect.arcwidth / 2d;
@@ -131,7 +134,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         g.draw(p);
     }
 
-    // SHAPE AND BOUNDS
+    /**
+     * Shape and Bounds
+     */
     public double getX() {
         return roundrect.x;
     }
@@ -157,7 +162,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
     public static String getArcWidthProperty(){ return ARC_WIDTH_PROPERTY; }
     public static String getArcHeightProperty(){ return ARC_HEIGHT_PROPERTY; }
-
 
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
@@ -300,7 +304,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             STROKE_GRADIENT.getClone(this)};
     }
 
-    // EDITING
+    /**
+     * Editing
+     */
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
         LinkedList<Handle> handles = new LinkedList<>();
@@ -322,7 +328,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return handles;
     }
 
-    // CLONING
+    /**
+     * Cloning
+     */
     @Override
     public SVGRectFigure clone() {
         SVGRectFigure that = (SVGRectFigure) super.clone();
