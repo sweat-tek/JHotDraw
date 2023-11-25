@@ -49,29 +49,46 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
         if (opacity == 1d ) { drawFigure(g); return; }
 
         Rectangle2D.Double drawingArea = getDrawingArea();
+        clipDrawingArea(g, drawingArea);
+
+        if (!drawingArea.isEmpty()) {
+            BufferedImage buf = createBufferedImage(g, drawingArea);
+            drawBufferedImage(g, buf, drawingArea, opacity);
+        }
+    }
+
+    private void clipDrawingArea(Graphics2D g, Rectangle2D.Double drawingArea) {
         Rectangle2D clipBounds = g.getClipBounds();
         if (clipBounds != null) {
             Rectangle2D.intersect(drawingArea, clipBounds, drawingArea);
         }
-        if (!drawingArea.isEmpty()) {
-            BufferedImage buf = new BufferedImage(
-                    Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
-                    Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
-                    BufferedImage.TYPE_INT_ARGB);
+    }
 
-            Graphics2D gr = buf.createGraphics();
-            gr.scale(g.getTransform().getScaleX(), g.getTransform().getScaleY());
-            gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
-            gr.setRenderingHints(g.getRenderingHints());
-            drawFigure(gr);
-            gr.dispose();
+    private BufferedImage createBufferedImage(Graphics2D g, Rectangle2D.Double drawingArea) {
+        int imageWidth = Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX()));
+        int imageHeight = Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY()));
 
-            Composite savedComposite = g.getComposite();
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
-            g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
-                    2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
-            g.setComposite(savedComposite);
-        }
+        BufferedImage buf = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gr = buf.createGraphics();
+        prepareGraphicsForBufferedImage(gr, g.getTransform(), drawingArea);
+        drawFigure(gr);
+        gr.dispose();
+
+        return buf;
+    }
+
+    private void prepareGraphicsForBufferedImage(Graphics2D gr, AffineTransform transform, Rectangle2D.Double drawingArea) {
+        gr.scale(transform.getScaleX(), transform.getScaleY());
+        gr.translate((int) -drawingArea.x, (int) -drawingArea.y);
+        gr.setRenderingHints(gr.getRenderingHints()); // Copy rendering hints
+    }
+
+    private void drawBufferedImage(Graphics2D g, BufferedImage buf, Rectangle2D.Double drawingArea, double opacity) {
+        Composite savedComposite = g.getComposite();
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
+        g.drawImage(buf, (int) drawingArea.x, (int) drawingArea.y,
+                2 + (int) drawingArea.width, 2 + (int) drawingArea.height, null);
+        g.setComposite(savedComposite);
     }
 
     /**
@@ -85,19 +102,29 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
             savedTransform = g.getTransform();
             g.transform(get(TRANSFORM));
         }
+
+        setFillPaint(g);
+        setStrokePaint(g);
+
+        if (get(TRANSFORM) != null) {
+            g.setTransform(savedTransform);
+        }
+    }
+
+    public void setFillPaint(Graphics2D g) {
         Paint paint = SVGAttributeKeys.getFillPaint(this);
         if (paint != null) {
             g.setPaint(paint);
             drawFill(g);
         }
-        paint = SVGAttributeKeys.getStrokePaint(this);
+    }
+
+    public void setStrokePaint(Graphics2D g) {
+        Paint paint = SVGAttributeKeys.getStrokePaint(this);
         if (paint != null && get(STROKE_WIDTH) > 0) {
             g.setPaint(paint);
             g.setStroke(AttributeKeys.getStroke(this, 1.0));
             drawStroke(g);
-        }
-        if (get(TRANSFORM) != null) {
-            g.setTransform(savedTransform);
         }
     }
 

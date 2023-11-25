@@ -281,16 +281,22 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     private Shape getHitShape() {
-        if (cachedHitShape == null) {
-            if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
-                cachedHitShape = new GrowStroke(
-                        (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
-                        (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
-            } else {
-                cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
-            }
+        return cachedHitShape == null ? createHitShape() : cachedHitShape;
+    }
+
+    private Shape createHitShape() {
+        if (shouldUseCustomStroke()) {
+            float strokeWidth = (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f;
+            float miterLimit = (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0);
+
+            return new GrowStroke(strokeWidth, miterLimit).createStrokedShape(getTransformedShape());
+        } else {
+            return AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
         }
-        return cachedHitShape;
+    }
+
+    private boolean shouldUseCustomStroke() {
+        return get(FILL_COLOR) != null || get(FILL_GRADIENT) != null;
     }
 
     /**
@@ -301,9 +307,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     @Override
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
-        if (get(TRANSFORM) != null
-                ||
-                (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
+        if (get(TRANSFORM) != null || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 set(TRANSFORM, (AffineTransform) tx.clone());
             } else {
