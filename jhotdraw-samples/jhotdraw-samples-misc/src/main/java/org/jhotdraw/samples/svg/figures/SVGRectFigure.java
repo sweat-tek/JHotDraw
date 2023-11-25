@@ -124,24 +124,31 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     protected void drawLinesAndCurves(Path2D.Double p, double aw, double ah) {
-        p.lineTo((roundrect.x + roundrect.width - aw), (float) roundrect.y);
-        p.curveTo((roundrect.x + roundrect.width - aw * ACV), (float) roundrect.y,
-                (roundrect.x + roundrect.width), (float) (roundrect.y + ah * ACV),
-                (roundrect.x + roundrect.width), (roundrect.y + ah));
+        double x = roundrect.x;
+        double y = roundrect.y;
+        double width = roundrect.width;
+        double height = roundrect.height;
 
-        p.lineTo((roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah));
+        p.lineTo((x + width - aw), (float) y);
+        p.curveTo((x + width - aw * ACV), (float) y,
+                (x + width), (float) (y + ah * ACV),
+                (x + width), (y + ah));
+
+        p.lineTo((x + width), (y + height - ah));
         p.curveTo(
-                (roundrect.x + roundrect.width), (roundrect.y + roundrect.height - ah * ACV),
-                (roundrect.x + roundrect.width - aw * ACV), (roundrect.y + roundrect.height),
-                (roundrect.x + roundrect.width - aw), (roundrect.y + roundrect.height));
-        p.lineTo((roundrect.x + aw), (roundrect.y + roundrect.height));
-        p.curveTo((roundrect.x + aw * ACV), (roundrect.y + roundrect.height),
-                (roundrect.x), (roundrect.y + roundrect.height - ah * ACV),
-                (float) roundrect.x, (roundrect.y + roundrect.height - ah));
-        p.lineTo((float) roundrect.x, (roundrect.y + ah));
-        p.curveTo((roundrect.x), (roundrect.y + ah * ACV),
-                (roundrect.x + aw * ACV), (float) (roundrect.y),
-                (float) (roundrect.x + aw), (float) (roundrect.y));
+                (x + width), (y + height - ah * ACV),
+                (x + width - aw * ACV), (y + height),
+                (x + width - aw), (y + height));
+
+        p.lineTo((x + aw), (y + height));
+        p.curveTo((x + aw * ACV), (y + height),
+                (x), (y + height - ah * ACV),
+                (float) x, (y + height - ah));
+        p.lineTo((float) x, (y + ah));
+
+        p.curveTo((x), (y + ah * ACV),
+                (x + aw * ACV), (float) (y),
+                (float) (x + aw), (float) (y));
     }
 
     // SHAPE AND BOUNDS
