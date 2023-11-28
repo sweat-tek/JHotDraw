@@ -43,6 +43,7 @@ import org.jhotdraw.draw.event.FigureListener;
  * @author Werner Randelshofer
  * @version $Id: FloatingTextField.java -1 $
  */
+
 public class FloatingTextField {
 
     private TextHolderFigure editedFigure;
@@ -68,6 +69,9 @@ public class FloatingTextField {
      * specific font.
      */
     public void createOverlay(DrawingView view, TextHolderFigure figure) {
+        if (view == null || figure == null) {
+            throw new IllegalArgumentException("view and figure must not be null.");
+        }
         view.getComponent().add(textField, 0);
         textField.setText(figure.getText());
         textField.setColumns(figure.getTextColumns());
@@ -79,33 +83,6 @@ public class FloatingTextField {
         updateWidget();
     }
 
-    protected void updateWidget() {
-        Font font = editedFigure.getFont();
-        font = font.deriveFont(font.getStyle(), (float) (editedFigure.getFontSize() * view.getScaleFactor()));
-        textField.setFont(font);
-        textField.setForeground(editedFigure.getTextColor());
-        textField.setBackground(editedFigure.getFillColor());
-        Rectangle2D.Double fDrawBounds = editedFigure.getBounds();
-        Point2D.Double fDrawLoc = new Point2D.Double(fDrawBounds.getX(), fDrawBounds.getY());
-        if (editedFigure.get(TRANSFORM) != null) {
-            editedFigure.get(TRANSFORM).transform(fDrawLoc, fDrawLoc);
-        }
-        Point fViewLoc = view.drawingToView(fDrawLoc);
-        Rectangle fViewBounds = view.drawingToView(fDrawBounds);
-        fViewBounds.x = fViewLoc.x;
-        fViewBounds.y = fViewLoc.y;
-        Dimension tfDim = textField.getPreferredSize();
-        Insets tfInsets = textField.getInsets();
-        float fontBaseline = textField.getGraphics().getFontMetrics(font).getMaxAscent();
-        double fBaseline = editedFigure.getBaseline() * view.getScaleFactor();
-        textField.setBounds(
-                fViewBounds.x - tfInsets.left,
-                fViewBounds.y - tfInsets.top - (int) (fontBaseline - fBaseline),
-                Math.max(fViewBounds.width + tfInsets.left + tfInsets.right, tfDim.width),
-                Math.max(fViewBounds.height + tfInsets.top + tfInsets.bottom, tfDim.height)
-        );
-    }
-
     public Insets getInsets() {
         return textField.getInsets();
     }
@@ -115,13 +92,6 @@ public class FloatingTextField {
      */
     public void addActionListener(ActionListener listener) {
         textField.addActionListener(listener);
-    }
-
-    /**
-     * Remove an action listener
-     */
-    public void removeActionListener(ActionListener listener) {
-        textField.removeActionListener(listener);
     }
 
     /**
@@ -155,4 +125,63 @@ public class FloatingTextField {
             editedFigure = null;
         }
     }
+
+    protected void updateWidget() {
+        setTextFieldFont();
+        setTextFieldColors();
+        setTextFieldBounds();
+    }
+
+
+    protected void setTextFieldFont() {
+        Font font = editedFigure.getFont();
+        font = font.deriveFont(font.getStyle(), (float) (editedFigure.getFontSize() * view.getScaleFactor()));
+        textField.setFont(font);
+    }
+
+    protected void setTextFieldColors() {
+        textField.setForeground(editedFigure.getTextColor());
+        textField.setBackground(editedFigure.getFillColor());
+    }
+
+    protected void setTextFieldBounds() {
+        Rectangle2D.Double fDrawBounds = editedFigure.getBounds();
+        Point2D.Double fDrawLoc = new Point2D.Double(fDrawBounds.getX(), fDrawBounds.getY());
+
+        AffineTransform transform = editedFigure.get(TRANSFORM);
+        if (transform != null) {
+            transform.transform(fDrawLoc, fDrawLoc);
+        }
+
+        Point fViewLoc = view.drawingToView(fDrawLoc);
+        Rectangle fViewBounds = view.drawingToView(fDrawBounds);
+        fViewBounds.x = fViewLoc.x;
+        fViewBounds.y = fViewLoc.y;
+
+        Dimension tfDim = textField.getPreferredSize();
+        Insets tfInsets = textField.getInsets();
+
+        float fontBaseline = calculateFontBaseline(textField.getFont());
+        double fBaseline = calculateFBaseline(editedFigure, view);
+
+        textField.setBounds(
+                fViewBounds.x - tfInsets.left,
+                fViewBounds.y - tfInsets.top - (int) (fontBaseline - fBaseline),
+                Math.max(fViewBounds.width + tfInsets.left + tfInsets.right, tfDim.width),
+                Math.max(fViewBounds.height + tfInsets.top + tfInsets.bottom, tfDim.height)
+        );
+    }
+
+    protected float calculateFontBaseline(final Font font) {
+        Graphics graphics = textField.getGraphics();
+        FontMetrics fontMetrics = graphics.getFontMetrics(font);
+        return fontMetrics.getMaxAscent();
+    }
+
+    protected double calculateFBaseline(final TextHolderFigure editedFigure, final DrawingView view) {
+        double baseline = editedFigure.getBaseline();
+        double scaleFactor = view.getScaleFactor();
+        return baseline * scaleFactor;
+    }
+
 }
