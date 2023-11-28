@@ -160,8 +160,13 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public double getArcHeight() {
         return roundrect.archeight;
     }
-    public static String getArcWidthProperty(){ return ARC_WIDTH_PROPERTY; }
-    public static String getArcHeightProperty(){ return ARC_HEIGHT_PROPERTY; }
+    public static String getArcWidthProperty() {
+        return ARC_WIDTH_PROPERTY;
+    }
+
+    public static String getArcHeightProperty() {
+        return ARC_HEIGHT_PROPERTY;
+    }
 
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
@@ -242,7 +247,9 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     private Shape getHitShape() {
-        if (cachedHitShape != null) {return cachedHitShape;}
+        if (cachedHitShape != null) {
+            return cachedHitShape;
+        }
         if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
             return cachedHitShape = new GrowStroke(
                     (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
