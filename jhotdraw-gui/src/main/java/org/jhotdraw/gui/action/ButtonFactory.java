@@ -325,10 +325,8 @@ public class ButtonFactory {
         a.add(new GroupAction(editor));
         a.add(new UngroupAction(editor));
         a.add(null); // separator
-        //a.add(new BringToFrontAction(editor));
-        //a.add(new SendToBackAction(editor));
-        a.add(new ArrangeAction(editor, ArrangeAction.BRING_TO_FRONT));
-        a.add(new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
+        a.add(new BringToFrontAction(editor));
+        a.add(new SendToBackAction(editor));
         return a;
     }
 
@@ -1653,12 +1651,8 @@ public class ButtonFactory {
         bar.add(d = new MoveAction.South(editor)).setFocusable(false);
         dsp.add(d);
         bar.addSeparator();
-        //bar.add(new BringToFrontAction(editor)).setFocusable(false);
-        bar.add(new ArrangeAction(editor, ArrangeAction.BRING_TO_FRONT)).setFocusable(false);
-        dsp.add(d);
-        //bar.add(new SendToBackAction(editor)).setFocusable(false);
-        bar.add(new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK)).setFocusable(false);
-        dsp.add(d);
+        bar.add(new BringToFrontAction(editor)).setFocusable(false);
+        bar.add(new SendToBackAction(editor)).setFocusable(false);
     }
 
     /**

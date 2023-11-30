@@ -51,13 +51,13 @@ public class ArrangeAction extends AbstractSelectedAction {
 
             @Override
             public void redo() throws CannotRedoException {
-                //super.redo();
+                super.redo();
                 arrangeFigures(view, figures, orderType);
             }
 
             @Override
             public void undo() throws CannotUndoException {
-                //super.undo();
+                super.undo();
                 // Reverse the action by calling the opposite order type
                 if (BRING_TO_FRONT.equals(orderType)) {
                     arrangeFigures(view, figures, SEND_TO_BACK);
@@ -88,9 +88,7 @@ public class ArrangeAction extends AbstractSelectedAction {
     }
 
     public static ResourceBundleUtil getResourceBundle(){
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        return labels;
+        return ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
     }
 
 }

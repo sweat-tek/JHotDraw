@@ -20,20 +20,22 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SendToBackAction extends ArrangeAction {
+public class SendToBackAction extends AbstractSelectedAction{
 //skal bare slettes
     //private static final long serialVersionUID = 1L;
-    public static final String ID = SEND_TO_BACK;
+   /* public static final String ID = SEND_TO_BACK;
 
     public SendToBackAction(DrawingEditor editor) {
         super(editor, ID);
-    }
+    }*/
 
+    private static final long serialVersionUID = 1L;
+    public static final String ID = "edit.sendToBack";
 
     /**
      * Creates a new instance.
      */
-    /*public SendToBackAction(DrawingEditor editor) {
+    public SendToBackAction(DrawingEditor editor) {
         super(editor);
         ResourceBundleUtil labels
                 = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
@@ -77,5 +79,5 @@ public class SendToBackAction extends ArrangeAction {
         for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
             drawing.sendToBack(figure);
         }
-    }*/
+    }
 }

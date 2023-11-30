@@ -93,10 +93,8 @@ public class SVGApplicationModel extends DefaultApplicationModel {
         m.put(UngroupAction.ID, new UngroupAction(editor, new SVGGroupFigure()));
         m.put(CombineAction.ID, new CombineAction(editor));
         m.put(SplitAction.ID, new SplitAction(editor));
-        //m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
-        m.put(ArrangeAction.SEND_TO_BACK, new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
-        //m.put(SendToBackAction.ID, new SendToBackAction(editor));
-        m.put(ArrangeAction.BRING_TO_FRONT, new ArrangeAction(editor, ArrangeAction.BRING_TO_FRONT));
+        m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
+        m.put(SendToBackAction.ID, new SendToBackAction(editor));
 
         //view.addDisposable(action);
     }
@@ -125,10 +123,8 @@ public class SVGApplicationModel extends DefaultApplicationModel {
         m.put(UngroupAction.ID, new UngroupAction(editor, new SVGGroupFigure()));
         m.put(CombineAction.ID, new CombineAction(editor));
         m.put(SplitAction.ID, new SplitAction(editor));
-        m.put(ArrangeAction.BRING_TO_FRONT, new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
-        //m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
-        m.put(ArrangeAction.SEND_TO_BACK, new ArrangeAction(editor, ArrangeAction.SEND_TO_BACK));
-        //m.put(SendToBackAction.ID, new SendToBackAction(editor));
+        m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
+        m.put(SendToBackAction.ID, new SendToBackAction(editor));
         return m;
     }
 
@@ -153,10 +149,8 @@ public class SVGApplicationModel extends DefaultApplicationModel {
                 m.add(am.get(CombineAction.ID));
                 m.add(am.get(SplitAction.ID));
                 m.addSeparator();
-                //m.add(am.get(BringToFrontAction.ID));
-                //m.add(am.get(SendToBackAction.ID));
-                m.add(am.get(ArrangeAction.BRING_TO_FRONT));
-                m.add(am.get(ArrangeAction.SEND_TO_BACK));
+                m.add(am.get(BringToFrontAction.ID));
+                m.add(am.get(SendToBackAction.ID));
             }
 
             @Override
