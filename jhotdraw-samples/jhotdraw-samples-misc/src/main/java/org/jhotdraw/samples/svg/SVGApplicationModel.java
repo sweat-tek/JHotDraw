@@ -28,6 +28,8 @@ import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.GridConstrainer;
 import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.action.arrangeActions.BringToFrontAction;
+import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
 import org.jhotdraw.draw.io.InputFormat;
 import org.jhotdraw.draw.io.OutputFormat;
 import org.jhotdraw.gui.JFileURIChooser;

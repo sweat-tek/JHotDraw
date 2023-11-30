@@ -8,8 +8,13 @@
 package org.jhotdraw.samples.svg.gui;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.action.arrangeActions.ArrangeService;
+import org.jhotdraw.draw.action.arrangeActions.BringToFrontAction;
+import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
+import org.jhotdraw.draw.actionLocator.SPILocator;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import java.awt.*;
+import java.util.Collection;
 import javax.swing.*;
 import javax.swing.border.*;
 import org.jhotdraw.draw.DrawingEditor;
@@ -50,7 +55,62 @@ public class ArrangeToolBar extends AbstractToolBar {
         }
     }
 
-    @FeatureEntryPoint(value = "arrangeToolBar")
+    private Collection<? extends ArrangeService> getArrangeServices() {
+        return SPILocator.locateAll(ArrangeService.class);
+    }
+
+    @Override
+    protected JComponent createDisclosedComponent(int state) {
+        if (state != 1) {
+            return null;
+        } else {
+            JPanel panel = createTransparentPanelWithBorder();
+            if (editor == null) {
+                return panel;
+            }
+
+            ResourceBundleUtil labels = ResourceBundleUtil.getRResourceBundleUtilLabels();
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            GridBagLayout layout = new GridBagLayout();
+            panel.setLayout(layout);
+
+            int yPos = 0;
+            for (ArrangeService arrangeService : getArrangeServices()) {
+                addButtonToPanel(panel, arrangeService.createWithEditor(editor), arrangeService.getID(), labels, gbc, yPos);
+                yPos++;
+                System.out.println("found "+arrangeService);
+            }
+
+
+            return panel;
+        }
+    }
+
+    private JPanel createTransparentPanelWithBorder() {
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.setBorder(new EmptyBorder(5, 5, 5, 8));
+        return panel;
+    }
+
+    private void addButtonToPanel(JPanel panel, AbstractSelectedAction action, String ID, ResourceBundleUtil labels, GridBagConstraints gbc, int yPos) {
+        AbstractButton button = new JButton(action);
+        disposables.add(action);
+        button.setUI((PaletteButtonUI) PaletteButtonUI.createUI(button));
+        button.setText(null);
+        labels.configureToolBarButton(button, ID);
+        button.putClientProperty("hideActionText", Boolean.TRUE);
+
+        gbc.gridy = yPos;
+        gbc.anchor = (yPos == 0) ? GridBagConstraints.EAST : GridBagConstraints.NORTH;
+        if (yPos == 1) {
+            gbc.insets = new Insets(3, 0, 0, 0);
+            gbc.weighty = 1f;
+        }
+        panel.add(button, gbc);
+    }
+    /*@FeatureEntryPoint(value = "arrangeToolBar")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
@@ -96,7 +156,7 @@ public class ArrangeToolBar extends AbstractToolBar {
                 break;
         }
         return p;
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to

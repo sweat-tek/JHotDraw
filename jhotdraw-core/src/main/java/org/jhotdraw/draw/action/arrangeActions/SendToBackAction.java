@@ -5,9 +5,11 @@
  * You may not use, copy or modify this file, except in compliance with the
  * accompanying license terms.
  */
-package org.jhotdraw.draw.action;
+package org.jhotdraw.draw.action.arrangeActions;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.action.AbstractSelectedAction;
+import org.jhotdraw.draw.action.ArrangeAction;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.*;
 import javax.swing.undo.*;
@@ -20,26 +22,25 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SendToBackAction extends AbstractSelectedAction{
-//skal bare slettes
-    //private static final long serialVersionUID = 1L;
-   /* public static final String ID = SEND_TO_BACK;
-
-    public SendToBackAction(DrawingEditor editor) {
-        super(editor, ID);
-    }*/
-
+public class SendToBackAction extends AbstractSelectedAction implements ArrangeService {
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.sendToBack";
+
+    public SendToBackAction(){}
+
+    @Override
+    public SendToBackAction createWithEditor(DrawingEditor editor) {
+        SendToBackAction action = new SendToBackAction(editor);
+        return action;
+    }
 
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "sendToBackAction")
     public SendToBackAction(DrawingEditor editor) {
         super(editor);
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
+        ResourceBundleUtil.getRResourceBundleUtilLabels().configureAction(this, ID);
         updateEnabledState();
     }
 
@@ -48,16 +49,13 @@ public class SendToBackAction extends AbstractSelectedAction{
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
         final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
-        ArrangeAction.arrangeFigures(view, figures, ArrangeAction.SEND_TO_BACK);
-        //sendToBack(view, figures);
+        sendToBack(view, figures);
         fireUndoableEditHappened(new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public String getPresentationName() {
-                ResourceBundleUtil labels
-                        = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                return labels.getTextProperty(ID);
+                return ResourceBundleUtil.getRResourceBundleUtilLabels().getTextProperty(ID);
             }
 
             @Override
@@ -76,8 +74,13 @@ public class SendToBackAction extends AbstractSelectedAction{
 
     public static void sendToBack(DrawingView view, Collection<Figure> figures) {
         Drawing drawing = view.getDrawing();
-        for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
+        for (Figure figure : drawing.sort(figures)) {
             drawing.sendToBack(figure);
         }
+    }
+
+    @Override
+    public String getID() {
+        return ID;
     }
 }

@@ -5,9 +5,10 @@
  * You may not use, copy or modify this file, except in compliance with the
  * accompanying license terms.
  */
-package org.jhotdraw.draw.action;
+package org.jhotdraw.draw.action.arrangeActions;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.action.AbstractSelectedAction;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.*;
 import javax.swing.undo.*;
@@ -20,28 +21,25 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class BringToFrontAction extends AbstractSelectedAction {
-
-    //private static final long serialVersionUID = 1L;
-    /*public static final String ID = BRING_TO_FRONT;
-
-    public BringToFrontAction(DrawingEditor editor) {
-        super(editor, ID);
-
-    }*/
+public class BringToFrontAction extends AbstractSelectedAction implements ArrangeService{
 
     private static final long serialVersionUID = 1L;
-
     public static final String ID = "edit.bringToFront";
+
+    public BringToFrontAction() {}
+
+    public BringToFrontAction createWithEditor(DrawingEditor editor) {
+        BringToFrontAction action = new BringToFrontAction(editor);
+        return action;
+    }
 
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "bringToFrontAction")
     public BringToFrontAction(DrawingEditor editor) {
         super(editor);
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
+        ResourceBundleUtil.getRResourceBundleUtilLabels().configureAction(this, ID);
         updateEnabledState();
     }
 
@@ -56,9 +54,7 @@ public class BringToFrontAction extends AbstractSelectedAction {
 
             @Override
             public String getPresentationName() {
-                ResourceBundleUtil labels
-                        = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                return labels.getTextProperty(ID);
+                return ResourceBundleUtil.getRResourceBundleUtilLabels().getTextProperty(ID);
             }
 
             @Override
@@ -82,4 +78,8 @@ public class BringToFrontAction extends AbstractSelectedAction {
         }
     }
 
+    @Override
+    public String getID() {
+        return ID;
+    }
 }

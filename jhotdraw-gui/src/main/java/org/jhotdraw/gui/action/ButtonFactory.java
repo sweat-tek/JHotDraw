@@ -67,6 +67,8 @@ import static org.jhotdraw.draw.AttributeKeys.TEXT_COLOR;
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.action.arrangeActions.BringToFrontAction;
+import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
 import org.jhotdraw.draw.decoration.ArrowTip;
 import org.jhotdraw.draw.decoration.LineDecoration;
 import org.jhotdraw.draw.event.SelectionComponentRepainter;
