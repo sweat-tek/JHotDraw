@@ -9,7 +9,6 @@ package org.jhotdraw.draw.action.arrangeActions;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.action.AbstractSelectedAction;
-import org.jhotdraw.draw.action.ArrangeAction;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.*;
 import javax.swing.undo.*;

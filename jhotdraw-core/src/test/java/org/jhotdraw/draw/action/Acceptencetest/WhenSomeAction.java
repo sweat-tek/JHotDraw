@@ -5,7 +5,6 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.annotation.ScenarioState;
 import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.action.ArrangeAction;
 import org.jhotdraw.draw.action.arrangeActions.BringToFrontAction;
 import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
 import org.jhotdraw.draw.figure.Figure;
