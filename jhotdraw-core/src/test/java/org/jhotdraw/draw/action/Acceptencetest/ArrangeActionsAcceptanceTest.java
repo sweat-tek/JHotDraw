@@ -3,7 +3,7 @@ package org.jhotdraw.draw.action.Acceptencetest;
 import com.tngtech.jgiven.junit.ScenarioTest;
 import org.junit.Test;
 
-public class ArrangeActionAcceptanceTest extends ScenarioTest<GivenSomeState, WhenSomeAction, ThenSomeOutcome> {
+public class ArrangeActionsAcceptanceTest extends ScenarioTest<GivenSomeState, WhenSomeAction, ThenSomeOutcome> {
 
     @Test
     public void sendingFigureToBack() {
