@@ -1,4 +1,4 @@
-package org.jhotdraw.draw.action.arrangeActions;
+package org.jhotdraw.draw.action.arrange;
 
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.action.AbstractSelectedAction;

@@ -8,8 +8,8 @@
 package org.jhotdraw.samples.svg.gui;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import org.jhotdraw.draw.action.arrangeActions.ArrangeService;
-import org.jhotdraw.draw.actionLocator.SPILocator;
+import org.jhotdraw.draw.action.arrange.ArrangeService;
+import org.jhotdraw.draw.SPILocator;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import java.awt.*;
 import java.util.Collection;
@@ -76,7 +76,6 @@ public class ArrangeToolBar extends AbstractToolBar {
             for (ArrangeService arrangeService : getArrangeServices()) {
                 addButtonToPanel(panel, arrangeService.createWithEditor(editor), arrangeService.getID(), labels, gbc, yPos);
                 yPos++;
-                System.out.println("found "+arrangeService);
             }
             return panel;
         }

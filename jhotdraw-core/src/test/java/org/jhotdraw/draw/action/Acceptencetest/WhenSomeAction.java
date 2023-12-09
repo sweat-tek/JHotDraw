@@ -2,11 +2,9 @@ package org.jhotdraw.draw.action.Acceptencetest;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
-import com.tngtech.jgiven.annotation.ScenarioState;
 import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.action.arrangeActions.BringToFrontAction;
-import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
+import org.jhotdraw.draw.action.arrange.BringToFrontAction;
+import org.jhotdraw.draw.action.arrange.SendToBackAction;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.LinkedHashSet;
 import java.util.Set;

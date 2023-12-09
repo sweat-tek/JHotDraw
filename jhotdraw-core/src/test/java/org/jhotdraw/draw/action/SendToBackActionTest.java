@@ -3,7 +3,7 @@ package org.jhotdraw.draw.action;
 import org.jhotdraw.draw.DefaultDrawing;
 import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.action.arrangeActions.SendToBackAction;
+import org.jhotdraw.draw.action.arrange.SendToBackAction;
 import org.jhotdraw.draw.figure.EllipseFigure;
 import org.jhotdraw.draw.figure.Figure;
 import org.junit.jupiter.api.AfterEach;

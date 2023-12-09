@@ -1,4 +1,4 @@
-package org.jhotdraw.draw.actionLocator;
+package org.jhotdraw.draw;
 
 import java.util.*;
 
