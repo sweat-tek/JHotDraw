@@ -81,7 +81,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public SVGRectFigure(double x, double y, double width, double height) {
         this(x, y, width, height, 0, 0);
     }
-    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -89,7 +88,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     // DRAWING
-    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     @Override
     protected void drawFill(Graphics2D g) {
         if (getArcHeight() == 0d && getArcWidth() == 0d) {
@@ -99,7 +97,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         }
     }
 
-    @FeatureEntryPoint(value = "SVGRectFigure.drawFigure")
     @Override
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
@@ -330,6 +327,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     // EDITING
     @Override
+    @FeatureEntryPoint(value = "SVGRectFigure.editFigure")
     public Collection<Handle> createHandles(int detailLevel) {
         LinkedList<Handle> handles = new LinkedList<Handle>();
         switch (detailLevel % 2) {
