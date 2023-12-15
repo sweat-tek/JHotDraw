@@ -38,7 +38,6 @@ public abstract class AbstractDrawing extends AbstractAttributedCompositeFigure 
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "RT - AbstractDrawing")
     public AbstractDrawing() {
     }
 
