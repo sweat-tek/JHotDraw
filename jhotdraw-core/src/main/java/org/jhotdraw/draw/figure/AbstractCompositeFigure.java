@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import javax.swing.event.*;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.Drawing;
 import static org.jhotdraw.draw.AttributeKeys.*;
@@ -269,6 +270,7 @@ public abstract class AbstractCompositeFigure
      *
      * @param figure that is part of this composite figure
      */
+    @FeatureEntryPoint("SendToBack - sendToBack")
     public void sendToBack(Figure figure) {
         if (basicRemove(figure) != -1) {
             basicAdd(0, figure);
@@ -281,6 +283,7 @@ public abstract class AbstractCompositeFigure
      *
      * @param figure that is part of the drawing
      */
+    @FeatureEntryPoint("BringToFront - bringToFront")
     public void bringToFront(Figure figure) {
         if (basicRemove(figure) != -1) {
             basicAdd(figure);

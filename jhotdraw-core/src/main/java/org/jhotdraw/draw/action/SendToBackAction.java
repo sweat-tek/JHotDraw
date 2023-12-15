@@ -36,8 +36,7 @@ public class SendToBackAction extends AbstractSelectedAction {
         updateEnabledState();
     }
 
-    @FeatureEntryPoint("SendToBack")
-
+    @FeatureEntryPoint("SendToBackAction - actionPerformed")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
@@ -67,6 +66,7 @@ public class SendToBackAction extends AbstractSelectedAction {
         });
     }
 
+    @FeatureEntryPoint("SendToBackAction - sendToBack")
     public static void sendToBack(DrawingView view, Collection<Figure> figures) {
         Drawing drawing = view.getDrawing();
         for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
