@@ -15,6 +15,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.undo.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.beans.AbstractBean;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.Drawing;
@@ -58,6 +60,7 @@ public abstract class AbstractFigure
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "AbstractFigure")
     public AbstractFigure() {
     }
 

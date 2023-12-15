@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import static org.jhotdraw.draw.AttributeKeys.*;
+
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.util.ReversedList;
@@ -48,6 +49,7 @@ public class DefaultDrawing
     /**
      * Creates a new instance.
      */
+    
     public DefaultDrawing() {
     }
 
@@ -57,6 +59,7 @@ public class DefaultDrawing
         invalidateSortOrder();
     }
 
+    
     @Override
     public void draw(Graphics2D g) {
         synchronized (getLock()) {
@@ -73,6 +76,7 @@ public class DefaultDrawing
         }
     }
 
+    
     public void draw(Graphics2D g, Collection<Figure> children) {
         Rectangle2D clipBounds = g.getClipBounds();
         double scale = AttributeKeys.getScaleFactorFromGraphics(g);
@@ -91,6 +95,7 @@ public class DefaultDrawing
         }
     }
 
+    
     @Override
     public List<Figure> sort(Collection<? extends Figure> c) {
         Set<Figure> unsorted = new HashSet<>();
@@ -110,7 +115,7 @@ public class DefaultDrawing
         }
         return sorted;
     }
-
+    
     @Override
     public Figure findFigure(Point2D.Double p) {
         for (Figure f : getFiguresFrontToBack()) {
@@ -120,7 +125,7 @@ public class DefaultDrawing
         }
         return null;
     }
-
+    
     @Override
     public Figure findFigureExcept(Point2D.Double p, Figure ignore) {
         for (Figure f : getFiguresFrontToBack()) {
@@ -130,7 +135,7 @@ public class DefaultDrawing
         }
         return null;
     }
-
+    
     @Override
     public Figure findFigureBehind(Point2D.Double p, Figure figure) {
         boolean isBehind = false;
@@ -145,7 +150,7 @@ public class DefaultDrawing
         }
         return null;
     }
-
+    
     @Override
     public Figure findFigureBehind(Point2D.Double p, Collection<? extends Figure> children) {
         int inFrontOf = children.size();
@@ -162,7 +167,7 @@ public class DefaultDrawing
         }
         return null;
     }
-
+    
     @Override
     public Figure findFigureExcept(Point2D.Double p, Collection<? extends Figure> ignore) {
         for (Figure f : getFiguresFrontToBack()) {
@@ -172,7 +177,7 @@ public class DefaultDrawing
         }
         return null;
     }
-
+    
     @Override
     public List<Figure> findFigures(Rectangle2D.Double bounds) {
         List<Figure> intersection = new LinkedList<>();
@@ -183,7 +188,7 @@ public class DefaultDrawing
         }
         return intersection;
     }
-
+    
     @Override
     public List<Figure> findFiguresWithin(Rectangle2D.Double bounds) {
         List<Figure> contained = new LinkedList<>();
@@ -199,7 +204,7 @@ public class DefaultDrawing
         }
         return contained;
     }
-
+    
     @Override
     public Figure findFigureInside(Point2D.Double p) {
         Figure f = findFigure(p);
@@ -210,6 +215,7 @@ public class DefaultDrawing
      * Returns an iterator to iterate in Z-order front to back over the
      * children.
      */
+    
     @Override
     public List<Figure> getFiguresFrontToBack() {
         ensureSorted();
@@ -233,25 +239,25 @@ public class DefaultDrawing
             needsSorting = false;
         }
     }
-
+    
     @Override
     protected <T> void setAttributeOnChildren(AttributeKey<T> key, T newValue) {
         // empty
     }
-
+    
     @Override
     public int indexOf(Figure figure) {
         return children.indexOf(figure);
     }
-
+    
     @Override
     protected void drawFill(Graphics2D g) {
     }
-
+    
     @Override
     protected void drawStroke(Graphics2D g) {
     }
-
+    
     @Override
     public void drawCanvas(Graphics2D g) {
         if (get(CANVAS_WIDTH) != null && get(CANVAS_HEIGHT) != null) {
