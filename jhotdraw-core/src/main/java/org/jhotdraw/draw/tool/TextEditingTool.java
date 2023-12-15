@@ -7,7 +7,6 @@
  */
 package org.jhotdraw.draw.tool;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.event.*;
@@ -54,12 +53,10 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint("TT - TextEditingTool")
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
     }
 
-    @FeatureEntryPoint("TT - TextEditingTool")
     @Override
     public void deactivate(DrawingEditor editor) {
         endEdit();
@@ -69,7 +66,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     /**
      * If the pressed figure is a TextHolderFigure it can be edited.
      */
-    @FeatureEntryPoint("TT - mousePressed - TextEditingTool")
     @Override
     public void mousePressed(MouseEvent e) {
         if (typingTarget != null) {
@@ -78,7 +74,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         }
     }
 
-    @FeatureEntryPoint("TT - beginEdit - TextEditingTool")
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textField == null) {
             textField = new FloatingTextField();
@@ -92,12 +87,10 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         typingTarget = textHolder;
     }
 
-    @FeatureEntryPoint("TT - mouseReleased - TextEditingTool")
     @Override
     public void mouseReleased(MouseEvent evt) {
     }
 
-    @FeatureEntryPoint("TT - endEdit -TextEditingTool")
     protected void endEdit() {
         if (typingTarget != null) {
             typingTarget.willChange();
@@ -142,7 +135,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         //         view().checkDamage();
     }
 
-    @FeatureEntryPoint("TT - keyReleased - TextEditingTool")
     @Override
     public void keyReleased(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -150,19 +142,16 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         }
     }
 
-    @FeatureEntryPoint("TT - actionPerformed - TextEditingTool")
     @Override
     public void actionPerformed(ActionEvent event) {
         endEdit();
         fireToolDone();
     }
 
-    @FeatureEntryPoint("TT - isEditing - TextEditingTool")
     public boolean isEditing() {
         return typingTarget != null;
     }
 
-    @FeatureEntryPoint("TT - updateCursor - TextEditingTool")
     @Override
     public void updateCursor(DrawingView view, Point p) {
         if (view.isEnabled()) {
@@ -172,7 +161,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         }
     }
 
-    @FeatureEntryPoint("TT - mouseDragged - TextEditingTool")
     @Override
     public void mouseDragged(MouseEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");

@@ -7,7 +7,6 @@
  */
 package org.jhotdraw.draw.tool;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
@@ -66,7 +65,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint("TT - TextCreationTool")
     public TextCreationTool(TextHolderFigure prototype) {
         super(prototype);
     }
@@ -74,12 +72,10 @@ public class TextCreationTool extends CreationTool implements ActionListener {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint("TT - TextCreationTool")
     public TextCreationTool(TextHolderFigure prototype, Map<AttributeKey<?>, Object> attributes) {
         super(prototype, attributes);
     }
 
-    @FeatureEntryPoint("TT - deactivate - TextCreationTool")
     @Override
     public void deactivate(DrawingEditor editor) {
         endEdit();
@@ -89,7 +85,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
     /**
      * Creates a new figure at the location where the mouse was pressed.
      */
-    @FeatureEntryPoint("TT - mousePressed - TextCreationTool")
     @Override
     public void mousePressed(MouseEvent e) {
         // Note: The search sequence used here, must be
@@ -116,7 +111,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
     public void mouseDragged(java.awt.event.MouseEvent e) {
     }
 
-    @FeatureEntryPoint("TT - beginEdit - TextCreationTool")
     protected void beginEdit(TextHolderFigure textHolder) {
         if (textField == null) {
             textField = new FloatingTextField();
@@ -134,7 +128,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
     public void mouseReleased(MouseEvent evt) {
     }
 
-    @FeatureEntryPoint("TT - endEdit - TextCreationTool")
     protected void endEdit() {
         if (typingTarget != null) {
             typingTarget.willChange();
@@ -192,7 +185,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
         }
     }
 
-    @FeatureEntryPoint("TT - actionPerformed - TextCreationTool")
     @Override
     public void actionPerformed(ActionEvent event) {
         endEdit();
@@ -211,7 +203,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
         return typingTarget != null;
     }
 
-    @FeatureEntryPoint("Text tool - updateCursor - TextCreationTool")
     @Override
     public void updateCursor(DrawingView view, Point p) {
         if (view.isEnabled()) {
