@@ -113,6 +113,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
     protected KeyStroke rightKey;
     private static String FOCUSED_COMP_INDEX = "JToolBar.focusedCompIndex";
 
+    @FeatureEntryPoint("TP - createDockingListener - PaletteToolBarUI")
     public static ComponentUI createUI(JComponent c) {
         return new PaletteToolBarUI();
     }
@@ -1057,8 +1058,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
         Point origin = null;
         boolean isArmed = false;
 
-        @FeatureEntryPoint("drag-drop-pressed")
-
+        @FeatureEntryPoint("TP - mousePressed - PaletteToolBar")
         @Override
         public void mousePressed(MouseEvent evt) {
             if (!tb.isEnabled()) {
@@ -1094,7 +1094,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
             isDragging = false;
         }
 
-        @FeatureEntryPoint("drag-drop-dragged")
+        @FeatureEntryPoint("TP - mouseDragged - PaletteToolBar")
 
         @Override
         public void mouseDragged(MouseEvent evt) {
@@ -1263,6 +1263,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
             getHandler().tb = t;
         }
 
+        @FeatureEntryPoint("TP - mouseClicked - PaletteToolBar")
         @Override
         public void mouseClicked(MouseEvent e) {
             getHandler().mouseClicked(e);
@@ -1275,8 +1276,7 @@ public class PaletteToolBarUI extends ToolBarUI implements SwingConstants {
             isDragging = getHandler().isDragging;
         }
 
-        @FeatureEntryPoint("drag-drop-released")
-
+        @FeatureEntryPoint("TP - mouseReleased - PaletteToolBar")
         @Override
         public void mouseReleased(MouseEvent e) {
             getHandler().tb = toolBar;

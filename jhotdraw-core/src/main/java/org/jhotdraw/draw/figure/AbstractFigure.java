@@ -60,7 +60,7 @@ public abstract class AbstractFigure
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "AbstractFigure")
+    @FeatureEntryPoint(value = "RT - AbstractFigure")
     public AbstractFigure() {
     }
 

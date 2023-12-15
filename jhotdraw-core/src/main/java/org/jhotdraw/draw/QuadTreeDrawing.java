@@ -249,7 +249,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
         return contained;
     }
 
-    @FeatureEntryPoint("Arrange - QuadTreeDrawing - bringToFront")
+    @FeatureEntryPoint("A - bringToFront - QuadTreeDrawing")
     @Override
     public void bringToFront(Figure figure) {
         if (children.remove(figure)) {
@@ -259,7 +259,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
         }
     }
 
-    @FeatureEntryPoint("Arrange - QuadTreeDrawing - sendToBack")
+    @FeatureEntryPoint("A - sendToBack - QuadTreeDrawing")
     @Override
     public void sendToBack(Figure figure) {
         if (children.remove(figure)) {
