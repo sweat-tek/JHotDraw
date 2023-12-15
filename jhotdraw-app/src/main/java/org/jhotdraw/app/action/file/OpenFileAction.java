@@ -29,6 +29,8 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.action.AbstractApplicationAction;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
@@ -82,6 +84,7 @@ public class OpenFileAction extends AbstractApplicationAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("IMG - OpenFileAction - Constructor")
     public OpenFileAction(Application app) {
         super(app);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
@@ -93,6 +96,7 @@ public class OpenFileAction extends AbstractApplicationAction {
         return getApplication().getOpenChooser(null);
     }
 
+    @FeatureEntryPoint("IMG - OpenFileAction - actionPerformed")
     @Override
     public void actionPerformed(ActionEvent evt) {
         final Application app = getApplication();
@@ -143,6 +147,7 @@ public class OpenFileAction extends AbstractApplicationAction {
         }
     }
 
+    @FeatureEntryPoint("IMG - OpenFileAction - openViewFromURI")
     protected void openViewFromURI(final View view, final URI uri, final URIChooser chooser) {
         final Application app = getApplication();
         app.setEnabled(true);
@@ -217,6 +222,7 @@ public class OpenFileAction extends AbstractApplicationAction {
      * We implement JFileChooser.showDialog by ourselves, so that we can center
      * dialogs properly on screen on Mac OS X.
      */
+    @FeatureEntryPoint("IMG - OpenFileAction - showDialog")
     public int showDialog(URIChooser chooser, Component parent) {
         final Component finalParent = parent;
         final int[] returnValue = new int[1];
@@ -252,6 +258,7 @@ public class OpenFileAction extends AbstractApplicationAction {
      * We implement JFileChooser.showDialog by ourselves, so that we can center
      * dialogs properly on screen on Mac OS X.
      */
+    @FeatureEntryPoint("IMG - OpenFileAction - createDialog")
     protected JDialog createDialog(URIChooser chooser, Component parent) throws HeadlessException {
         String title = chooser.getDialogTitle();
         if (chooser instanceof JFileChooser) {
