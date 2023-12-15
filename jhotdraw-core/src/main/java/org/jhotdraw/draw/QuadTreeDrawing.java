@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.AbstractCompositeFigure;
 import java.awt.*;
@@ -248,6 +249,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
         return contained;
     }
 
+    @FeatureEntryPoint("QuadTreeDrawing - bringToFront")
     @Override
     public void bringToFront(Figure figure) {
         if (children.remove(figure)) {
@@ -257,6 +259,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
         }
     }
 
+    @FeatureEntryPoint("QuadTreeDrawing - sendToBack")
     @Override
     public void sendToBack(Figure figure) {
         if (children.remove(figure)) {
