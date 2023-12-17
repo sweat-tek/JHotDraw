@@ -12,8 +12,6 @@ import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
  * Aligns the selected figures based on the specified alignment type.
- *
- * Refactored to use an enumeration for alignment types, improving maintainability.
  */
 public class AlignAction extends AbstractSelectedAction {
     private static final long serialVersionUID = 1L;
@@ -58,39 +56,54 @@ public class AlignAction extends AbstractSelectedAction {
     }
 
     protected void alignFigures(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
+        for (Figure figure : selectedFigures) {
+            Point2D.Double delta = calculateAlignmentDelta(figure, selectionBounds);
+            AffineTransform translateTransform = new AffineTransform(1, 0, 0, 1, delta.x, delta.y);
+            transformFigure(figure, translateTransform);
+        }
+    }
+
+    private Point2D.Double calculateAlignmentDelta(Figure figure, Rectangle2D.Double selectionBounds) {
+        Rectangle2D.Double figureBounds = figure.getBounds();
+        double deltaX = 0;
+        double deltaY = 0;
+
         switch (alignmentType) {
             case NORTH:
-                alignNorth(selectedFigures, selectionBounds);
+                deltaY = selectionBounds.y - figureBounds.y;
                 break;
             case EAST:
-                alignEast(selectedFigures, selectionBounds);
+                deltaX = selectionBounds.getMaxX() - figureBounds.getMaxX();
                 break;
             case WEST:
-                alignWest(selectedFigures, selectionBounds);
+                deltaX = selectionBounds.getMinX() - figureBounds.x;
                 break;
             case SOUTH:
-                alignSouth(selectedFigures, selectionBounds);
+                deltaY = selectionBounds.getMaxY() - figureBounds.getMaxY();
                 break;
             case VERTICAL:
-                alignVertical(selectedFigures, selectionBounds);
+                deltaY = selectionBounds.getCenterY() - figureBounds.getCenterY();
                 break;
             case HORIZONTAL:
-                alignHorizontal(selectedFigures, selectionBounds);
+                deltaX = selectionBounds.getCenterX() - figureBounds.getCenterX();
                 break;
         }
+        return new Point2D.Double(deltaX, deltaY);
     }
 
     protected Rectangle2D.Double getSelectionBounds() {
-        Rectangle2D.Double bounds = null;
+        Rectangle2D.Double bounds = new Rectangle2D.Double();
+        boolean isFirst = true;
+
         for (Figure figure : getView().getSelectedFigures()) {
-            bounds = bounds == null ? figure.getBounds() : unionBounds(bounds, figure.getBounds());
+            if (isFirst) {
+                bounds.setRect(figure.getBounds());
+                isFirst = false;
+            } else {
+                bounds.add(figure.getBounds());
+            }
         }
         return bounds;
-    }
-
-    private Rectangle2D.Double unionBounds(Rectangle2D.Double existingBounds, Rectangle2D.Double newBounds) {
-        existingBounds.add(newBounds);
-        return existingBounds;
     }
 
     protected void transformFigure(Figure figure, AffineTransform transform) {
@@ -99,64 +112,6 @@ public class AlignAction extends AbstractSelectedAction {
             figure.transform(transform);
             figure.changed();
             fireUndoableEditHappened(new TransformEdit(figure, transform));
-        }
-    }
-
-    protected AffineTransform createTranslateTransform(double deltaX, double deltaY) {
-        return new AffineTransform(1, 0, 0, 1, deltaX, deltaY);
-    }
-
-    private void alignNorth(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double topY = selectionBounds.y;
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(0, topY - figureBounds.y);
-            transformFigure(figure, translateTransform);
-        }
-    }
-
-    private void alignEast(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double rightX = selectionBounds.x + selectionBounds.width;
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(rightX - figureBounds.x - figureBounds.width, 0);
-            transformFigure(figure, translateTransform);
-        }
-    }
-
-    private void alignWest(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double leftX = selectionBounds.x;
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(leftX - figureBounds.x, 0);
-            transformFigure(figure, translateTransform);
-        }
-    }
-
-    private void alignSouth(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double bottomY = selectionBounds.y + selectionBounds.height;
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(0, bottomY - figureBounds.y - figureBounds.height);
-            transformFigure(figure, translateTransform);
-        }
-    }
-
-    private void alignVertical(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double centerY = selectionBounds.y + (selectionBounds.height / 2);
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(0, centerY - figureBounds.y - (figureBounds.height / 2));
-            transformFigure(figure, translateTransform);
-        }
-    }
-
-    private void alignHorizontal(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
-        double centerX = selectionBounds.x + (selectionBounds.width / 2);
-        for (Figure figure : selectedFigures) {
-            Rectangle2D.Double figureBounds = figure.getBounds();
-            AffineTransform translateTransform = createTranslateTransform(centerX - figureBounds.x - (figureBounds.width / 2), 0);
-            transformFigure(figure, translateTransform);
         }
     }
 }
