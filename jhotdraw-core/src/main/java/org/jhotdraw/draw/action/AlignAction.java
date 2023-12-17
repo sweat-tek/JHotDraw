@@ -55,16 +55,15 @@ public class AlignAction extends AbstractSelectedAction {
         fireUndoableEditHappened(compositeEdit);
     }
 
-    protected void alignFigures(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
+    private void alignFigures(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds) {
         for (Figure figure : selectedFigures) {
-            Point2D.Double delta = calculateAlignmentDelta(figure, selectionBounds);
+            Point2D.Double delta = calculateAlignmentDelta(figure.getBounds(), selectionBounds);
             AffineTransform translateTransform = new AffineTransform(1, 0, 0, 1, delta.x, delta.y);
             transformFigure(figure, translateTransform);
         }
     }
 
-    private Point2D.Double calculateAlignmentDelta(Figure figure, Rectangle2D.Double selectionBounds) {
-        Rectangle2D.Double figureBounds = figure.getBounds();
+    private Point2D.Double calculateAlignmentDelta(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds) {
         double deltaX = 0;
         double deltaY = 0;
 
