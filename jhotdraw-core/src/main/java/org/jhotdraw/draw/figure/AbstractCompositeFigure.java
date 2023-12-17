@@ -270,7 +270,6 @@ public abstract class AbstractCompositeFigure
      *
      * @param figure that is part of this composite figure
      */
-    @FeatureEntryPoint("A - sendToBack - SendToBack")
     public void sendToBack(Figure figure) {
         if (basicRemove(figure) != -1) {
             basicAdd(0, figure);
@@ -283,7 +282,6 @@ public abstract class AbstractCompositeFigure
      *
      * @param figure that is part of the drawing
      */
-    @FeatureEntryPoint("A - bringToFront - BringToFront")
     public void bringToFront(Figure figure) {
         if (basicRemove(figure) != -1) {
             basicAdd(figure);
