@@ -31,12 +31,13 @@ public class JDisclosureToolBar extends JToolBar {
     /**
      * Creates new form.
      */
+    @FeatureEntryPoint("tool palette - tools display")
     public JDisclosureToolBar() {
         setUI(PaletteToolBarUI.createUI(this));
         initComponents();
     }
 
-    @FeatureEntryPoint("TP - initComponents - JDisclosureToolBar")
+
     private void initComponents() {
         GridBagConstraints gbc;
         AbstractButton btn;
