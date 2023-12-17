@@ -84,7 +84,7 @@ public class OpenFileAction extends AbstractApplicationAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint("IMG - OpenFileAction - Constructor")
+    @FeatureEntryPoint("OVF")
     public OpenFileAction(Application app) {
         super(app);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
@@ -96,7 +96,7 @@ public class OpenFileAction extends AbstractApplicationAction {
         return getApplication().getOpenChooser(null);
     }
 
-    @FeatureEntryPoint("IMG - OpenFileAction - actionPerformed")
+    @FeatureEntryPoint("OVF")
     @Override
     public void actionPerformed(ActionEvent evt) {
         final Application app = getApplication();
@@ -147,7 +147,7 @@ public class OpenFileAction extends AbstractApplicationAction {
         }
     }
 
-    @FeatureEntryPoint("IMG - OpenFileAction - openViewFromURI")
+    @FeatureEntryPoint("OVF")
     protected void openViewFromURI(final View view, final URI uri, final URIChooser chooser) {
         final Application app = getApplication();
         app.setEnabled(true);
@@ -222,7 +222,7 @@ public class OpenFileAction extends AbstractApplicationAction {
      * We implement JFileChooser.showDialog by ourselves, so that we can center
      * dialogs properly on screen on Mac OS X.
      */
-    @FeatureEntryPoint("IMG - OpenFileAction - showDialog")
+    @FeatureEntryPoint("OVF")
     public int showDialog(URIChooser chooser, Component parent) {
         final Component finalParent = parent;
         final int[] returnValue = new int[1];
@@ -258,7 +258,7 @@ public class OpenFileAction extends AbstractApplicationAction {
      * We implement JFileChooser.showDialog by ourselves, so that we can center
      * dialogs properly on screen on Mac OS X.
      */
-    @FeatureEntryPoint("IMG - OpenFileAction - createDialog")
+    @FeatureEntryPoint("OVF")
     protected JDialog createDialog(URIChooser chooser, Component parent) throws HeadlessException {
         String title = chooser.getDialogTitle();
         if (chooser instanceof JFileChooser) {
