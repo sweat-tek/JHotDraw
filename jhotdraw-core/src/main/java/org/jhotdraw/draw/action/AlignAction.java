@@ -63,7 +63,7 @@ public class AlignAction extends AbstractSelectedAction {
         }
     }
 
-    private Point2D.Double calculateAlignmentDelta(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds) {
+    Point2D.Double calculateAlignmentDelta(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds) {
         double deltaX = 0;
         double deltaY = 0;
 
