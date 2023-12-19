@@ -18,10 +18,7 @@ import static org.jhotdraw.draw.AttributeKeys.STROKE_CAP;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_JOIN;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_MITER_LIMIT;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.ResizeHandleKit;
-import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
@@ -321,23 +318,21 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     @Override
     @FeatureEntryPoint(value = "Edit a rectangle")
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<>();
+        HandleCreator handleCreator;
         switch (detailLevel % 2) {
             case -1: // Mouse hover handles
-                handles.add(new BoundsOutlineHandle(this, false, true));
+                handleCreator = new MouseHoverHandleCreator();
                 break;
             case 0:
-                ResizeHandleKit.addResizeHandles(this, handles);
-                handles.add(new SVGRectRadiusHandle(this));
-                handles.add(new LinkHandle(this));
+                handleCreator = new ZeroDetailLevelHandleCreator();
                 break;
             case 1:
-                TransformHandleKit.addTransformHandles(this, handles);
+                handleCreator = new OneDetailLevelHandleCreator();
                 break;
             default:
-                break;
+                throw new UnsupportedOperationException("Unsupported detail level");
         }
-        return handles;
+        return handleCreator.createHandles(this);
     }
 
     // CLONING
