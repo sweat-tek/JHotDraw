@@ -7,26 +7,9 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.figure.TextHolderFigure;
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import java.text.*;
-import java.util.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.FONT_SIZE;
-import static org.jhotdraw.draw.AttributeKeys.FONT_UNDERLINE;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.STROKE_WIDTH;
-import static org.jhotdraw.draw.AttributeKeys.TEXT;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
-import org.jhotdraw.draw.handle.FontSizeHandle;
-import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.ResizeHandleKit;
-import org.jhotdraw.draw.handle.TextOverflowHandle;
-import org.jhotdraw.draw.handle.TransformHandleKit;
+import org.jhotdraw.draw.handle.*;
 import org.jhotdraw.draw.tool.TextAreaEditingTool;
 import org.jhotdraw.draw.tool.Tool;
 import org.jhotdraw.geom.Dimension2DDouble;
@@ -34,7 +17,22 @@ import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.Insets2D;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
+import java.awt.*;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
+import java.awt.geom.*;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.text.CharacterIterator;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.*;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGTextArea.
@@ -126,77 +124,84 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     }
 
     private Shape getTextShape() {
-        if (cachedTextShape == null) {
-            Path2D.Double shape;
-            cachedTextShape = shape = new Path2D.Double();
-            if (getText() != null || isEditable()) {
-                Font font = getFont();
-                boolean isUnderlined = get(FONT_UNDERLINE);
-                Insets2D.Double insets = getInsets();
-                Rectangle2D.Double textRect = new Rectangle2D.Double(
-                        bounds.x + insets.left,
-                        bounds.y + insets.top,
-                        bounds.width - insets.left - insets.right,
-                        bounds.height - insets.top - insets.bottom);
-                float leftMargin = (float) textRect.x;
-                float rightMargin = (float) Math.max(leftMargin + 1, textRect.x + textRect.width);
-                float verticalPos = (float) textRect.y;
-                float maxVerticalPos = (float) (textRect.y + textRect.height);
-                if (leftMargin < rightMargin) {
-                    float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                    float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                    for (int i = 0; i < tabStops.length; i++) {
-                        tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                    }
-                    if (getText() != null) {
-                        String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
-                        for (int i = 0; i < paragraphs.length; i++) {
-                            if (paragraphs[i].length() == 0) {
-                                paragraphs[i] = " ";
-                            }
-                            AttributedString as = new AttributedString(paragraphs[i]);
-                            as.addAttribute(TextAttribute.FONT, font);
-                            if (isUnderlined) {
-                                as.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_ONE_PIXEL);
-                            }
-                            int tabCount = paragraphs[i].split("\t").length - 1;
-                            Rectangle2D.Double paragraphBounds = appendParagraph(
-                                    shape, as.getIterator(),
-                                    verticalPos, maxVerticalPos, leftMargin, rightMargin, tabStops, tabCount);
-                            verticalPos = (float) (paragraphBounds.y + paragraphBounds.height);
-                            if (verticalPos > textRect.y + textRect.height) {
-                                break;
-                            }
-                        }
-                    }
-                }
+        if (cachedTextShape != null) {
+            return cachedTextShape;
+        }
+        cachedTextShape = new Path2D.Double();
+        if (getText() == null) {
+            return cachedTextShape;
+        }
+        Rectangle2D.Double textRect = getTextRect();
+        float leftMargin = (float) textRect.x;
+        float rightMargin = (float) Math.max(leftMargin + 1, textRect.x + textRect.width);
+        float verticalPos = (float) textRect.y;
+        float maxVerticalPos = (float) (textRect.y + textRect.height);
+        Font font = getFont();
+        boolean isUnderlined = get(FONT_UNDERLINE);
+        float[] tabStops = getTabStops(textRect);
+        String[] paragraphs = getText().split("\n");
+        for (int i = 0; i < paragraphs.length; i++) {
+            if (paragraphs[i].isEmpty()) {
+                paragraphs[i] = " ";
+            }
+            AttributedString as = new AttributedString(paragraphs[i]);
+            as.addAttribute(TextAttribute.FONT, font);
+            if (isUnderlined) {
+                as.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_ONE_PIXEL);
+            }
+            int tabCount = paragraphs[i].split("\t").length - 1;
+            Path2D.Double shape = (Path2D.Double) cachedTextShape;
+            Rectangle2D.Double paragraphBounds = appendParagraph(
+                    shape, as.getIterator(),
+                    verticalPos, maxVerticalPos, leftMargin, rightMargin, tabStops, tabCount);
+            verticalPos = (float) (paragraphBounds.y + paragraphBounds.height);
+            if (verticalPos > textRect.y + textRect.height) {
+                break;
             }
         }
         return cachedTextShape;
+    }
+
+    private Rectangle2D.Double getTextRect() {
+        Insets2D.Double insets = getInsets();
+        return new Rectangle2D.Double(
+                bounds.x + insets.left,
+                bounds.y + insets.top,
+                bounds.width - insets.left - insets.right,
+                bounds.height - insets.top - insets.bottom);
+    }
+
+    private float[] getTabStops(Rectangle2D.Double textRect) {
+        Font font = getFont();
+        float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
+        float[] tabStops = new float[(int) (textRect.width / tabWidth)];
+        for (int i = 0; i < tabStops.length; i++) {
+            tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
+        }
+        return tabStops;
     }
 
     /**
      * Appends a paragraph of text at the specified y location and returns
      * the bounds of the paragraph.
      *
-     *
-     * @param shape Shape to which to add the glyphs of the paragraph. This
-     * parameter is null, if we only want to measure the size of the paragraph.
-     * @param styledText the text of the paragraph.
-     * @param verticalPos the top bound of the paragraph
+     * @param shape          Shape to which to add the glyphs of the paragraph. This
+     *                       parameter is null, if we only want to measure the size of the paragraph.
+     * @param styledText     the text of the paragraph.
+     * @param verticalPos    the top bound of the paragraph
      * @param maxVerticalPos the bottom bound of the paragraph
-     * @param leftMargin the left bound of the paragraph
-     * @param rightMargin the right bound of the paragraph
-     * @param tabStops an array with tab stops
-     * @param tabCount the number of entries in tabStops which contain actual
-     * values
+     * @param leftMargin     the left bound of the paragraph
+     * @param rightMargin    the right bound of the paragraph
+     * @param tabStops       an array with tab stops
+     * @param tabCount       the number of entries in tabStops which contain actual
+     *                       values
      * @return Returns the actual bounds of the paragraph.
      */
     private Rectangle2D.Double appendParagraph(Path2D.Double shape,
-            AttributedCharacterIterator styledText,
-            float verticalPos, float maxVerticalPos,
-            float leftMargin, float rightMargin,
-            float[] tabStops, int tabCount) {
+                                               AttributedCharacterIterator styledText,
+                                               float verticalPos, float maxVerticalPos,
+                                               float leftMargin, float rightMargin,
+                                               float[] tabStops, int tabCount) {
         // assume styledText is an AttributedCharacterIterator, and the number
         // of tabs in styledText is tabCount
         Rectangle2D.Double paragraphBounds = new Rectangle2D.Double(leftMargin, verticalPos, 0, 0);
@@ -232,8 +237,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
                 TextLayout layout = null;
                 layout
                         = measurer.nextLayout(wrappingWidth,
-                                tabLocations[currentTab] + 1,
-                                lineContainsText);
+                        tabLocations[currentTab] + 1,
+                        lineContainsText);
                 // layout can be null if lineContainsText is true
                 if (layout != null) {
                     layouts.add(layout);
@@ -351,10 +356,10 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
-            bounds.clone(),
-            TRANSFORM.getClone(this),
-            FILL_GRADIENT.getClone(this),
-            STROKE_GRADIENT.getClone(this)};
+                bounds.clone(),
+                TRANSFORM.getClone(this),
+                FILL_GRADIENT.getClone(this),
+                STROKE_GRADIENT.getClone(this)};
     }
 // ATTRIBUTES
 
@@ -550,7 +555,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
      * you need to add the insets of the TextAreaFigure to the size.
      *
      * @param maxWidth the maximal width to use. Specify Double.MAX_VALUE
-     * if you want the width to be unlimited.
+     *                 if you want the width to be unlimited.
      * @return width and height needed to lay out the text.
      */
     public Dimension2DDouble getPreferredTextSize(double maxWidth) {
@@ -563,11 +568,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
             float verticalPos = 0;
             float maxVerticalPos = Float.MAX_VALUE;
             if (leftMargin < rightMargin) {
-                float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                for (int i = 0; i < tabStops.length; i++) {
-                    tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                }
+                float[] tabStops = getTabStops(textRect);
                 if (getText() != null) {
                     String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
                     for (int i = 0; i < paragraphs.length; i++) {
