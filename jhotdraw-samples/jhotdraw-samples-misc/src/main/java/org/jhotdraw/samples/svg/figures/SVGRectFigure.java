@@ -38,14 +38,6 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     private static final long serialVersionUID = 1L;
     /**
-     * Identifies the {@code arcWidth} JavaBeans property.
-     */
-    public static final String ARC_WIDTH_PROPERTY = "arcWidth";
-    /**
-     * Identifies the {@code arcHeight} JavaBeans property.
-     */
-    public static final String ARC_HEIGHT_PROPERTY = "arcHeight";
-    /**
      * The variable acv is used for generating the locations of the control
      * points for the rounded rectangle using path.curveTo.
      */
@@ -169,7 +161,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public void setArcWidth(double newValue) {
         double oldValue = roundrect.arcwidth;
         roundrect.arcwidth = newValue;
-        firePropertyChange(ARC_WIDTH_PROPERTY, oldValue, newValue);
+        firePropertyChange(PROPERTY.ARC_WIDTH.getName(), oldValue, newValue);
     }
 
     /**
@@ -178,7 +170,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public void setArcHeight(double newValue) {
         double oldValue = roundrect.archeight;
         roundrect.archeight = newValue;
-        firePropertyChange(ARC_HEIGHT_PROPERTY, oldValue, newValue);
+        firePropertyChange(PROPERTY.ARC_HEIGHT.getName(), oldValue, newValue);
     }
 
     /**
@@ -276,7 +268,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
         if (get(TRANSFORM) != null
-                || //              (tx.getType() & (AffineTransform.TYPE_TRANSLATION | AffineTransform.TYPE_MASK_SCALE)) != tx.getType()) {
+                ||
                 (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
             if (get(TRANSFORM) == null) {
                 set(TRANSFORM, (AffineTransform) tx.clone());
@@ -329,7 +321,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     @Override
     @FeatureEntryPoint(value = "Edit a rectangle")
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
+        LinkedList<Handle> handles = new LinkedList<>();
         switch (detailLevel % 2) {
             case -1: // Mouse hover handles
                 handles.add(new BoundsOutlineHandle(this, false, true));
