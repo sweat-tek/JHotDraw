@@ -12,6 +12,7 @@ public class GivenAnExistingRectangleTest extends ScenarioTest<GivenAnExistingRe
     public void testScenario(){
         given().givenAnExistingRectangle();
         when().whenUserSelectsRectangleCorner();
+        when().whenMouseIsMoved();
         then().thenResize();
 
     }

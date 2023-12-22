@@ -17,12 +17,11 @@ public class ThenResize extends Stage<ThenResize> {
     private Collection<Handle> handles;
     public ThenResize thenResize(){
         Rectangle2D.Double initialBounds = svgRectFigure.getBounds();
-        // Update the figure to simulate the resize
         svgRectFigure.setBounds(svgRectFigure.getStartPoint(), new Point2D.Double(initialBounds.width + 10, initialBounds.height + 10));
         Rectangle2D.Double actualBounds = svgRectFigure.getBounds();
 
-        assertEquals("Rectangle should have been resized", initialBounds.width + 10, actualBounds.width, 0.01);
-        assertEquals("Rectangle should have been resized", initialBounds.height + 10, actualBounds.height, 0.01);
+        assertEquals("Rectangle is resized", initialBounds.width + 10, actualBounds.width, 0.01);
+        assertEquals("Rectangle is resized", initialBounds.height + 10, actualBounds.height, 0.01);
         return self();
     }
 }

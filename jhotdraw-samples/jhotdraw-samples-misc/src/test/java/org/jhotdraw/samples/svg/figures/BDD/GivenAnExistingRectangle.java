@@ -9,7 +9,7 @@ public class GivenAnExistingRectangle extends Stage<GivenAnExistingRectangle> {
     private SVGRectFigure svgRectFigure;
 
     public GivenAnExistingRectangle givenAnExistingRectangle(){
-        svgRectFigure = new SVGRectFigure(0, 0, 50, 25); // Create or set up an existing rectangle
+        svgRectFigure = new SVGRectFigure(0, 0, 50, 25);
         return self();
     }
 }
