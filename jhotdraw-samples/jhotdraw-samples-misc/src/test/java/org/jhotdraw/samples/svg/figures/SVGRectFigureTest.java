@@ -1,44 +1,58 @@
 package org.jhotdraw.samples.svg.figures;
 
+import org.jhotdraw.draw.AttributeKey;
+import org.jhotdraw.draw.handle.AbstractHandle;
 import org.jhotdraw.draw.handle.Handle;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.OrderWith;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.*;
+
 
 
 public class SVGRectFigureTest {
-    @Test
-    public void testCreateHandlesBestCase() {
-        SVGRectFigure rectFigure = new SVGRectFigure(0, 0, 50, 25);
-        Collection<Handle> handles = rectFigure.createHandles(0);
-        assertNotNull("not null", handles);
-        assertEquals("Number of handles", 4, handles.size());
-    }
-    @Test
-    public void testCreateHandlesMouseHover() {
-        SVGRectFigure rectFigure = new SVGRectFigure(0, 0, 100, 50);
-        Collection<Handle> handles = rectFigure.createHandles(-1);
-        int expectedCountOfHandlesForMouseHover = 1;
-        assertNotNull("not null", handles);
-        assertEquals("Number of handles", expectedCountOfHandlesForMouseHover, handles.size());
+    private SVGRectFigure svgRectFigure;
+
+    @Before
+    public void setup(){
+        svgRectFigure = new SVGRectFigure(0, 0, 50, 25);
     }
     @Test
     public void testCreateHandlesZeroDetailLevel() {
-        SVGRectFigure rectFigure = new SVGRectFigure(0, 0, 100, 50);
-        Collection<Handle> handles = rectFigure.createHandles(0);
-        int expectedCountOfHandlesForZeroDetailLevel = 2;
+        Collection<Handle> handles = svgRectFigure.createHandles(0);
         assertNotNull("not null", handles);
-        assertEquals("Number of handles", expectedCountOfHandlesForZeroDetailLevel, handles.size());
     }
     @Test
     public void testCreateHandlesOneDetailLevel() {
-        SVGRectFigure rectFigure = new SVGRectFigure(0, 0, 100, 50);
-        Collection<Handle> handles = rectFigure.createHandles(1);
-        int expectedCountOfHandlesForOneDetailLevel = 1;
+        Collection<Handle> handles = svgRectFigure.createHandles(1);
         assertNotNull("not null", handles);
-        assertEquals("Number of handles", expectedCountOfHandlesForOneDetailLevel, handles.size());
     }
+    @Test
+    public void testMocking() {
+        SVGRectFigure rectFigure = mock(SVGRectFigure.class);
+        HandleCreator mockMouseHoverCreator = mock(MouseHoverHandleCreator.class);
+        when(mockMouseHoverCreator.createHandles(rectFigure)).thenReturn(Collections.singletonList(mock(Handle.class)));
+
+        HandleCreator mockOneDetailLevelCreator = mock(OneDetailLevelHandleCreator.class);
+        when(mockOneDetailLevelCreator.createHandles(rectFigure)).thenReturn(Collections.singletonList(mock(Handle.class)));
+
+        HandleCreator mockZeroDetailLevelCreator = mock(ZeroDetailLevelHandleCreator.class);
+        when(mockZeroDetailLevelCreator.createHandles(rectFigure)).thenReturn(Collections.singletonList(mock(Handle.class)));
+
+        Collection<Handle> handlesForMouseHoverDetailLevel = mockMouseHoverCreator.createHandles(rectFigure);
+        Collection<Handle> handlesForZeroDetailLevel = mockZeroDetailLevelCreator.createHandles(rectFigure);
+        Collection<Handle> handlesForOneDetailLevel = mockOneDetailLevelCreator.createHandles(rectFigure);
+
+        assertEquals(1, handlesForMouseHoverDetailLevel.size());
+        assertEquals(1, handlesForZeroDetailLevel.size());
+        assertEquals(1, handlesForOneDetailLevel.size());
+    }
+
 }

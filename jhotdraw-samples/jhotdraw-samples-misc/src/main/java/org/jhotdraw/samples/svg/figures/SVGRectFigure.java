@@ -328,8 +328,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
             default:
                 throw new UnsupportedOperationException("Unsupported detail level");
         }
-        Logger logger = Logger.getLogger(getClass().getName());
-        logger.info(String.valueOf(handleCreator.createHandles(this).size()));
+
         return handleCreator.createHandles(this);
     }
 
