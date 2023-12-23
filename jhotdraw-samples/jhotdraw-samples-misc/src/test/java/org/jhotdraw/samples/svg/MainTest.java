@@ -36,12 +36,9 @@ public class MainTest {
     @Test
     @Ignore
     public void testMain() {
-        System.out.println("main");
         String[] args = {};
         Main.main(args);
-
         while (true){
-
         }
     }
 

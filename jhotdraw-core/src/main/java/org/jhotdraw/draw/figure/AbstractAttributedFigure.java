@@ -44,7 +44,7 @@ public abstract class AbstractAttributedFigure extends AbstractFigure implements
     /**
      * Creates a new instance.
      */
-    public AbstractAttributedFigure() {
+    protected AbstractAttributedFigure() {
     }
 
     public void setAttributeEnabled(AttributeKey<?> key, boolean b) {
@@ -232,11 +232,10 @@ public abstract class AbstractAttributedFigure extends AbstractFigure implements
                 String name = in.getTagName();
                 Object value = in.readObject();
                 AttributeKey<?> key = getAttributeKey(name);
-                if (key != null && key.isAssignable(value)) {
-                    if (forbiddenAttributes == null
-                            || !forbiddenAttributes.contains(key)) {
+                if (key != null && key.isAssignable(value) && 
+                        (forbiddenAttributes == null || !forbiddenAttributes.contains(key))) {
                         set((AttributeKey<Object>) key, value);
-                    }
+                    
                 }
                 in.closeElement();
             }
