@@ -30,7 +30,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots  -Dmaven.test.skip=true -s .github/m2_settings/settings.xml verify
+        run: mvn --batch-mode --update-snapshots  -Dmaven.test.skip=false -s .github/m2_settings/settings.xml verify
 
         env:
           GITHUB_USERNAME: ${{ secrets.USER_NAME }}
