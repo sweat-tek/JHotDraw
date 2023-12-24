@@ -26,6 +26,7 @@ public class Main {
     /**
      * Creates a new instance.
      */
+
     public static void main(String[] args) {
         ResourceBundleUtil.setVerbose(true);
         Application app;
