@@ -10,8 +10,6 @@ package org.jhotdraw.samples.svg.figures;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
-import java.util.logging.Logger;
-
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.handle.Handle;
