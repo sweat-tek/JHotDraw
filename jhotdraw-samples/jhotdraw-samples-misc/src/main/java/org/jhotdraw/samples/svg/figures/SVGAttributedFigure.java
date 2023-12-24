@@ -34,7 +34,7 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
     /**
      * Creates a new instance.
      */
-    public SVGAttributedFigure() {
+    protected SVGAttributedFigure() {
     }
 
     @Override
@@ -107,7 +107,7 @@ public abstract class SVGAttributedFigure extends AbstractAttributedFigure {
 
     @Override
     public Collection<Action> getActions(Point2D.Double p) {
-        LinkedList<Action> actions = new LinkedList<Action>();
+        LinkedList<Action> actions = new LinkedList<>();
         if (get(TRANSFORM) != null) {
             ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
             actions.add(new AbstractAction(labels.getString("edit.removeTransform.text")) {
