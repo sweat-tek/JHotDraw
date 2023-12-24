@@ -1,19 +1,14 @@
 package org.jhotdraw.samples.svg.figures;
 
-import org.jhotdraw.draw.AttributeKey;
-import org.jhotdraw.draw.handle.AbstractHandle;
+
 import org.jhotdraw.draw.handle.Handle;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.*;
 
 
 
