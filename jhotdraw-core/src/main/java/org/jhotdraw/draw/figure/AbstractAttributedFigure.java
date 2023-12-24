@@ -205,9 +205,7 @@ public abstract class AbstractAttributedFigure extends AbstractFigure implements
                 Object prototypeValue = prototype.get(key);
                 @SuppressWarnings("unchecked")
                 Object attributeValue = get(key);
-                if (prototypeValue != attributeValue
-                        || (prototypeValue != null && attributeValue != null
-                        && !prototypeValue.equals(attributeValue))) {
+                if (prototypeValue != attributeValue || prototypeValue != null) {
                     if (!isElementOpen) {
                         out.openElement("a");
                         isElementOpen = true;

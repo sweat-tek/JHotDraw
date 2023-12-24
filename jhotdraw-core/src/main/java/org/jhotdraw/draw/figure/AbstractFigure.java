@@ -314,12 +314,6 @@ public abstract class AbstractFigure
             getDrawing().fireUndoableEditHappened(edit);
         }
     }
-
-    /*
-     public Set createHandles() {
-     return new HashSet();
-     }
-     */
     
     @Override
     public AbstractFigure clone() {
@@ -490,11 +484,6 @@ public abstract class AbstractFigure
         return new Point2D.Double(r.x, r.y);
     }
 
-    /*
-     public Rectangle2D.Double getHitBounds() {
-     return getBounds();
-     }
-     */
     @Override
     public Dimension2DDouble getPreferredSize() {
         Rectangle2D.Double r = getBounds();
@@ -584,9 +573,7 @@ public abstract class AbstractFigure
 
     protected FontRenderContext getFontRenderContext() {
         FontRenderContext frc = null;
-        if (frc == null) {
-            frc = new FontRenderContext(new AffineTransform(), true, true);
-        }
+        frc = new FontRenderContext(new AffineTransform(), true, true);
         return frc;
     }
 
