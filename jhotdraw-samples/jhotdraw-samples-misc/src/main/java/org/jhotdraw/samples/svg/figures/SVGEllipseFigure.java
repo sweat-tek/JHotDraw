@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
@@ -41,18 +42,25 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
      * This is used to perform faster hit testing.
      */
     private transient Shape cachedHitShape;
-
+    
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "SVGEllipseFigureNoAttributes")
     public SVGEllipseFigure() {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint(value = "SVGEllipseFigure")
     public SVGEllipseFigure(double x, double y, double width, double height) {
         ellipse = new Ellipse2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
         setConnectable(false);
+    }
+    
+    // Copy Constructor
+    public SVGEllipseFigure(SVGEllipseFigure that) {
+        this.ellipse = new Ellipse2D.Double(that.ellipse.x, that.ellipse.y, that.ellipse.width, that.ellipse.height);
     }
 
     // DRAWING
@@ -233,15 +241,6 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
 
     // CONNECTING
     // COMPOSITE FIGURES
-    // CLONING
-    @Override
-    public SVGEllipseFigure clone() {
-        SVGEllipseFigure that = (SVGEllipseFigure) super.clone();
-        that.ellipse = (Ellipse2D.Double) this.ellipse.clone();
-        that.cachedTransformedShape = null;
-        return that;
-    }
-
     // EVENT HANDLING
     @Override
     public boolean isEmpty() {
