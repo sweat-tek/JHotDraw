@@ -12,6 +12,8 @@ import java.beans.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.undo.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.util.*;
 
 /**
@@ -65,11 +67,11 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
     /**
      * Undo Action for use in a menu bar.
      */
-    private class UndoAction
-            extends AbstractAction {
+    private class UndoAction extends AbstractAction {
 
         private static final long serialVersionUID = 1L;
 
+        @FeatureEntryPoint("Action - Undo action")
         public UndoAction() {
             labels.configureAction(this, "edit.undo");
             setEnabled(false);
@@ -92,11 +94,11 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
     /**
      * Redo Action for use in a menu bar.
      */
-    private class RedoAction
-            extends AbstractAction {
+    private class RedoAction extends AbstractAction {
 
         private static final long serialVersionUID = 1L;
 
+        @FeatureEntryPoint("Action - Redo action")
         public RedoAction() {
             labels.configureAction(this, "edit.redo");
             setEnabled(false);
@@ -114,6 +116,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
             }
         }
     }
+
     /**
      * The undo action instance.
      */
@@ -181,7 +184,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * Regardless of inProgress, if undoOrRedoInProgress,
      * calls die on each edit that is sent.</p>
      *
-     *
      * @see CompoundEdit#end
      * @see CompoundEdit#addEdit
      */
@@ -223,9 +225,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
     private void updateActions() {
         String label;
         if (DEBUG) {
-            System.out.println("UndoRedoManager@" + hashCode() + ".updateActions "
-                    + editToBeUndone()
-                    + " canUndo=" + canUndo() + " canRedo=" + canRedo());
+            System.out.println("UndoRedoManager@" + hashCode() + ".updateActions " + editToBeUndone() + " canUndo=" + canUndo() + " canRedo=" + canRedo());
         }
         if (canUndo()) {
             undoAction.setEnabled(true);
@@ -253,8 +253,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo is in progress.
      */
     @Override
-    public void undo()
-            throws CannotUndoException {
+    public void undo() throws CannotUndoException {
         undoOrRedoInProgress = true;
         try {
             super.undo();
@@ -270,8 +269,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while redo is in progress.
      */
     @Override
-    public void redo()
-            throws CannotUndoException {
+    public void redo() throws CannotUndoException {
         undoOrRedoInProgress = true;
         try {
             super.redo();
@@ -287,8 +285,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo or redo is in progress.
      */
     @Override
-    public void undoOrRedo()
-            throws CannotUndoException, CannotRedoException {
+    public void undoOrRedo() throws CannotUndoException, CannotRedoException {
         undoOrRedoInProgress = true;
         try {
             super.undoOrRedo();
