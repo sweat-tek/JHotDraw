@@ -51,7 +51,7 @@ public class FontToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
-    @FeatureEntryPoint("Text Toolbar - Font Toolbar")
+    @FeatureEntryPoint("Font - Font Toolbar")
     public FontToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("font.toolbar"));
@@ -60,7 +60,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
-    @FeatureEntryPoint("Text Toolbar - Font Toolbar")
+    @FeatureEntryPoint("Font - Font Toolbar")
     public void setEditor(DrawingEditor newValue) {
         if (displayer != null) {
             displayer.dispose();
@@ -107,7 +107,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
-    @FeatureEntryPoint("Text Toolbar - Font Toolbar")
+    @FeatureEntryPoint("Font - Font Toolbar")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {

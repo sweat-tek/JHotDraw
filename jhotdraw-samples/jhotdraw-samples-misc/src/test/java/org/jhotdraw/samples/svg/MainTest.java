@@ -37,7 +37,7 @@ public class MainTest {
 
         // Timeout for 2 mintues
         try {
-            Thread.sleep(120000);
+            Thread.sleep(180000);
         } catch (InterruptedException ex) {
             // Ignore
         }

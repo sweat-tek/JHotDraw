@@ -7,8 +7,6 @@
  */
 package org.jhotdraw.gui.fontchooser;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-
 import java.text.Collator;
 import java.util.*;
 import javax.swing.tree.MutableTreeNode;
