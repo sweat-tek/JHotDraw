@@ -15,6 +15,7 @@ import javax.swing.undo.*;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.util.*;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 
 /**
  * Same as javax.swing.UndoManager but provides actions for undo and

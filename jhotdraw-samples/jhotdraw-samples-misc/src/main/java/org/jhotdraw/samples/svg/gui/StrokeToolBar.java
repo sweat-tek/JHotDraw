@@ -67,7 +67,7 @@ public class StrokeToolBar extends AbstractToolBar {
         }
     }
 
-    @FeatureEntryPoint("stroketool")
+    @FeatureEntryPoint(value = "stroke_tool")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;

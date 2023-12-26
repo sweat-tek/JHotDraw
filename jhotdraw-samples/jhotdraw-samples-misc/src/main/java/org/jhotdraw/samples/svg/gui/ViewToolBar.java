@@ -56,6 +56,7 @@ public class ViewToolBar extends AbstractToolBar {
         constrainer.setWidth(prefs.getDouble("view.gridSize", 8d));
     }
 
+    @FeatureEntryPoint("Toolbar")
     @Override
     @FeatureEntryPoint("grid-zoom-method")
     protected JComponent createDisclosedComponent(int state) {

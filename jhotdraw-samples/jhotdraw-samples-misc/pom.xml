@@ -9,13 +9,21 @@
     </parent>
     <artifactId>jhotdraw-samples-misc</artifactId>
     <packaging>jar</packaging>
+
     <repositories>
         <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
             <id>github</id>
-            <name>GitHub external Packages</name>
+            <name>GitHub sweat-tek Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/sweat-tek/MavenRepository</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -59,32 +67,32 @@
             <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    <build>
+    <!-- <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>run-java</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.jhotdraw.samples.svg.Main</mainClass>
-                </configuration>
-            </plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-exec-plugin</artifactId>
+               <version>3.1.0</version>
+               <configuration>
+                   <executable>java</executable>
+                   <arguments>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>org.jhotdraw.samples.svg.Main</argument>
+                   </arguments>
+               </configuration>
+           </plugin>
+        </plugins>
+    </build> -->
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"${user.home}/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar"
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar
                         --add-opens java.base/java.lang=ALL-UNNAMED
                     </argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
