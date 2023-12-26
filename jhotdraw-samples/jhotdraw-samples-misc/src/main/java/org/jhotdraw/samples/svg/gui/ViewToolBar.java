@@ -58,7 +58,6 @@ public class ViewToolBar extends AbstractToolBar {
 
     @FeatureEntryPoint("Toolbar")
     @Override
-    @FeatureEntryPoint("grid-zoom-method")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
