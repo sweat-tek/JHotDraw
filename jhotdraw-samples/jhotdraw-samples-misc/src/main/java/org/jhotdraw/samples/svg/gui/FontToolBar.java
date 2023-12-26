@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
@@ -50,6 +51,7 @@ public class FontToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
+    @FeatureEntryPoint("Font - Font Toolbar")
     public FontToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("font.toolbar"));
@@ -58,6 +60,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint("Font - Font Toolbar")
     public void setEditor(DrawingEditor newValue) {
         if (displayer != null) {
             displayer.dispose();
@@ -104,6 +107,7 @@ public class FontToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint("Font - Font Toolbar")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {

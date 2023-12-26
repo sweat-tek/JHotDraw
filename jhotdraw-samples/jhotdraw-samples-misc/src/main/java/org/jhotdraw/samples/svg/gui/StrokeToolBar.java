@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
@@ -47,6 +48,7 @@ public class StrokeToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
+    @FeatureEntryPoint("stroketool")
     public StrokeToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("stroke.toolbar"));
@@ -65,11 +67,12 @@ public class StrokeToolBar extends AbstractToolBar {
         }
     }
 
+    @FeatureEntryPoint("stroketool")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
-            case 1: 
+            case 1:
                 p = new JPanel();
                 p.setOpaque(false);
                 p.setBorder(new EmptyBorder(5, 5, 5, 8));
@@ -101,7 +104,7 @@ public class StrokeToolBar extends AbstractToolBar {
                 labels.configureToolBarButton(opacityPopupButton, "attribute.strokeOpacity");
                 opacityPopupButton.setUI((PaletteButtonUI) PaletteButtonUI.createUI(opacityPopupButton));
                 opacityPopupButton.setIcon(
-                        new SelectionOpacityIcon(editor, STROKE_OPACITY, null, STROKE_COLOR, Images.createImage(getClass(), labels.getString("attribute.strokeOpacity.icon")),
+                        new SelectionOpacityIcon(editor, STROKE_OPACITY, null, STROKE_COLOR, Images.createImage(getClass(), labels.getString("attribute.strokeOpacity.largeIcon")),
                                 new Rectangle(5, 5, 6, 6), new Rectangle(4, 4, 7, 7)));
                 opacityPopupButton.setPopupAnchor(SOUTH_EAST);
                 disposables.add(new SelectionComponentRepainter(editor, opacityPopupButton));
@@ -143,13 +146,13 @@ public class StrokeToolBar extends AbstractToolBar {
                 gbc.insets = new Insets(3, 3, 0, 0);
                 p.add(btn, gbc);
                 btn = ButtonFactory.createStrokeDashesButton(editor, new double[][]{
-                    null,
-                    {4d, 4d},
-                    {2d, 2d},
-                    {4d, 2d},
-                    {2d, 4d},
-                    {8d, 2d},
-                    {6d, 2d, 2d, 2d}}, labels, disposables);
+                        null,
+                        {4d, 4d},
+                        {2d, 2d},
+                        {4d, 2d},
+                        {2d, 4d},
+                        {8d, 2d},
+                        {6d, 2d, 2d, 2d}}, labels, disposables);
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 gbc = new GridBagConstraints();
                 gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -157,9 +160,11 @@ public class StrokeToolBar extends AbstractToolBar {
                 gbc.gridy = 2;
                 gbc.insets = new Insets(3, 3, 0, 0);
                 p.add(btn, gbc);
-            
-            break;
-            case 2: 
+
+
+
+                break;
+            case 2:
                 p = new JPanel();
                 p.setOpaque(false);
                 p.setBorder(new EmptyBorder(5, 5, 5, 8));
@@ -221,7 +226,7 @@ public class StrokeToolBar extends AbstractToolBar {
                 labels.configureToolBarButton(opacityPopupButton, "attribute.strokeOpacity");
                 opacityPopupButton.setUI((PaletteButtonUI) PaletteButtonUI.createUI(opacityPopupButton));
                 opacityPopupButton.setIcon(
-                        new SelectionOpacityIcon(editor, STROKE_OPACITY, null, STROKE_COLOR, Images.createImage(getClass(), labels.getString("attribute.strokeOpacity.icon")),
+                        new SelectionOpacityIcon(editor, STROKE_OPACITY, null, STROKE_COLOR, Images.createImage(getClass(), labels.getString("attribute.strokeOpacity.largeIcon")),
                                 new Rectangle(5, 5, 6, 6), new Rectangle(4, 4, 7, 7)));
                 opacityPopupButton.setPopupAnchor(SOUTH_EAST);
                 disposables.add(new SelectionComponentRepainter(editor, opacityPopupButton));
@@ -299,13 +304,14 @@ public class StrokeToolBar extends AbstractToolBar {
                 gbc.gridwidth = 2;
                 p.add(dashOffsetField, gbc);
                 btn = ButtonFactory.createStrokeDashesButton(editor, new double[][]{
-                    null,
-                    {4d, 4d},
-                    {2d, 2d},
-                    {4d, 2d},
-                    {2d, 4d},
-                    {8d, 2d},
-                    {6d, 2d, 2d, 2d}}, labels, disposables);
+                        null,
+                        {4d, 4d},
+                        {2d, 2d},
+                        {4d, 2d},
+                        {2d, 4d},
+                        {8d, 2d},
+                        {6d, 2d, 2d, 2d}}, labels, disposables);
+
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 gbc = new GridBagConstraints();
                 gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -314,8 +320,8 @@ public class StrokeToolBar extends AbstractToolBar {
                 gbc.gridy = 2;
                 gbc.insets = new Insets(3, 3, 0, 0);
                 p.add(btn, gbc);
-            
-            break;
+
+                break;
         }
         return p;
     }

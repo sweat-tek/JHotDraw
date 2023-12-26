@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
@@ -56,6 +57,7 @@ public class ViewToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint("grid-zoom-method")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {

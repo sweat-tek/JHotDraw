@@ -18,7 +18,6 @@
  */
 package org.jhotdraw.samples.svg;
 
-
 import org.junit.Test;
 
 import static java.lang.Thread.sleep;

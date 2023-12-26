@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import java.awt.*;
 import javax.swing.*;
@@ -49,6 +50,7 @@ public class ArrangeToolBar extends AbstractToolBar {
     }
 
     @Override
+    @FeatureEntryPoint("Arrange Tool")
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
         switch (state) {
