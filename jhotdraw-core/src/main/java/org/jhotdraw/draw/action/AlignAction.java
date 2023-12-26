@@ -36,7 +36,7 @@ public class AlignAction extends AbstractSelectedAction {
         labels.configureAction(this, "edit.align" + formatAlignmentName(alignmentType));
     }
 
-    private String formatAlignmentName(AlignmentType alignmentType) {
+    String formatAlignmentName(AlignmentType alignmentType) {
         String name = alignmentType.name().toLowerCase();
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
@@ -49,6 +49,7 @@ public class AlignAction extends AbstractSelectedAction {
     @FeatureEntryPoint(value = "align")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
+        System.out.println("Something Happened");
         CompositeEdit compositeEdit = new CompositeEdit(labels.getString("edit.align.text"));
         fireUndoableEditHappened(compositeEdit);
         alignFigures(getView().getSelectedFigures(), getSelectionBounds());

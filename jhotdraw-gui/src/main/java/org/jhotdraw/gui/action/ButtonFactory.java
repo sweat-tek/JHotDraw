@@ -64,7 +64,6 @@ import static org.jhotdraw.draw.AttributeKeys.STROKE_PLACEMENT;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_TYPE;
 import static org.jhotdraw.draw.AttributeKeys.STROKE_WIDTH;
 import static org.jhotdraw.draw.AttributeKeys.TEXT_COLOR;
-import static org.jhotdraw.draw.action.AlignAction.AlignmentType.WEST;
 
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.DrawingView;
@@ -368,6 +367,7 @@ public class ButtonFactory {
                 drawingActions, selectionActions);
         return addSelectionToolTo(tb, editor, selectionTool);
     }
+
 
     public static JToggleButton addSelectionToolTo(JToolBar tb, final DrawingEditor editor, Tool selectionTool) {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
@@ -1657,17 +1657,42 @@ public class ButtonFactory {
      */
     public static void addAlignmentButtonsTo(JToolBar bar, final DrawingEditor editor, java.util.List<Disposable> dsp) {
         AbstractSelectedAction d;
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.WEST)).setFocusable(false);
+        JButton button;
+
+        // West Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.WEST));
+        button.setName("alignWestButton"); // Setting name
+        button.setFocusable(false);
         dsp.add(d);
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.EAST)).setFocusable(false);
+
+        // East Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.EAST));
+        button.setName("alignEastButton");
+        button.setFocusable(false);
         dsp.add(d);
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.HORIZONTAL)).setFocusable(false);
+
+        // Horizontal Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.HORIZONTAL));
+        button.setName("alignHorizontalButton");
+        button.setFocusable(false);
         dsp.add(d);
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.NORTH)).setFocusable(false);
+
+        // North Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.NORTH));
+        button.setName("alignNorthButton");
+        button.setFocusable(false);
         dsp.add(d);
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.SOUTH)).setFocusable(false);
+
+        // South Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.SOUTH));
+        button.setName("alignSouthButton");
+        button.setFocusable(false);
         dsp.add(d);
-        bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.VERTICAL)).setFocusable(false);
+
+        // Vertical Alignment
+        button = bar.add(d = new AlignAction(editor, AlignAction.AlignmentType.VERTICAL));
+        button.setName("alignVerticalButton");
+        button.setFocusable(false);
         dsp.add(d);
         bar.addSeparator();
         bar.add(d = new MoveAction.West(editor)).setFocusable(false);

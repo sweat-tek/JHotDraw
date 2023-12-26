@@ -70,14 +70,31 @@ class AlignActionTest {
 
     @Test
     public void testCalculateAlignmentDelta() {
-        AlignAction action = new AlignAction(editor, AlignmentType.NORTH);
         Rectangle2D.Double figureBounds = new Rectangle2D.Double(10, 10, 100, 100);
         Rectangle2D.Double selectionBounds = new Rectangle2D.Double(0, 0, 200, 200);
-        Point2D.Double delta = action.calculateAlignmentDelta(figureBounds, selectionBounds);
-        assertEquals(0, delta.x);
-        assertEquals(-10, delta.y);
-        // Additional assertions for other alignment types
+
+        // Define alignment types and expected deltas
+        Object[][] testCases = {
+                { AlignmentType.NORTH, new Point2D.Double(0, -10) },
+                { AlignmentType.EAST, new Point2D.Double(90, 0) },
+                { AlignmentType.SOUTH, new Point2D.Double(0, 90) },
+                { AlignmentType.WEST, new Point2D.Double(-10, 0) },
+                { AlignmentType.HORIZONTAL, new Point2D.Double(40, 0) },
+                { AlignmentType.VERTICAL, new Point2D.Double(0, 40) }
+        };
+
+        for (Object[] testCase : testCases) {
+            AlignmentType alignmentType = (AlignmentType) testCase[0];
+            Point2D.Double expectedDelta = (Point2D.Double) testCase[1];
+
+            AlignAction action = new AlignAction(editor, alignmentType);
+            Point2D.Double actualDelta = action.calculateAlignmentDelta(figureBounds, selectionBounds);
+
+            assertEquals(expectedDelta.x, actualDelta.x, "Mismatch in X delta for " + alignmentType);
+            assertEquals(expectedDelta.y, actualDelta.y, "Mismatch in Y delta for " + alignmentType);
+        }
     }
+
 
     @Test
     public void testTransformFigure() {
@@ -107,6 +124,28 @@ class AlignActionTest {
         verify(view, times(1)).isEnabled();
         verify(view, times(1)).getSelectionCount();
         // Additional assertions to verify state update
+    }
+    @Test
+    public void testFormatAlignmentName() {
+        AlignAction action = new AlignAction(editor, AlignmentType.NORTH);
+        String formattedName = action.formatAlignmentName(AlignmentType.NORTH);
+        assertEquals("North", formattedName);
+        // Additional assertions for other alignment types
+    }
+
+    @Test
+    public void testAlignNonTransformableFigures() {
+        when(figure.isTransformable()).thenReturn(false);
+        alignAction.actionPerformed(null);
+        verify(figure, never()).willChange();
+        // Assert no transformations are applied
+    }
+
+    @Test
+    public void testUpdateEnabledStateWithNoSelection() {
+        lenient().when(view.getSelectionCount()).thenReturn(0);
+        alignAction.updateEnabledState();
+        assertFalse(alignAction.isEnabled());
     }
 }
 
