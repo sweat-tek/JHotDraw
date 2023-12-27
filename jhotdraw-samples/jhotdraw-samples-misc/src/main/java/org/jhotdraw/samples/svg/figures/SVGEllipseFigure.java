@@ -104,6 +104,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
+        assert r != null : "The drawing area is null";
         if (get(TRANSFORM) == null) {
             double g = SVGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d + 1;
             Geom.grow(r, g, g);
@@ -124,6 +125,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return getHitShape().contains(p);
     }
 
+    // Method to determine the transformed shape of the figure
     private Shape getTransformedShape() {
         if (cachedTransformedShape != null) {
             return cachedTransformedShape;
@@ -135,7 +137,8 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         }
         return cachedTransformedShape;
     }
-
+    
+    // Method to determine the hit shape of the figure
     private Shape getHitShape() {
         if (cachedHitShape != null) {
             return cachedHitShape;
@@ -208,6 +211,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    // Method to determine the transformed shape of the figure
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
