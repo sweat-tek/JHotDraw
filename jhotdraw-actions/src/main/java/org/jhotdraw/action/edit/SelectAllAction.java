@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.action.edit;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -46,6 +47,7 @@ import org.jhotdraw.util.*;
  * @author Werner Randelshofer.
  * @version $Id$
  */
+
 public class SelectAllAction extends AbstractSelectionAction {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +56,7 @@ public class SelectAllAction extends AbstractSelectionAction {
     /**
      * Creates a new instance which acts on the currently focused component.
      */
+    @FeatureEntryPoint(value="SelectAllAction")
     public SelectAllAction() {
         this(null);
     }

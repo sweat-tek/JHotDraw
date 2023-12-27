@@ -7,6 +7,8 @@
  */
 package org.jhotdraw.draw.tool;
 
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.*;
@@ -50,12 +52,16 @@ import org.jhotdraw.draw.handle.Handle;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SelectionTool extends AbstractTool {
 
+public class SelectionTool extends AbstractTool {
+    
     private static final long serialVersionUID = 1L;
+    
+    
     /**
      * The tracker encapsulates the current state of the SelectionTool.
      */
+    
     private Tool tracker;
     /**
      * The tracker encapsulates the current state of the SelectionTool.
@@ -118,6 +124,7 @@ public class SelectionTool extends AbstractTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "SelectionTool")
     public SelectionTool() {
         tracker = getSelectAreaTracker();
         trackerHandler = new TrackerHandler();

@@ -39,6 +39,7 @@ import org.jhotdraw.draw.event.FigureListener;
  * @author Werner Randelshofer
  * @version $Id: FloatingTextArea.java -1 $
  */
+
 public class FloatingTextArea {
 
     /**

@@ -26,6 +26,7 @@ public class Main {
 
     /**
      * Creates a new instance.
+     * @param args
      */
     @FeatureEntryPoint(value = "Main")
     public static void main(String[] args) {

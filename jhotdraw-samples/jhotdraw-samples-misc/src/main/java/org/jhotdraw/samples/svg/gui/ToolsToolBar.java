@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -52,6 +53,7 @@ public class ToolsToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
+    @FeatureEntryPoint(value = "ToolsToolBar")
     public ToolsToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("tools.toolbar"));
@@ -202,12 +204,13 @@ public class ToolsToolBar extends AbstractToolBar {
     protected int getDefaultDisclosureState() {
         return 1;
     }
-
+    
     private static class SelectionToolButtonHandler extends MouseAdapter {
 
         private DrawingEditor editor;
         private boolean wasSelectedOnPressed = false;
-
+        
+        @FeatureEntryPoint(value = "SelectionToolButtonHandler")
         public SelectionToolButtonHandler(DrawingEditor editor) {
             this.editor = editor;
         }
