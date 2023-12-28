@@ -32,6 +32,7 @@ import org.jhotdraw.draw.tool.TextCreationTool;
 import org.jhotdraw.gui.JFontChooser;
 import org.jhotdraw.gui.JPopupButton;
 import org.jhotdraw.gui.action.ButtonFactory;
+import org.jhotdraw.gui.ConstraintsFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
 import org.jhotdraw.gui.plaf.palette.PaletteSliderUI;
@@ -73,10 +74,7 @@ public class FontToolBar extends AbstractToolBar {
             displayer = new SelectionComponentDisplayer(editor, this) {
                 @Override
                 public void updateVisibility() {
-                    boolean newValue = editor != null
-                            && editor.getActiveView() != null
-                            && (isVisibleIfCreationTool && ((editor.getTool() instanceof TextCreationTool) || editor.getTool() instanceof TextAreaCreationTool)
-                            || containsTextHolderFigure(editor.getActiveView().getSelectedFigures()));
+                    boolean newValue = editor != null && editor.getActiveView() != null && (isVisibleIfCreationTool && ((editor.getTool() instanceof TextCreationTool) || editor.getTool() instanceof TextAreaCreationTool) || containsTextHolderFigure(editor.getActiveView().getSelectedFigures()));
                     JComponent component = getComponent();
                     if (component == null) {
                         dispose();
@@ -111,36 +109,27 @@ public class FontToolBar extends AbstractToolBar {
     @Override
     @FeatureEntryPoint("Font - Font Toolbar")
     protected JComponent createDisclosedComponent(int state) {
-        JPanel p = new JPanel();
+        if (state < 1 || state > 2) {
+            return null;
+        }
 
-        if (state < 1 || state > 2 || editor == null) {
-            return p;
+        JPanel panel = new JPanel();
+
+        if (editor == null) {
+            return panel;
         }
 
         boolean large = state == 2;
 
+        // Base layout
         GridBagLayout layout = new GridBagLayout();
-        p.setLayout(layout);
-        p.setOpaque(false);
-        p.setBorder(new EmptyBorder(5, 5, 5, 8));
+        panel.setLayout(layout);
+        panel.setOpaque(false);
+        panel.setBorder(new EmptyBorder(5, 5, 5, 8));
 
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
 
         // Font face
-        addFontFaceInput(p, labels, large);
-
-        // Font size field with slider
-        addFontSizeInput(p, labels);
-
-        // Font style buttons
-        addStyleButtons(p, ButtonFactory.createFontStyleBoldButton(editor, labels, disposables));
-        addStyleButtons(p, ButtonFactory.createFontStyleItalicButton(editor, labels, disposables));
-        addStyleButtons(p, ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables));
-
-        return p;
-    }
-
-    private void addFontFaceInput(JPanel panel, ResourceBundleUtil labels, boolean large) {
         int fieldColumnSize = 2;
         int constraintsGrid = 2;
 
@@ -158,7 +147,7 @@ public class FontToolBar extends AbstractToolBar {
         faceField.setHorizontalAlignment(JTextField.LEADING);
         faceField.setFormatterFactory(FontFormatter.createFormatterFactory());
         disposables.add(new FigureAttributeEditorHandler<Font>(FONT_FACE, faceField, editor));
-        panel.add(faceField, createGridConstraints(0, 0, GridBagConstraints.FIRST_LINE_START, 0, constraintsGrid, GridBagConstraints.HORIZONTAL));
+        panel.add(faceField, ConstraintsFactory.createGridConstraints(0, 0, GridBagConstraints.FIRST_LINE_START, new Insets(0, 0, 0, 0), constraintsGrid, GridBagConstraints.HORIZONTAL));
 
         AbstractButton btn = ButtonFactory.createFontButton(editor, FONT_FACE, labels, disposables);
         btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
@@ -167,9 +156,8 @@ public class FontToolBar extends AbstractToolBar {
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.anchor = GridBagConstraints.WEST;
         panel.add(btn, constraints);
-    }
 
-    private void addFontSizeInput(JPanel panel, ResourceBundleUtil labels) {
+        // Font size field with slider
         JPanel subPanel = new JPanel(new GridBagLayout());
         subPanel.setOpaque(false);
 
@@ -181,7 +169,7 @@ public class FontToolBar extends AbstractToolBar {
         sizeField.setFormatterFactory(JavaNumberFormatter.createFormatterFactory(0d, 1000d, 1d));
         sizeField.setHorizontalAlignment(JTextField.LEADING);
         disposables.add(new FigureAttributeEditorHandler<Double>(FONT_SIZE, sizeField, editor));
-        GridBagConstraints constraints = createGridConstraints(0, 1, GridBagConstraints.FIRST_LINE_START, 3, 2, GridBagConstraints.HORIZONTAL);
+        constraints = ConstraintsFactory.createGridConstraints(0, 1, GridBagConstraints.FIRST_LINE_START, new Insets(3, 0, 0, 0), 2, GridBagConstraints.HORIZONTAL);
         constraints.weightx = 1f;
         subPanel.add(sizeField, constraints);
 
@@ -196,32 +184,27 @@ public class FontToolBar extends AbstractToolBar {
         sizePopupButton.setUI((PaletteButtonUI) PaletteButtonUI.createUI(sizePopupButton));
         sizePopupButton.setPopupAnchor(SOUTH_EAST);
         disposables.add(new SelectionComponentRepainter(editor, sizePopupButton));
-        subPanel.add(sizePopupButton, createGridConstraints(2, 1, GridBagConstraints.FIRST_LINE_START, 3));
+        subPanel.add(sizePopupButton, ConstraintsFactory.createGridConstraints(2, 1, GridBagConstraints.FIRST_LINE_START, new Insets(3, 0, 0, 0)));
 
-        panel.add(subPanel, createGridConstraints(0, 1, GridBagConstraints.FIRST_LINE_START, 0, 2, GridBagConstraints.BOTH));
+        panel.add(subPanel, ConstraintsFactory.createGridConstraints(0, 1, GridBagConstraints.FIRST_LINE_START, new Insets(2, 0, 0, 0), 2, GridBagConstraints.BOTH));
+
+        // Font style buttons
+        addStyleButtons(panel, ButtonFactory.createFontStyleBoldButton(editor, labels, disposables));
+        addStyleButtons(panel, ButtonFactory.createFontStyleItalicButton(editor, labels, disposables));
+        addStyleButtons(panel, ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables));
+
+        return panel;
     }
 
+    /**
+     * Adds a style button to the panel, on the row two.
+     * 
+     * @param panel The panel to add the button to.
+     * @param button The button to add.
+     */
     private void addStyleButtons(JPanel panel, AbstractButton button) {
         button.setUI((PaletteButtonUI) PaletteButtonUI.createUI(button));
-        panel.add(button, createGridConstraints(GridBagConstraints.RELATIVE, 2, GridBagConstraints.WEST, 3));
-    }
-
-    private GridBagConstraints createGridConstraints(int x, int y, int anchor, int insetsTop) {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = x;
-        constraints.gridy = y;
-        constraints.insets = new Insets(insetsTop, 0, 0, 0);
-        constraints.anchor = anchor;
-
-        return constraints;
-    }
-
-    private GridBagConstraints createGridConstraints(int x, int y, int anchor, int insetsTop, int gridWidth, int fill) {
-        GridBagConstraints constraints = createGridConstraints(x, y, anchor, insetsTop);
-        constraints.gridwidth = gridWidth;
-        constraints.fill = fill;
-
-        return constraints;
+        panel.add(button, ConstraintsFactory.createGridConstraints(GridBagConstraints.RELATIVE, 2, GridBagConstraints.WEST, new Insets(3, 0, 0, 0)));
     }
 
     @Override
