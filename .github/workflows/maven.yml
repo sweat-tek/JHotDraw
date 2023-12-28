@@ -10,11 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: 
-      - '**'
+    branches: ["develop"]
   pull_request:
-    branches: 
-      - '**'
+    branches: ["develop"]
 
 jobs:
   build:
@@ -30,4 +28,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -s settings.xml -B package --file pom.xml
