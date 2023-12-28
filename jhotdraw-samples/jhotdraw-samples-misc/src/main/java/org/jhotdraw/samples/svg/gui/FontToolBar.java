@@ -189,9 +189,9 @@ public class FontToolBar extends AbstractToolBar {
         panel.add(subPanel, ConstraintsFactory.createGridConstraints(0, 1, GridBagConstraints.FIRST_LINE_START, new Insets(2, 0, 0, 0), 2, GridBagConstraints.BOTH));
 
         // Font style buttons
-        addStyleButtons(panel, ButtonFactory.createFontStyleBoldButton(editor, labels, disposables));
-        addStyleButtons(panel, ButtonFactory.createFontStyleItalicButton(editor, labels, disposables));
-        addStyleButtons(panel, ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables));
+        addStyleButton(panel, ButtonFactory.createFontStyleBoldButton(editor, labels, disposables));
+        addStyleButton(panel, ButtonFactory.createFontStyleItalicButton(editor, labels, disposables));
+        addStyleButton(panel, ButtonFactory.createFontStyleUnderlineButton(editor, labels, disposables));
 
         return panel;
     }
@@ -202,7 +202,7 @@ public class FontToolBar extends AbstractToolBar {
      * @param panel The panel to add the button to.
      * @param button The button to add.
      */
-    private void addStyleButtons(JPanel panel, AbstractButton button) {
+    private void addStyleButton(JPanel panel, AbstractButton button) {
         button.setUI((PaletteButtonUI) PaletteButtonUI.createUI(button));
         panel.add(button, ConstraintsFactory.createGridConstraints(GridBagConstraints.RELATIVE, 2, GridBagConstraints.WEST, new Insets(3, 0, 0, 0)));
     }
