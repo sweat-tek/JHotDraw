@@ -39,13 +39,25 @@ public class BringToFrontAction extends AbstractSelectedAction {
         final DrawingView view = getView();
         final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
         bringToFront(view, figures);
-        fireUndoableEditHappened(new AbstractUndoableEdit() {
+        super.fireUndoableEditHappened(this.getUndoableEdit(view, figures));
+    }
+
+    @FeatureEntryPoint("bringToFront feature")
+    public static void bringToFront(DrawingView view, Collection<Figure> figures) {
+        Drawing drawing = view.getDrawing();
+        for (Figure figure : drawing.sort(figures)) {
+            drawing.bringToFront(figure);
+        }
+    }
+
+    private AbstractUndoableEdit getUndoableEdit(DrawingView view, Collection<Figure> figures) {
+        ResourceBundleUtil labels
+                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+        return new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public String getPresentationName() {
-                ResourceBundleUtil labels
-                        = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
                 return labels.getTextProperty(ID);
             }
 
@@ -60,13 +72,6 @@ public class BringToFrontAction extends AbstractSelectedAction {
                 super.undo();
                 SendToBackAction.sendToBack(view, figures);
             }
-        });
-    }
-    @FeatureEntryPoint("bringToFront feature")
-    public static void bringToFront(DrawingView view, Collection<Figure> figures) {
-        Drawing drawing = view.getDrawing();
-        for (Figure figure : drawing.sort(figures)) {
-            drawing.bringToFront(figure);
-        }
+        };
     }
 }
