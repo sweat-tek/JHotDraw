@@ -198,8 +198,8 @@ public class FontToolBar extends AbstractToolBar {
 
     /**
      * Adds a style button to the panel, on the row two.
-     * 
-     * @param panel The panel to add the button to.
+     *
+     * @param panel  The panel to add the button to.
      * @param button The button to add.
      */
     private void addStyleButton(JPanel panel, AbstractButton button) {
