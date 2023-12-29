@@ -72,6 +72,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
 
         private static final long serialVersionUID = 1L;
 
+        @FeatureEntryPoint(value = "UndoRedoManager_UndoAction")
         public UndoAction() {
             labels.configureAction(this, "edit.undo");
             setEnabled(false);
@@ -99,6 +100,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
 
         private static final long serialVersionUID = 1L;
 
+        @FeatureEntryPoint(value = "UndoRedoManager_RedoAction")
         public RedoAction() {
             labels.configureAction(this, "edit.redo");
             setEnabled(false);

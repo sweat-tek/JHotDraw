@@ -10,6 +10,8 @@ package org.jhotdraw.action.edit;
 import java.awt.event.*;
 import java.beans.*;
 import javax.swing.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.action.AbstractViewAction;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
@@ -52,6 +54,7 @@ public class RedoAction extends AbstractViewAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "RedoAction")
     public RedoAction(Application app, View view) {
         super(app, view);
         labels.configureAction(this, ID);

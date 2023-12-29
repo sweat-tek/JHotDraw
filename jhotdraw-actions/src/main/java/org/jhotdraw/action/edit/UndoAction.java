@@ -14,6 +14,7 @@ import org.jhotdraw.action.AbstractViewAction;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.util.*;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 
 /**
  * Undoes the last user action.
@@ -51,6 +52,7 @@ public class UndoAction extends AbstractViewAction {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint(value = "UndoAction")
     public UndoAction(Application app, View view) {
         super(app, view);
         labels.configureAction(this, ID);
@@ -109,7 +111,7 @@ public class UndoAction extends AbstractViewAction {
         }
     }
 
-    private Action getRealUndoAction() {
+    private Action  getRealUndoAction() {
         return (getActiveView() == null) ? null : getActiveView().getActionMap().get(ID);
     }
 }
