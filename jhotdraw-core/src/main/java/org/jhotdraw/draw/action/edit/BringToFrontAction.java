@@ -45,7 +45,8 @@ public class BringToFrontAction extends AbstractSelectedAction {
 
     @FeatureEntryPoint("bringToFront feature")
     public static void bringToFront(DrawingView view, Collection<Figure> figures) {
-        view.getDrawing().sort(figures).forEach(f -> view.getDrawing().bringToFront(f));
+        Drawing drawing = view.getDrawing();
+        drawing.sort(figures).forEach(drawing::bringToFront);
     }
 
     private AbstractUndoableEdit getUndoableEdit(DrawingView view, Collection<Figure> figures) {
