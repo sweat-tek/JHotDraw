@@ -25,11 +25,12 @@ import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 public class BringToFrontAction extends AbstractSelectedAction {
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.bringToFront";
+    private static final String BASENAME = "org.jhotdraw.draw.Labels";
 
     public BringToFrontAction(DrawingEditor editor) {
         super(editor);
         ResourceBundleUtil
-                .getBundle("org.jhotdraw.draw.Labels")
+                .getBundle(BASENAME)
                 .configureAction(this, ID);
         super.updateEnabledState();
     }
@@ -44,17 +45,13 @@ public class BringToFrontAction extends AbstractSelectedAction {
 
     @FeatureEntryPoint("bringToFront feature")
     public static void bringToFront(DrawingView view, Collection<Figure> figures) {
-        Drawing drawing = view.getDrawing();
-        for (Figure figure : drawing.sort(figures)) {
-            drawing.bringToFront(figure);
-        }
+        view.getDrawing().sort(figures).forEach(f -> view.getDrawing().bringToFront(f));
     }
 
     private AbstractUndoableEdit getUndoableEdit(DrawingView view, Collection<Figure> figures) {
         ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                = ResourceBundleUtil.getBundle(BASENAME);
         return new AbstractUndoableEdit() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public String getPresentationName() {
