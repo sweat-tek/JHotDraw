@@ -48,7 +48,6 @@ public class StrokeToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
-    @FeatureEntryPoint("stroketool")
     public StrokeToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("stroke.toolbar"));
@@ -67,7 +66,7 @@ public class StrokeToolBar extends AbstractToolBar {
         }
     }
 
-    @FeatureEntryPoint(value = "stroke_tool")
+    @FeatureEntryPoint("stroke_tool")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
