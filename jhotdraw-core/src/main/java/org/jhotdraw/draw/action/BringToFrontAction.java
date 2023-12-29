@@ -25,17 +25,14 @@ public class BringToFrontAction extends AbstractSelectedAction {
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.bringToFront";
 
-    /**
-     * Creates a new instance.
-     */
-
     public BringToFrontAction(DrawingEditor editor) {
         super(editor);
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
+        ResourceBundleUtil
+                .getBundle("org.jhotdraw.draw.Labels")
+                .configureAction(this, ID);
+        super.updateEnabledState();
     }
+
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
