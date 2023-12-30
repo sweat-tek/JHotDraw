@@ -29,7 +29,7 @@ import org.jhotdraw.util.*;
  * @version $Id$
  */
 public class RedoAction extends UndoRedoAction {
-    public static final String ID = getID("edit.redo");
+    public static final String ID = getID(ActionIDs.redoID);
     private final ResourceBundleUtil LABELS = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
 
     /**

@@ -33,7 +33,7 @@ import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
  * @version $Id$
  */
 public class UndoAction extends UndoRedoAction {
-    public static final String ID = getID("edit.undo");
+    public static final String ID = getID(ActionIDs.undoID);
     private final ResourceBundleUtil LABELS = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
 
     /**
