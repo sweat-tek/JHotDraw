@@ -7,7 +7,6 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.gui.plaf.palette.PaletteFormattedTextFieldUI;
 import org.jhotdraw.gui.plaf.palette.PaletteButtonUI;
@@ -48,7 +47,6 @@ public class StrokeToolBar extends AbstractToolBar {
     /**
      * Creates new instance.
      */
-    @FeatureEntryPoint("stroketool")
     public StrokeToolBar() {
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         setName(labels.getString("stroke.toolbar"));
@@ -67,7 +65,6 @@ public class StrokeToolBar extends AbstractToolBar {
         }
     }
 
-    @FeatureEntryPoint("stroketool")
     @Override
     protected JComponent createDisclosedComponent(int state) {
         JPanel p = null;
