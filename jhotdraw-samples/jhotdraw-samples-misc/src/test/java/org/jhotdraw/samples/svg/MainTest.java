@@ -21,6 +21,8 @@ package org.jhotdraw.samples.svg;
 
 import org.junit.Test;
 
+import static java.lang.Thread.sleep;
+
 /**
  *
  * @author jcs
@@ -36,8 +38,10 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        while (true){
-
+        try {
+            sleep(20000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
