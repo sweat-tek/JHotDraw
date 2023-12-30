@@ -93,7 +93,7 @@ abstract class UndoRedoAction extends AbstractViewAction {
         return (getActiveView() == null) ? null : getActiveView().getActionMap().get(getID(id));
     }
 
-    static String getID(String id) {
+    protected static String getID(String id) {
         return id;
     }
 }
