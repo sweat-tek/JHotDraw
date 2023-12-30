@@ -32,15 +32,15 @@ public class MainTest {
      * Test of main method, of class Main.
      */
     @Test
-    @FeatureEntryPoint("SVGEllipseFigure")
+//    @FeatureEntryPoint("SVGEllipseFigure")
     public void testMain() {
         System.out.println("main");
         String[] args = {};
         Main.main(args);
 
-//        while (true){
-//
-//        }
+        while (true){
+
+        }
     }
 
 }

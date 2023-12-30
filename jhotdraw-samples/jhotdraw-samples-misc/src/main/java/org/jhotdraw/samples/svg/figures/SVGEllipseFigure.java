@@ -51,6 +51,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint("SVGEllipseFigure")
     public SVGEllipseFigure(double x, double y, double width, double height) {
         ellipse = new Ellipse2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
@@ -59,7 +60,6 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
 
     // DRAWING
     @Override
-    @FeatureEntryPoint("SVGEllipseFigure")
     protected void drawFill(Graphics2D g) {
         if (ellipse.width > 0 && ellipse.height > 0) {
             g.fill(ellipse);
@@ -96,6 +96,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     @Override
+    @FeatureEntryPoint("getDrawingArea")
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
@@ -119,6 +120,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return getHitShape().contains(p);
     }
 
+    @FeatureEntryPoint("getTransformedShape")
     private Shape getTransformedShape() {
         if (cachedTransformedShape == null) {
             if (get(TRANSFORM) == null) {
@@ -130,6 +132,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return cachedTransformedShape;
     }
 
+    @FeatureEntryPoint("getHitShape")
     private Shape getHitShape() {
         if (cachedHitShape == null) {
             if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
@@ -158,6 +161,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
      * @param tx the transformation.
      */
     @Override
+    @FeatureEntryPoint("transform")
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
                 || (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
