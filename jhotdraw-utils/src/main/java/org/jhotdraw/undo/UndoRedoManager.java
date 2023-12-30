@@ -28,8 +28,6 @@ public class UndoRedoManager extends UndoManager {
     private static final long serialVersionUID = 1L;
     protected PropertyChangeSupport propertySupport = new PropertyChangeSupport(this);
     private static final boolean DEBUG = true;
-    private static final String UNDO_LABEL_TEXT_PATH = "edit.undo.text";
-    private static final String REDO_LABEL_TEXT_PATH = "edit.redo.text";
     /**
      * The resource bundle used for internationalisation.
      */
@@ -77,7 +75,7 @@ public class UndoRedoManager extends UndoManager {
 
     public static ResourceBundleUtil getLabels() {
         if (labels == null) {
-            labels = ResourceBundleUtil.getBundle("org.jhotdraw.undo.Labels");
+            labels = ResourceBundleUtil.getBundle(LabelPath.JHOTDRAW_UNDO_LABELS.getPath());
         }
         return labels;
     }
@@ -92,7 +90,7 @@ public class UndoRedoManager extends UndoManager {
     }
 
     public static void setLocale(Locale l) {
-        labels = ResourceBundleUtil.getBundle("org.jhotdraw.undo.Labels", l);
+        labels = ResourceBundleUtil.getBundle(LabelPath.JHOTDRAW_UNDO_LABELS.getPath(), l);
     }
 
     /**
@@ -187,7 +185,7 @@ public class UndoRedoManager extends UndoManager {
             label = getUndoPresentationName();
         } else {
             undoAction.setEnabled(false);
-            label = labels.getString(UNDO_LABEL_TEXT_PATH);
+            label = labels.getString(LabelPath.UNDO_TEXT.getPath());
         }
 
         setActionNameAndShortDescription(undoAction, label);
@@ -201,7 +199,7 @@ public class UndoRedoManager extends UndoManager {
             label = getRedoPresentationName();
         } else {
             redoAction.setEnabled(false);
-            label = labels.getString(REDO_LABEL_TEXT_PATH);
+            label = labels.getString(LabelPath.REDO_TEXT.getPath());
         }
 
         setActionNameAndShortDescription(redoAction, label);
