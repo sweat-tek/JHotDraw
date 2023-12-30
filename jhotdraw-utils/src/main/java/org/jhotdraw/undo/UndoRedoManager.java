@@ -108,6 +108,7 @@ public class UndoRedoManager extends UndoManager {
     public void setHasSignificantEdits(boolean newValue) {
         boolean oldValue = hasSignificantEdits;
         hasSignificantEdits = newValue;
+
         firePropertyChange("hasSignificantEdits", oldValue, newValue);
     }
 
@@ -139,12 +140,15 @@ public class UndoRedoManager extends UndoManager {
     @Override
     public synchronized boolean addEdit(UndoableEdit anEdit) {
         printIfInDebugMode("UndoRedoManager@" + hashCode() + ".add " + anEdit);
+
         if (undoOrRedoInProgress) {
             anEdit.die();
             return true;
         }
+
         boolean success = super.addEdit(anEdit);
         updateActions();
+
         if (success && anEdit.isSignificant() && editToBeUndone() == anEdit) {
             setHasSignificantEdits(true);
         }
@@ -174,8 +178,10 @@ public class UndoRedoManager extends UndoManager {
         updateUndoAction();
         updateRedoAction();
     }
+
     private void updateUndoAction() {
         String label;
+
         if (canUndo()) {
             undoAction.setEnabled(true);
             label = getUndoPresentationName();
@@ -183,11 +189,13 @@ public class UndoRedoManager extends UndoManager {
             undoAction.setEnabled(false);
             label = labels.getString(UNDO_LABEL_TEXT_PATH);
         }
+
         setActionNameAndShortDescription(undoAction, label);
     }
 
     private void updateRedoAction() {
         String label;
+
         if (canRedo()) {
             redoAction.setEnabled(true);
             label = getRedoPresentationName();
@@ -195,6 +203,7 @@ public class UndoRedoManager extends UndoManager {
             redoAction.setEnabled(false);
             label = labels.getString(REDO_LABEL_TEXT_PATH);
         }
+
         setActionNameAndShortDescription(redoAction, label);
     }
 
@@ -202,6 +211,7 @@ public class UndoRedoManager extends UndoManager {
         action.putValue(Action.NAME, label);
         action.putValue(Action.SHORT_DESCRIPTION, label);
     }
+
     /**
      * Undoes the last edit event.
      * The UndoRedoManager ignores all incoming UndoableEdit events,
