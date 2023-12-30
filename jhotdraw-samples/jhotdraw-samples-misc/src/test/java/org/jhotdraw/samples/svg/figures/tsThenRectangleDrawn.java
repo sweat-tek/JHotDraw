@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static org.junit.Assert.*;
 
-public class ThenRectangleDrawn extends Stage<ThenRectangleDrawn> {
+public class tsThenRectangleDrawn extends Stage<tsThenRectangleDrawn> {
 
     @ExpectedScenarioState
     Graphics2D g;
@@ -18,7 +18,7 @@ public class ThenRectangleDrawn extends Stage<ThenRectangleDrawn> {
     @ExpectedScenarioState
     SVGRectFigure rect;
 
-    public ThenRectangleDrawn rectangle_should_appear() {
+    public tsThenRectangleDrawn rectangle_should_appear() {
 
         assertNotNull(g);
         assertNotNull(shape);

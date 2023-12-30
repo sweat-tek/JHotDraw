@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 
 import java.awt.*;
 
-public class GivenInitializedRectangle extends Stage<GivenInitializedRectangle> {
+public class tsGivenInitializedRectangle extends Stage<tsGivenInitializedRectangle> {
 
     @ScenarioState
     SVGRectFigure rect;
@@ -21,7 +21,7 @@ public class GivenInitializedRectangle extends Stage<GivenInitializedRectangle> 
     Graphics2D g;
 
 
-    public GivenInitializedRectangle user_wants_to_draw_rectangle() {
+    public tsGivenInitializedRectangle user_wants_to_draw_rectangle() {
 
         width = 100;
         rect = new SVGRectFigure(0,0,width,width);
