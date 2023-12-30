@@ -10,7 +10,6 @@ package org.jhotdraw.samples.net;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-
 import org.jhotdraw.action.edit.CopyAction;
 import org.jhotdraw.action.edit.CutAction;
 import org.jhotdraw.action.edit.DuplicateAction;

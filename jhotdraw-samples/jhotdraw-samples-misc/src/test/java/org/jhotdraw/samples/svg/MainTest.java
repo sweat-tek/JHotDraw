@@ -18,7 +18,10 @@
  */
 package org.jhotdraw.samples.svg;
 
+
 import org.junit.Test;
+
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -32,16 +35,14 @@ public class MainTest {
     @Test
     public void testMain() {
         System.out.println("main");
-        /*
         String[] args = {};
         Main.main(args);
 
-        // Timeout for 2 mintues
         try {
-            Thread.sleep(180000);
-        } catch (InterruptedException ex) {
-            // Ignore
-        }*/
+            sleep(20000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
