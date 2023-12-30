@@ -10,8 +10,14 @@
     <packaging>jar</packaging>
     <repositories>
         <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
             <id>github</id>
-            <name>GitHub external Packages</name>
+            <name>GitHub sweat-tek Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/sweat-tek/MavenRepository</url>
         </repository>
     </repositories>
@@ -52,7 +58,29 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>dk.sdu.cbse</groupId>
+            <artifactId>featuretracerlite</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+    <!-- <build>
+        <plugins>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-exec-plugin</artifactId>
+               <version>3.1.0</version>
+               <configuration>
+                   <executable>java</executable>
+                   <arguments>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>org.jhotdraw.samples.svg.Main</argument>
+                   </arguments>
+               </configuration>
+           </plugin>
+        </plugins>
+    </build> -->
     <build>
         <plugins>
             <plugin>
@@ -61,7 +89,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"C:\Users\mads4\.m2\repository\org\aspectj\aspectjweaver\1.9.9\aspectjweaver-1.9.9.jar"
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar
                         --add-opens java.base/java.lang=ALL-UNNAMED
                     </argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
