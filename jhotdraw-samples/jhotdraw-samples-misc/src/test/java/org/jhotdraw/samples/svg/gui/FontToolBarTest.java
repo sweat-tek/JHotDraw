@@ -13,10 +13,7 @@ public class FontToolBarTest extends TestCase {
     public void testCreateDisclosedComponent() {
         FontToolBar fontToolBar = Mockito.mock(FontToolBar.class);
 
-        Mockito.when(fontToolBar.createDisclosedComponent(0)).thenCallRealMethod();
-        Mockito.when(fontToolBar.createDisclosedComponent(1)).thenCallRealMethod();
-        Mockito.when(fontToolBar.createDisclosedComponent(1)).thenCallRealMethod();
-        Mockito.when(fontToolBar.createDisclosedComponent(2)).thenCallRealMethod();
+        Mockito.when(fontToolBar.createDisclosedComponent(Mockito.anyInt())).thenCallRealMethod();
 
         fontToolBar.editor = null;
 
