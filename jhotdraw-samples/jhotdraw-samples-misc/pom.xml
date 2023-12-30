@@ -9,6 +9,13 @@
     </parent>
     <artifactId>jhotdraw-samples-misc</artifactId>
     <packaging>jar</packaging>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub external Packages</name>
+            <url>https://maven.pkg.github.com/sweat-tek/MavenRepository</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -24,6 +31,11 @@
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
             <version>2.37.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dk.sdu.cbse</groupId>
+            <artifactId>featuretracerlite</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -60,4 +72,21 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"C:\Users\mads4\.m2\repository\org\aspectj\aspectjweaver\1.9.9\aspectjweaver-1.9.9.jar"
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                    </argLine>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <forkMode>always</forkMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
