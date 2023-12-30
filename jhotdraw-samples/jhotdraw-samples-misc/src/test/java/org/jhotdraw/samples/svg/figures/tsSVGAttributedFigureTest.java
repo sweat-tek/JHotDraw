@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 
-public class SVGAttributedFigureTest {
+public class tsSVGAttributedFigureTest {
 
     private final float delta = 0.0F; //allowed difference between two compared floats
 

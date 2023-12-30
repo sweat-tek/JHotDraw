@@ -3,8 +3,6 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.*;
 
 
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -14,7 +12,7 @@ import static org.mockito.Mockito.mock;
 
 
 
-public class WhenDrawRectangle extends Stage<WhenDrawRectangle> {
+public class tsWhenDrawRectangle extends Stage<tsWhenDrawRectangle> {
 
     @ExpectedScenarioState
     int width;
@@ -28,7 +26,7 @@ public class WhenDrawRectangle extends Stage<WhenDrawRectangle> {
     @ScenarioState
     Shape shape;
 
-    public WhenDrawRectangle user_draws_rectangle() {
+    public tsWhenDrawRectangle user_draws_rectangle() {
         assertNotEquals(0, width);
         assertNotNull(rect);
         assertNotNull(g);
