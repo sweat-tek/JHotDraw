@@ -11,7 +11,7 @@ import java.beans.PropertyChangeListener;
 
 abstract class UndoRedoAction extends AbstractViewAction {
     private static final long serialVersionUID = 1L;
-    private String id;
+    private final String id;
 
     private PropertyChangeListener redoActionPropertyListener = new PropertyChangeListener() {
         @Override

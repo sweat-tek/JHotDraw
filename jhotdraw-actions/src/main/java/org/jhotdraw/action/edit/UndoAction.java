@@ -6,11 +6,6 @@
  * accompanying license terms.
  */
 package org.jhotdraw.action.edit;
-
-import java.awt.event.*;
-import java.beans.*;
-import javax.swing.*;
-import org.jhotdraw.action.AbstractViewAction;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.util.*;
@@ -34,7 +29,6 @@ import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
  */
 public class UndoAction extends UndoRedoAction {
     public static final String ID = getID(ActionIDs.undoID);
-    private final ResourceBundleUtil LABELS = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
 
     /**
      * Creates a new instance.
@@ -42,6 +36,7 @@ public class UndoAction extends UndoRedoAction {
     @FeatureEntryPoint(value = "UndoAction")
     public UndoAction(Application app, View view) {
         super(app, view, ID);
-        LABELS.configureAction(this, ID);
+        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
+        labels.configureAction(this, ID);
     }
 }

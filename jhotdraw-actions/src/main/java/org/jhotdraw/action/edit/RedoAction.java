@@ -30,7 +30,6 @@ import org.jhotdraw.util.*;
  */
 public class RedoAction extends UndoRedoAction {
     public static final String ID = getID(ActionIDs.redoID);
-    private final ResourceBundleUtil LABELS = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
 
     /**
      * Creates a new instance.
@@ -38,6 +37,7 @@ public class RedoAction extends UndoRedoAction {
     @FeatureEntryPoint(value = "RedoAction")
     public RedoAction(Application app, View view) {
         super(app, view, ID);
-        LABELS.configureAction(this, ID);
+        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
+        labels.configureAction(this, ID);
     }
 }
