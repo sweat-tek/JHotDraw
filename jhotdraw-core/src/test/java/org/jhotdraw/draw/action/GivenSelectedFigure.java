@@ -2,18 +2,15 @@ package org.jhotdraw.draw.action;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.BeforeScenario;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.annotation.ScenarioState;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.figure.Figure;
-import org.junit.Before;
 import org.mockito.Mockito;
 
 import javax.swing.*;
 import javax.swing.colorchooser.ColorSelectionModel;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 

@@ -17,12 +17,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.undo.*;
 import org.jhotdraw.draw.*;
 
-/**
- * SelectionColorChooserHandler.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
 public class SelectionColorChooserHandler extends AbstractSelectedAction
         implements ChangeListener {
 
@@ -32,11 +26,6 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     protected JPopupMenu popupMenu; // TODO should not care about popupMenu MVC, etc.
     protected int isUpdating; // TODO Boolean?
 
-    // TODO Bad comments and commented code [LEVEL 1 Refactoring]
-    //protected Map<AttributeKey, Object> attributes;
-    /**
-     * Creates a new instance. TODO useless comment
-     */
     public SelectionColorChooserHandler(DrawingEditor editor, AttributeKey<Color> key, JColorChooser colorChooser, JPopupMenu popupMenu) {
         super(editor);
         this.key = key;
@@ -50,17 +39,16 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     @Override
     // TODO 2 entry points?! actionPerformed() and stateChanged()?
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        if (evt.getActionCommand() == JColorChooser.APPROVE_SELECTION) {
-            applySelectedColorToFigures();
-        } else if (evt.getActionCommand() == JColorChooser.CANCEL_SELECTION) {
-        }*/
         // TODO class is about handling and applying colors, but should not care about menus?! [LEVEL 2 Refactoring]
         popupMenu.setVisible(false);
     }
 
-    // // TODO [CODE SMELL] Long Method <<< [LEVEL 1 Refactoring]
-    // Simplify method, split into multiple
+    /**
+     * Gets the currently selected figures and the currently selected color,
+     * and applies the color to all selected figures.
+     *
+     */
+    // TODO [CODE SMELL] Long Method <<< [LEVEL 1 Refactoring]
     @FeatureEntryPoint("SelectionColorChooserHandler.applySelectedColorToFigures")
     protected void applySelectedColorToFigures() {
         // TODO extract to class level?
@@ -93,16 +81,6 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
             @Override
             public String getPresentationName() {
                 return AttributeKeys.FONT_FACE.getPresentationName();
-                /*
-            String name = (String) getValue(Actions.UNDO_PRESENTATION_NAME_KEY);
-            if (name == null) {
-            name = (String) getValue(AbstractAction.NAME);
-            }
-            if (name == null) {
-            ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-            name = labels.getString("attribute.text");
-            }
-            return name;*/
             }
 
             @Override
@@ -122,7 +100,6 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
                 super.redo();
                 for (Figure figure : selectedFigures) {
                     // TODO code duplication?
-                    //restoreData.add(figure.getAttributesRestoreData());
                     figure.willChange();
                     figure.set(key, undoValue);
                     figure.changed();
@@ -151,9 +128,17 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
         }
     }
 
+    /**
+     * If the state of the application changes, it is checked whether the class is currently updating.
+     * If it is not updating {@code applySelectedColorToFigures} is called to apply the currently
+     * selected color to the currently selected figures. After applying the colors, the class is set to
+     * not updating again.
+     *
+     * @param event  a ChangeEvent object
+     */
     @Override
-    public void stateChanged(ChangeEvent e) {
-        // TODO simplify contional expression // make isUpdating a boolean
+    public void stateChanged(ChangeEvent event) {
+        // TODO simplify conditional expression // make isUpdating a boolean
         if (isUpdating++ == 0) {
             applySelectedColorToFigures();
         }

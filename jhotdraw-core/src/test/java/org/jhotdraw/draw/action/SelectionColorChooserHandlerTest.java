@@ -21,7 +21,6 @@ public class SelectionColorChooserHandlerTest {
     DrawingView drawingView;
     JPopupMenu popupMenu;
 
-    // TODO Report: Test setup very cumbersome
     @Before
     public void setUp() {
         editor = mock(DrawingEditor.class);
@@ -78,7 +77,6 @@ public class SelectionColorChooserHandlerTest {
         // that no color is applied to the selected figure, and
         // that the default of the editor is set to no color
         verify(colorChooser, times(1)).getColor();
-        // TODO The method could already stop here, i.e. after receiving no color from the chooser
         verify(figure, times(1)).willChange();
         verify(figure, times(1)).set(AttributeKeys.FILL_COLOR, null);
         verify(figure, times(1)).changed();
@@ -157,7 +155,7 @@ public class SelectionColorChooserHandlerTest {
         verify(colorChooser, times(1)).setEnabled(true);
         verify(popupMenu, times(1)).setEnabled(true);
         verify(colorChooser, times(1)).setColor(new Color(0, true));
-        // TODO Should be something like 'take value from last selected figure' after the refacoring
+        // TODO Should be something like 'take value from last selected figure' after the refactoring
         // verify(colorChooser, times(1)).setColor(Color.red);
         assertEquals(0, handler.isUpdating);
     }
