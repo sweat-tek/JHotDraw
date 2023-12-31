@@ -1,7 +1,5 @@
 /**
- * @(#)SelectionColorChooserHandler.java
- *
- * Copyright (c) 2010 The authors and contributors of JHotDraw.
+ * @(#)SelectionColorChooserHandler.java Copyright (c) 2010 The authors and contributors of JHotDraw.
  * You may not use, copy or modify this file, except in compliance with the
  * accompanying license terms.
  */
@@ -9,12 +7,15 @@ package org.jhotdraw.draw.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
+
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.undo.*;
+
 import org.jhotdraw.draw.*;
 
 public class SelectionColorChooserHandler extends AbstractSelectedAction
@@ -46,67 +47,43 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     /**
      * Gets the currently selected figures and the currently selected color,
      * and applies the color to all selected figures.
-     *
      */
-    // TODO [CODE SMELL] Long Method <<< [LEVEL 1 Refactoring]
     @FeatureEntryPoint("SelectionColorChooserHandler.applySelectedColorToFigures")
     protected void applySelectedColorToFigures() {
-        // TODO extract to class level?
-        final ArrayList<Figure> selectedFigures = new ArrayList<>(getView().getSelectedFigures());
-        // TODO extract to class level?
-        final ArrayList<Object> restoreData = new ArrayList<>(selectedFigures.size());
-        // TODO Guard - move to beginning if there is no color selected, don't proceed with the method
+        final Color selectedColor = getSelectedColor();
+        setSelectedColorInEditor(selectedColor);
+        final List<Figure> selectedFigures = getSelectedFigures();
+        enableUndoOfAppliedColor(selectedColor, selectedFigures);
+        setColorForFigures(selectedColor, selectedFigures);
+    }
+
+    private Color getSelectedColor() {
         Color selectedColor = colorChooser.getColor();
-        // TODO Maybe simplify boolean expression
         if (selectedColor != null && selectedColor.getAlpha() == 0) {
             selectedColor = null;
         }
-        for (Figure figure : selectedFigures) {
-            // TODO different abstraction levels (figures, colors, events (?!)) - separate class? [LEVEL 2 REFACTORING]
-            restoreData.add(figure.getAttributesRestoreData());
-            // TODO Observer pattern?
-            figure.willChange();
-            figure.set(key, selectedColor);
-            figure.changed();
-        }
+        return selectedColor;
+    }
+
+    private void setSelectedColorInEditor(Color selectedColor) {
         getEditor().setDefaultAttribute(key, selectedColor);
-        // TODO Shouldn't it be redo value?
-        final Color undoValue = selectedColor;
+    }
 
-        // TODO refactor to be separate class
-        // TODO undo mechanism should be handled somewhere else [LEVEL 3 REFACTORING]
-        UndoableEdit edit = new AbstractUndoableEdit() {
-            private static final long serialVersionUID = 1L;
+    private List<Figure> getSelectedFigures() {
+        return new ArrayList<Figure>(getView().getSelectedFigures());
+    }
 
-            @Override
-            public String getPresentationName() {
-                return AttributeKeys.FONT_FACE.getPresentationName();
-            }
-
-            @Override
-            public void undo() {
-                super.undo();
-                Iterator<Object> iRestore = restoreData.iterator();
-                for (Figure figure : selectedFigures) {
-                    // TODO Code duplication?
-                    figure.willChange();
-                    figure.restoreAttributesTo(iRestore.next());
-                    figure.changed();
-                }
-            }
-
-            @Override
-            public void redo() {
-                super.redo();
-                for (Figure figure : selectedFigures) {
-                    // TODO code duplication?
-                    figure.willChange();
-                    figure.set(key, undoValue);
-                    figure.changed();
-                }
-            }
-        };
+    private void enableUndoOfAppliedColor(Color undoColor, List<Figure> figures) {
+        final UndoableEdit edit = new SelectionColorChooserHandlerUndoableEdit(undoColor, figures);
         fireUndoableEditHappened(edit);
+    }
+
+    private void setColorForFigures(Color color, List<Figure> figures) {
+        figures.forEach(figure -> {
+            figure.willChange();
+            figure.set(key, color);
+            figure.changed();
+        });
     }
 
     @Override
@@ -134,7 +111,7 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
      * selected color to the currently selected figures. After applying the colors, the class is set to
      * not updating again.
      *
-     * @param event  a ChangeEvent object
+     * @param event a ChangeEvent object
      */
     @Override
     public void stateChanged(ChangeEvent event) {
