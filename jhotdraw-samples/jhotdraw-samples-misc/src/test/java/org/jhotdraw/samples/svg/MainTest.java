@@ -36,9 +36,9 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        while (true){
+        /*while (true){
 
-        }
+        }*/
     }
 
 }
