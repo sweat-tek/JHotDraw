@@ -25,7 +25,7 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     protected AttributeKey<Color> key;
     protected JColorChooser colorChooser;
     protected JPopupMenu popupMenu; // TODO should not care about popupMenu MVC, etc.
-    protected int isUpdating; // TODO Boolean?
+    protected boolean isUpdating; // TODO Boolean?
 
     public SelectionColorChooserHandler(DrawingEditor editor, AttributeKey<Color> key, JColorChooser colorChooser, JPopupMenu popupMenu) {
         super(editor);
@@ -92,16 +92,13 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
         if (getView() != null && colorChooser != null && popupMenu != null) {
             colorChooser.setEnabled(getView().getSelectionCount() > 0);
             popupMenu.setEnabled(getView().getSelectionCount() > 0);
-            isUpdating++;
-            if (getView().getSelectionCount() > 0 /*&& colorChooser.isShowing()*/) {
-                // TODO Solarlint: Loops with at most one iteration should be refactored [LEVEL 2 REFACTORING]
-                for (Figure f : getView().getSelectedFigures()) {
-                    Color figureColor = f.get(key);
-                    colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
-                    break;
-                }
+            isUpdating = true;
+            if (getView().getSelectionCount() > 0) {
+                Figure firstFigure = getView().getSelectedFigures().iterator().next();
+                Color figureColor = firstFigure.get(key);
+                colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
             }
-            isUpdating--;
+            isUpdating = false;
         }
     }
 
@@ -116,9 +113,10 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     @Override
     public void stateChanged(ChangeEvent event) {
         // TODO simplify conditional expression // make isUpdating a boolean
-        if (isUpdating++ == 0) {
+        if (isUpdating == false) {
+            isUpdating = true;
             applySelectedColorToFigures();
         }
-        isUpdating--;
+        isUpdating = false;
     }
 }

@@ -114,7 +114,7 @@ public class SelectionColorChooserHandlerTest {
         verify(colorChooser, times(1)).setEnabled(true);
         verify(popupMenu, times(1)).setEnabled(true);
         verify(colorChooser, times(1)).setColor(new Color(0, true));
-        assertEquals(0, handler.isUpdating);
+        assertEquals(false, handler.isUpdating);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class SelectionColorChooserHandlerTest {
         verify(colorChooser, times(1)).setEnabled(false);
         verify(popupMenu, times(1)).setEnabled(false);
         verify(colorChooser, times(0)).setColor(any());
-        assertEquals(0, handler.isUpdating);
+        assertEquals(false, handler.isUpdating);
     }
 
     @Test
@@ -157,7 +157,7 @@ public class SelectionColorChooserHandlerTest {
         verify(colorChooser, times(1)).setColor(new Color(0, true));
         // TODO Should be something like 'take value from last selected figure' after the refactoring
         // verify(colorChooser, times(1)).setColor(Color.red);
-        assertEquals(0, handler.isUpdating);
+        assertEquals(false, handler.isUpdating);
     }
 
 }
