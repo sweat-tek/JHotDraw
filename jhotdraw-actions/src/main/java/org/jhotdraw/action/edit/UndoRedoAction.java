@@ -6,30 +6,26 @@ import org.jhotdraw.api.app.View;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 abstract class UndoRedoAction extends AbstractViewAction {
     private static final long serialVersionUID = 1L;
     private final String id;
 
-    private PropertyChangeListener redoActionPropertyListener = new PropertyChangeListener() {
-        @Override
-        public void propertyChange(PropertyChangeEvent evt) {
-            String name = evt.getPropertyName();
-            if (name != null && name.equals(Action.NAME)) {
-                putValue(Action.NAME, evt.getNewValue());
-            } else if ("enabled".equals(name)) {
-                updateEnabledState();
-            }
+    private final  PropertyChangeListener redoActionPropertyListener = evt -> {
+        String name = evt.getPropertyName();
+        if (name != null && name.equals(Action.NAME)) {
+            putValue(Action.NAME, evt.getNewValue());
+        } else if ("enabled".equals(name)) {
+            updateEnabledState();
         }
     };
 
     /**
      * Creates a new instance which acts on the specified view of the application.
      *
-     * @param app
-     * @param view
+     * @param app application
+     * @param view view
      */
     protected UndoRedoAction(Application app, View view, String id) {
         super(app, view);
