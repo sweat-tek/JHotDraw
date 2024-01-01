@@ -17,8 +17,8 @@ abstract class UndoRedoAction extends AbstractViewAction {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
             String name = evt.getPropertyName();
-            if ((name == null && AbstractAction.NAME == null) || (name != null && name.equals(AbstractAction.NAME))) {
-                putValue(AbstractAction.NAME, evt.getNewValue());
+            if (name != null && name.equals(Action.NAME)) {
+                putValue(Action.NAME, evt.getNewValue());
             } else if ("enabled".equals(name)) {
                 updateEnabledState();
             }
@@ -51,8 +51,8 @@ abstract class UndoRedoAction extends AbstractViewAction {
         if (newValue != null
                 && newValue.getActionMap().get(getID(id)) != null
                 && newValue.getActionMap().get(getID(id)) != this) {
-            putValue(AbstractAction.NAME, newValue.getActionMap().get(getID(id)).
-                    getValue(AbstractAction.NAME));
+            putValue(Action.NAME, newValue.getActionMap().get(getID(id)).
+                    getValue(Action.NAME));
             updateEnabledState();
         }
     }
