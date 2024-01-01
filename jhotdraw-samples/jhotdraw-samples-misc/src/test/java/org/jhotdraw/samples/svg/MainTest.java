@@ -18,6 +18,8 @@
  */
 package org.jhotdraw.samples.svg;
 
+import org.jhotdraw.undo.LabelPath;
+import org.jhotdraw.util.ResourceBundleUtil;
 import org.junit.Test;
 
 import static java.lang.Thread.sleep;
@@ -33,6 +35,7 @@ public class MainTest {
      */
     @Test
     public void testMain() {
+
         System.out.println("main");
         String[] args = {};
         Main.main(args);

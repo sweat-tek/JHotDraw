@@ -1,0 +1,76 @@
+{
+  "className": "org.jhotdraw.undo.BDDTests.UndoBDDTest",
+  "name": "Undo BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.undo.BDDTests.UndoBDDTest",
+      "testMethodName": "undoable_edit_can_be_undone",
+      "description": "undoable edit can be undone",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a user has made an undoable edit",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a user has made an undoable edit"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1627500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user activates the undo function",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user activates the undo function"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 132600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the edit should be undone",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the edit should be undone"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 62600,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 3023400
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 3023400
+    }
+  ],
+  "tagMap": {}
+}

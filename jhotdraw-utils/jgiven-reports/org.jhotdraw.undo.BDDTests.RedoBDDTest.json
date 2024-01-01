@@ -1,0 +1,76 @@
+{
+  "className": "org.jhotdraw.undo.BDDTests.RedoBDDTest",
+  "name": "Redo BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.undo.BDDTests.RedoBDDTest",
+      "testMethodName": "undid_edits_can_be_redone",
+      "description": "undid edits can be redone",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a user has used the undo feature",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a user has used the undo feature"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 8736900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user activates the redo function",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user activates the redo function"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 124800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the undone edit should come back",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the undone edit should come back"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 41500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 31319000
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 31319000
+    }
+  ],
+  "tagMap": {}
+}
