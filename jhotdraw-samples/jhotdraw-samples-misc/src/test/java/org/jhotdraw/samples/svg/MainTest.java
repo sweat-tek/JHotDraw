@@ -36,9 +36,10 @@ public class MainTest {
         String[] args = {};
         Main.main(args);
 
-        /*while (true){
-
-        }*/
+        // TODO Uncomment to start JHotDraw
+//        while (true){
+//
+//        }
     }
 
 }
