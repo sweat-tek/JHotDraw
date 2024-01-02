@@ -1,7 +1,5 @@
 /**
- * @(#)SelectionColorChooserHandler.java
- *
- * Copyright (c) 2010 The authors and contributors of JHotDraw.
+ * @(#)SelectionColorChooserHandler.java Copyright (c) 2010 The authors and contributors of JHotDraw.
  * You may not use, copy or modify this file, except in compliance with the
  * accompanying license terms.
  */
@@ -9,110 +7,83 @@ package org.jhotdraw.draw.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
+
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.undo.*;
+
 import org.jhotdraw.draw.*;
 
-/**
- * SelectionColorChooserHandler.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
 public class SelectionColorChooserHandler extends AbstractSelectedAction
         implements ChangeListener {
 
     private static final long serialVersionUID = 1L;
     protected AttributeKey<Color> key;
     protected JColorChooser colorChooser;
-    protected JPopupMenu popupMenu;
-    protected int isUpdating;
+    protected JPopupMenu popupMenu; // TODO should not care about popupMenu MVC, etc.
+    protected boolean isUpdating; // TODO Boolean?
 
-    //protected Map<AttributeKey, Object> attributes;
-    /**
-     * Creates a new instance.
-     */
     public SelectionColorChooserHandler(DrawingEditor editor, AttributeKey<Color> key, JColorChooser colorChooser, JPopupMenu popupMenu) {
         super(editor);
         this.key = key;
         this.colorChooser = colorChooser;
         this.popupMenu = popupMenu;
         //colorChooser.addActionListener(this);
-        colorChooser.getSelectionModel().addChangeListener(this);
+        colorChooser.getSelectionModel().addChangeListener(this); // TODO is anything achieved with using the change listener?
         updateEnabledState();
     }
 
     @Override
+    // TODO 2 entry points?! actionPerformed() and stateChanged()?
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        if (evt.getActionCommand() == JColorChooser.APPROVE_SELECTION) {
-            applySelectedColorToFigures();
-        } else if (evt.getActionCommand() == JColorChooser.CANCEL_SELECTION) {
-        }*/
+        // TODO class is about handling and applying colors, but should not care about menus?! [LEVEL 2 Refactoring]
         popupMenu.setVisible(false);
     }
 
+    /**
+     * Gets the currently selected figures and the currently selected color,
+     * and applies the color to all selected figures.
+     */
     @FeatureEntryPoint("SelectionColorChooserHandler.applySelectedColorToFigures")
     protected void applySelectedColorToFigures() {
-        final ArrayList<Figure> selectedFigures = new ArrayList<>(getView().getSelectedFigures());
-        final ArrayList<Object> restoreData = new ArrayList<>(selectedFigures.size());
+        final Color selectedColor = getSelectedColor();
+        setSelectedColorInEditor(selectedColor);
+        final List<Figure> selectedFigures = getSelectedFigures();
+        enableUndoOfAppliedColor(selectedColor, selectedFigures);
+        setColorForFigures(selectedColor, selectedFigures);
+    }
+
+    private Color getSelectedColor() {
         Color selectedColor = colorChooser.getColor();
         if (selectedColor != null && selectedColor.getAlpha() == 0) {
             selectedColor = null;
         }
-        for (Figure figure : selectedFigures) {
-            restoreData.add(figure.getAttributesRestoreData());
-            figure.willChange();
-            figure.set(key, selectedColor);
-            figure.changed();
-        }
+        return selectedColor;
+    }
+
+    private void setSelectedColorInEditor(Color selectedColor) {
         getEditor().setDefaultAttribute(key, selectedColor);
-        final Color undoValue = selectedColor;
-        UndoableEdit edit = new AbstractUndoableEdit() {
-            private static final long serialVersionUID = 1L;
+    }
 
-            @Override
-            public String getPresentationName() {
-                return AttributeKeys.FONT_FACE.getPresentationName();
-                /*
-            String name = (String) getValue(Actions.UNDO_PRESENTATION_NAME_KEY);
-            if (name == null) {
-            name = (String) getValue(AbstractAction.NAME);
-            }
-            if (name == null) {
-            ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-            name = labels.getString("attribute.text");
-            }
-            return name;*/
-            }
+    private List<Figure> getSelectedFigures() {
+        return new ArrayList<Figure>(getView().getSelectedFigures());
+    }
 
-            @Override
-            public void undo() {
-                super.undo();
-                Iterator<Object> iRestore = restoreData.iterator();
-                for (Figure figure : selectedFigures) {
-                    figure.willChange();
-                    figure.restoreAttributesTo(iRestore.next());
-                    figure.changed();
-                }
-            }
-
-            @Override
-            public void redo() {
-                super.redo();
-                for (Figure figure : selectedFigures) {
-                    //restoreData.add(figure.getAttributesRestoreData());
-                    figure.willChange();
-                    figure.set(key, undoValue);
-                    figure.changed();
-                }
-            }
-        };
+    private void enableUndoOfAppliedColor(Color undoColor, List<Figure> figures) {
+        final UndoableEdit edit = new SelectionColorChooserHandlerUndoableEdit(undoColor, figures);
         fireUndoableEditHappened(edit);
+    }
+
+    private void setColorForFigures(Color color, List<Figure> figures) {
+        figures.forEach(figure -> {
+            figure.willChange();
+            figure.set(key, color);
+            figure.changed();
+        });
     }
 
     @Override
@@ -121,23 +92,31 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
         if (getView() != null && colorChooser != null && popupMenu != null) {
             colorChooser.setEnabled(getView().getSelectionCount() > 0);
             popupMenu.setEnabled(getView().getSelectionCount() > 0);
-            isUpdating++;
-            if (getView().getSelectionCount() > 0 /*&& colorChooser.isShowing()*/) {
-                for (Figure f : getView().getSelectedFigures()) {
-                    Color figureColor = f.get(key);
-                    colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
-                    break;
-                }
+            isUpdating = true;
+            if (getView().getSelectionCount() > 0) {
+                Figure firstFigure = getView().getSelectedFigures().iterator().next();
+                Color figureColor = firstFigure.get(key);
+                colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
             }
-            isUpdating--;
+            isUpdating = false;
         }
     }
 
+    /**
+     * If the state of the application changes, it is checked whether the class is currently updating.
+     * If it is not updating {@code applySelectedColorToFigures} is called to apply the currently
+     * selected color to the currently selected figures. After applying the colors, the class is set to
+     * not updating again.
+     *
+     * @param event a ChangeEvent object
+     */
     @Override
-    public void stateChanged(ChangeEvent e) {
-        if (isUpdating++ == 0) {
+    public void stateChanged(ChangeEvent event) {
+        // TODO simplify conditional expression // make isUpdating a boolean
+        if (isUpdating == false) {
+            isUpdating = true;
             applySelectedColorToFigures();
         }
-        isUpdating--;
+        isUpdating = false;
     }
 }
