@@ -13,6 +13,10 @@ import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashSet;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.event.ToolAdapter;
@@ -53,30 +57,34 @@ import org.jhotdraw.draw.handle.Handle;
  * @version $Id$
  */
 
-public class SelectionTool extends AbstractTool {
-    
-    private static final long serialVersionUID = 1L;
-    
-    
-    /**
-     * The tracker encapsulates the current state of the SelectionTool.
-     */
-    
-    private Tool tracker;
-    /**
-     * The tracker encapsulates the current state of the SelectionTool.
-     */
-    private HandleTracker handleTracker;
-    /**
-     * The tracker encapsulates the current state of the SelectionTool.
-     */
-    private SelectAreaTracker selectAreaTracker;
-    /**
-     * The tracker encapsulates the current state of the SelectionTool.
-     */
-    private DragTracker dragTracker;
+public class SelectionTool extends AbstractTool implements Serializable{
 
-    private class TrackerHandler extends ToolAdapter {
+    private static final long serialVersionUID = 1L;
+
+
+    /**
+     * The tracker encapsulates the current state of the SelectionTool.
+     */
+
+    private transient Tool tracker;
+    /**
+     * The tracker encapsulates the current state of the SelectionTool.
+     */
+    private transient HandleTracker handleTracker;
+    /**
+     * The tracker encapsulates the current state of the SelectionTool.
+     */
+    private transient SelectAreaTracker selectAreaTracker;
+    /**
+     * The tracker encapsulates the current state of the SelectionTool.
+     */
+    private transient DragTracker dragTracker;
+
+
+
+
+
+    class TrackerHandler extends ToolAdapter {
 
         @Override
         public void toolDone(ToolEvent event) {
@@ -110,7 +118,31 @@ public class SelectionTool extends AbstractTool {
             fireBoundsInvalidated(e.getInvalidatedArea());
         }
     }
-    private TrackerHandler trackerHandler;
+    private transient TrackerHandler trackerHandler;
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Write default serializable fields
+
+        // Custom serialization for transient fields
+        out.writeObject(tracker);
+        out.writeObject(handleTracker);
+        out.writeObject(selectAreaTracker);
+        out.writeObject(dragTracker);
+        out.writeObject(trackerHandler);
+
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject(); // Read default serializable fields
+
+        // Custom deserialization for transient fields
+        tracker = (Tool) in.readObject();
+        handleTracker = (HandleTracker) in.readObject();
+        selectAreaTracker = (SelectAreaTracker) in.readObject();
+        dragTracker = (DragTracker) in.readObject();
+        trackerHandler = (TrackerHandler) in.readObject();
+    }
+
     /**
      * Constant for the name of the selectBehindEnabled property.
      */
@@ -229,6 +261,7 @@ public class SelectionTool extends AbstractTool {
         tracker.draw(g);
     }
 
+    /*
     @Override
     public void mousePressed(MouseEvent evt) {
         if (getView() != null && getView().isEnabled()) {
@@ -236,12 +269,14 @@ public class SelectionTool extends AbstractTool {
             DrawingView view = getView();
             Handle handle = view.findHandle(anchor);
             Tool newTracker = null;
+
             if (handle != null) {
                 newTracker = getHandleTracker(handle);
             } else {
                 Figure figure;
                 Drawing drawing = view.getDrawing();
                 Point2D.Double p = view.viewToDrawing(anchor);
+
                 if (isSelectBehindEnabled()
                         && (evt.getModifiersEx()
                         & (InputEvent.ALT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) != 0) {
@@ -296,6 +331,89 @@ public class SelectionTool extends AbstractTool {
             tracker.mousePressed(evt);
         }
     }
+    */
+    @Override
+    public void mousePressed(MouseEvent evt) {
+        if (getView() == null || !getView().isEnabled()) {
+            return;
+        }
+
+        super.mousePressed(evt);
+        DrawingView view = getView();
+        Handle handle = view.findHandle(anchor);
+        Tool newTracker = handle != null ? getHandleTracker(handle) : findNewTracker(view, evt);
+
+        if (newTracker != null) {
+            setTracker(newTracker);
+            tracker.mousePressed(evt);
+        }
+    }
+
+    private Tool findNewTracker(DrawingView view, MouseEvent evt) {
+        Handle handle = view.findHandle(anchor);
+        if (handle != null) {
+            return getHandleTracker(handle);
+        }
+
+        Figure figure = getFigure(view, evt);
+        if (figure != null && figure.isSelectable()) {
+            return getDragTracker(figure);
+        } else {
+            handleNonSelectableFigure(view, evt);
+            return getSelectAreaTracker();
+        }
+    }
+
+    private Figure getFigure(DrawingView view, MouseEvent evt) {
+        Figure figure;
+        Drawing drawing = view.getDrawing();
+        Point2D.Double p = view.viewToDrawing(anchor);
+
+        if (isSelectBehindEnabled() && (evt.getModifiersEx() & (InputEvent.ALT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) != 0) {
+            figure = findFigureBehindWithModifiers(view, p);
+        } else {
+            figure = findFigureBySearchSequence(view, p, drawing);
+        }
+        return figure;
+    }
+
+    private Figure findFigureBehindWithModifiers(DrawingView view, Point2D.Double p) {
+        Figure figure = view.findFigure(anchor);
+        while (figure != null && !figure.isSelectable()) {
+            figure = view.getDrawing().findFigureBehind(p, figure);
+        }
+        HashSet<Figure> ignoredFigures = new HashSet<>(view.getSelectedFigures());
+        ignoredFigures.add(figure);
+        Figure figureBehind = view.getDrawing().findFigureBehind(view.viewToDrawing(anchor), ignoredFigures);
+        return figureBehind != null ? figureBehind : figure;
+    }
+
+    private Figure findFigureBySearchSequence(DrawingView view, Point2D.Double p, Drawing drawing) {
+        Figure figure = null;
+        if (isSelectBehindEnabled()) {
+            figure = view.getSelectedFigures().stream()
+                    .filter(f -> f.contains(p))
+                    .findFirst()
+                    .orElse(null);
+        }
+        if (figure == null) {
+            figure = view.findFigure(anchor);
+            while (figure != null && !figure.isSelectable()) {
+                figure = drawing.findFigureBehind(p, figure);
+            }
+        }
+        return figure;
+    }
+
+    private void handleNonSelectableFigure(DrawingView view, MouseEvent evt) {
+        Figure figure = getFigure(view, evt);
+        if (figure == null || !figure.isSelectable() && !evt.isShiftDown()) {
+            view.clearSelection();
+            view.setHandleDetailLevel(0);
+        }
+    }
+
+
 
     protected void setTracker(Tool newTracker) {
         if (tracker != null) {
@@ -367,6 +485,7 @@ public class SelectionTool extends AbstractTool {
     public void setDragTracker(DragTracker newValue) {
         dragTracker = newValue;
     }
+
 
     /**
      * Returns true, if this tool lets the user interact with handles.

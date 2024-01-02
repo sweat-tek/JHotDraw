@@ -55,6 +55,7 @@ public class AbstractBean extends Object implements java.io.Serializable, Clonea
         // Removes a property change listener from our list.
         // We need a somewhat complex procedure here in case a listener
         // has been registered using addPropertyChangeListener(new WeakPropertyChangeListener(listener));
+
         for (PropertyChangeListener l : propertySupport.getPropertyChangeListeners()) {
             if (l == listener) {
                 propertySupport.removePropertyChangeListener(l);
