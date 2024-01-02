@@ -12,7 +12,7 @@ abstract class UndoRedoAction extends AbstractViewAction {
     private static final long serialVersionUID = 1L;
     private final String id;
 
-    private final  PropertyChangeListener redoActionPropertyListener = evt -> {
+    private final transient PropertyChangeListener redoActionPropertyListener = evt -> {
         String name = evt.getPropertyName();
         if (name != null && name.equals(Action.NAME)) {
             putValue(Action.NAME, evt.getNewValue());
