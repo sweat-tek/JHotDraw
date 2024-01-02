@@ -7,7 +7,6 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -59,7 +58,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "SVGPathFigure")
     public SVGPathFigure() {
         add(new SVGBezierFigure());
         SVGAttributeKeys.setDefaults(this);
