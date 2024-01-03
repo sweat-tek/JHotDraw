@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.tool;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -53,6 +54,7 @@ public class ImageTool extends CreationTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("ImageTool1")
     public ImageTool(ImageHolderFigure prototype) {
         super(prototype);
     }
@@ -60,10 +62,12 @@ public class ImageTool extends CreationTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("ImageTool2")
     public ImageTool(ImageHolderFigure prototype, Map<AttributeKey<?>, Object> attributes) {
         super(prototype, attributes);
     }
 
+    @FeatureEntryPoint("ImageTool3")
     public void setUseFileDialog(boolean newValue) {
         useFileDialog = newValue;
         if (useFileDialog) {
@@ -73,10 +77,12 @@ public class ImageTool extends CreationTool {
         }
     }
 
+    @FeatureEntryPoint("ImageTool4")
     public boolean isUseFileDialog() {
         return useFileDialog;
     }
 
+    @FeatureEntryPoint("ImageTool5")
     @Override
     public void activate(DrawingEditor editor) {
         super.activate(editor);
@@ -140,6 +146,7 @@ public class ImageTool extends CreationTool {
         }
     }
 
+    @FeatureEntryPoint("ImageTool6")
     private JFileChooser getFileChooser() {
         if (fileChooser == null) {
             fileChooser = new JFileChooser();
@@ -147,6 +154,7 @@ public class ImageTool extends CreationTool {
         return fileChooser;
     }
 
+    @FeatureEntryPoint("ImageTool7")
     private FileDialog getFileDialog() {
         if (fileDialog == null) {
             fileDialog = new FileDialog(new Frame());

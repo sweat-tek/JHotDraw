@@ -24,11 +24,9 @@ public class Images {
     /**
      * Prevent instance creation.
      */
-    @FeatureEntryPoint("InsertImage")
     private Images() {
     }
 
-    @FeatureEntryPoint("InsertImage")
     public static Image createImage(Class<?> baseClass, String resourceName) {
         URL resource = baseClass.getResource(resourceName);
         if (resource == null) {
@@ -38,7 +36,6 @@ public class Images {
         return image;
     }
 
-    @FeatureEntryPoint("InsertImage")
     public static Image createImage(URL resource) {
         if (resource == null) {
             throw new IllegalArgumentException("resource must not be null");
@@ -54,7 +51,6 @@ public class Images {
      * @param rImg An Image.
      * @return A BufferedImage.
      */
-    @FeatureEntryPoint("InsertImage")
     public static BufferedImage toBufferedImage(RenderedImage rImg) {
         BufferedImage image;
         if (rImg instanceof BufferedImage) {
@@ -73,7 +69,6 @@ public class Images {
         return image;
     }
 
-    @FeatureEntryPoint("InsertImage")
     public static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;
@@ -139,7 +134,6 @@ public class Images {
      * Code taken from the Java Developers Almanac 1.4
      * http://javaalmanac.com/egs/java.awt.image/HasAlpha.html
      */
-    @FeatureEntryPoint("InsertImage")
     public static boolean hasAlpha(Image image) {
         // If buffered image, the color model is readily available
         if (image instanceof BufferedImage) {
@@ -162,7 +156,6 @@ public class Images {
     /**
      * Splits an image into count subimages.
      */
-    @FeatureEntryPoint("InsertImage")
     public static BufferedImage[] split(Image image, int count, boolean isHorizontal) {
         BufferedImage src = Images.toBufferedImage(image);
         if (count == 1) {
@@ -199,7 +192,6 @@ public class Images {
      * @param width the width to which to scale the image.
      * @param height the height to which to scale the image.
      */
-    @FeatureEntryPoint("InsertImage")
     public static BufferedImage getScaledInstance(Image image, int width, int height) {
         int w, h;
         if (width < 0 && height < 0) {
