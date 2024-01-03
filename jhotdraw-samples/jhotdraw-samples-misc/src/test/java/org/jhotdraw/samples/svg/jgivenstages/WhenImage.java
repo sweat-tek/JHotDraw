@@ -5,9 +5,7 @@ import com.tngtech.jgiven.annotation.ScenarioState;
 import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.samples.svg.figures.SVGEllipseFigure;
-import org.jhotdraw.samples.svg.figures.SVGFigure;
 import org.jhotdraw.samples.svg.figures.SVGImageFigure;
-import org.jhotdraw.samples.svg.figures.SVGImageFigureTest;
 
 import java.awt.geom.Point2D;
 import java.util.List;
