@@ -27,7 +27,7 @@ import org.jhotdraw.util.*;
  * @version $Id$
  */
 public class UndoAction extends UndoRedoAction {
-    public static final String ID = getID(ActionIDs.undoID);
+    public static final String ID = getID(ActionIDs.UNDOID);
 
     /**
      * Creates a new instance.
