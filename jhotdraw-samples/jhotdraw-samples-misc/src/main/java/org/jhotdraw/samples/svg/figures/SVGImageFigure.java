@@ -16,6 +16,7 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,10 +24,7 @@ import javax.swing.*;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 
 import org.jhotdraw.draw.event.TransformRestoreEdit;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.ResizeHandleKit;
-import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 
@@ -263,6 +261,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
                 }
             });
         }
+
         if (bufferedImage != null) {
             if (rectangle.width != bufferedImage.getWidth()
                     || rectangle.height != bufferedImage.getHeight()) {
@@ -271,16 +270,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        Object geometry = getTransformRestoreData();
-                        willChange();
-                        rectangle = new Rectangle2D.Double(
-                                rectangle.x - (bufferedImage.getWidth() - rectangle.width) / 2d,
-                                rectangle.y - (bufferedImage.getHeight() - rectangle.height) / 2d,
-                                bufferedImage.getWidth(),
-                                bufferedImage.getHeight());
-                        fireUndoableEditHappened(
-                                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
-                        changed();
+                        actionsPerformed1();
                     }
                 });
             }
@@ -292,13 +282,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        Object geometry = getTransformRestoreData();
-                        willChange();
-                        double newHeight = bufferedImage.getHeight() * rectangle.width / bufferedImage.getWidth();
-                        rectangle = new Rectangle2D.Double(rectangle.x, rectangle.y - (newHeight - rectangle.height) / 2d, rectangle.width, newHeight);
-                        fireUndoableEditHappened(
-                                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
-                        changed();
+                        actionsPerformed2();
                     }
                 });
                 actions.add(new AbstractAction(labels.getString("edit.adjustWidthToImageAspect.text")) {
@@ -306,13 +290,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
 
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        Object geometry = getTransformRestoreData();
-                        willChange();
-                        double newWidth = bufferedImage.getWidth() * rectangle.height / bufferedImage.getHeight();
-                        rectangle = new Rectangle2D.Double(rectangle.x - (newWidth - rectangle.width) / 2d, rectangle.y, newWidth, rectangle.height);
-                        fireUndoableEditHappened(
-                                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
-                        changed();
+                        actionsPerformed3();
                     }
                 });
             }
@@ -320,16 +298,50 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
         return actions;
     }
 
+    private void actionsPerformed1(){
+        Object geometry = getTransformRestoreData();
+        willChange();
+        rectangle = new Rectangle2D.Double(
+                rectangle.x - (bufferedImage.getWidth() - rectangle.width) / 2d,
+                rectangle.y - (bufferedImage.getHeight() - rectangle.height) / 2d,
+                bufferedImage.getWidth(),
+                bufferedImage.getHeight());
+        fireUndoableEditHappened(
+                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
+        changed();
+    }
+
+    private void actionsPerformed2(){
+        Object geometry = getTransformRestoreData();
+        willChange();
+        double newHeight = bufferedImage.getHeight() * rectangle.width / bufferedImage.getWidth();
+        rectangle = new Rectangle2D.Double(rectangle.x, rectangle.y - (newHeight - rectangle.height) / 2d, rectangle.width, newHeight);
+        fireUndoableEditHappened(
+                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
+        changed();
+    }
+    private void actionsPerformed3(){
+        Object geometry = getTransformRestoreData();
+        willChange();
+        double newWidth = bufferedImage.getWidth() * rectangle.height / bufferedImage.getHeight();
+        rectangle = new Rectangle2D.Double(rectangle.x - (newWidth - rectangle.width) / 2d, rectangle.y, newWidth, rectangle.height);
+        fireUndoableEditHappened(
+                new TransformRestoreEdit(SVGImageFigure.this, geometry, getTransformRestoreData()));
+        changed();
+
+    }
+
+
     // CONNECTING
     // COMPOSITE FIGURES
     // CLONING
     @Override
     public SVGImageFigure clone() {
-        SVGImageFigure that = (SVGImageFigure) super.clone();
-        that.rectangle = (Rectangle2D.Double) this.rectangle.clone();
-        that.cachedTransformedShape = null;
-        that.cachedHitShape = null;
-        return that;
+        SVGImageFigure copy = (SVGImageFigure) super.clone();
+        copy.rectangle = (Rectangle2D.Double) this.rectangle.clone();
+        copy.cachedTransformedShape = null;
+        copy.cachedHitShape = null;
+        return copy;
     }
 
     @Override
@@ -400,7 +412,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
         if (bufferedImage == null && imageData != null) {
             try {
                 bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 // If we can't create a buffered image from the image data,
                 // there is no use to keep the image data and try again, so
@@ -440,9 +452,9 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
 
     @Override
     public void loadImage(File file) throws IOException {
-        try (InputStream in = new FileInputStream(file)) {
+        try (InputStream in = Files.newInputStream(file.toPath())) {
             loadImage(in);
-        } catch (Exception t) {
+        } catch (IOException t) {
             ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             IOException e = new IOException(labels.getFormatted("file.failedToLoadImage.message", file.getName()));
             e.initCause(t);
@@ -461,7 +473,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
         BufferedImage img;
         try {
             img = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
-        } catch (Exception t) {
+        } catch (IOException t) {
             img = null;
         }
         if (img == null) {

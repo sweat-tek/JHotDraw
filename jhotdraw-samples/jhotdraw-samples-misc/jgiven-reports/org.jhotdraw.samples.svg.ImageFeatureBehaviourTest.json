@@ -1,0 +1,71 @@
+{
+  "className": "org.jhotdraw.samples.svg.ImageFeatureBehaviourTest",
+  "name": "Image Feature Behaviour",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.ImageFeatureBehaviourTest",
+      "testMethodName": "drawImage",
+      "description": "Draw image",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "casesAsTable": false,
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "an empty drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an empty drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 142936200
+            },
+            {
+              "name": "an image is drawn",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an image is drawn"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 22861600
+            },
+            {
+              "name": "the drawing cointans the drawn image",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the drawing cointans the drawn image"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2560300
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 192670400
+        }
+      ],
+      "durationInNanos": 192670400,
+      "executionStatus": "SUCCESS"
+    }
+  ],
+  "tagMap": {}
+}
