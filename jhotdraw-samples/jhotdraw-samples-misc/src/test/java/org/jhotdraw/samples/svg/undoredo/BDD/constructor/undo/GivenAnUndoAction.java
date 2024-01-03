@@ -1,16 +1,15 @@
-package org.jhotdraw.samples.svg.undoredo.BDD;
+package org.jhotdraw.samples.svg.undoredo.BDD.constructor.undo;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import org.jhotdraw.action.edit.UndoAction;
 
-public class GivenAnActionHasBeenDone extends Stage<GivenAnActionHasBeenDone> {
+public class GivenAnUndoAction extends Stage<GivenAnUndoAction> {
 
     @ExpectedScenarioState
     private UndoAction undoAction;
 
-    public GivenAnActionHasBeenDone GivenTheUndoUIExists() {
-        undoAction = new UndoAction(new );
+    public GivenAnUndoAction givenAnAction() {
         return self();
     }
 }
