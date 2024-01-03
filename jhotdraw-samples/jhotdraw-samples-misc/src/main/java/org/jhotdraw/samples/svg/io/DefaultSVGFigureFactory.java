@@ -46,7 +46,7 @@ public class DefaultSVGFigureFactory implements SVGFigureFactory {
     public Figure createRect(double x, double y, double w, double h, double rx, double ry, Map<AttributeKey<?>, Object> a) {
         SVGRectFigure figure = new SVGRectFigure();
         figure.setBounds(new Point2D.Double(x, y), new Point2D.Double(x + w, y + h));
-        figure.setArc(rx, ry);
+        figure.setBothArcs(rx, ry);
         figure.setAttributes(a);
         return figure;
     }

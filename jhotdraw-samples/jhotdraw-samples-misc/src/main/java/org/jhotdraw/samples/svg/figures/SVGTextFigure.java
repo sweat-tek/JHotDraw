@@ -388,6 +388,7 @@ public class SVGTextFigure
     @Override
     public Dimension2DDouble getPreferredSize() {
         Rectangle2D.Double b = getBounds();
+        assert b.width > 0 && b.height > 0;
         return new Dimension2DDouble(b.width, b.height);
     }
 
