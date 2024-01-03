@@ -2,7 +2,6 @@ package org.jhotdraw.samples.svg.undoredo.BDD.updateview.undo;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import org.jhotdraw.action.edit.RedoAction;
 import org.jhotdraw.action.edit.UndoAction;
 import org.jhotdraw.api.app.View;
 

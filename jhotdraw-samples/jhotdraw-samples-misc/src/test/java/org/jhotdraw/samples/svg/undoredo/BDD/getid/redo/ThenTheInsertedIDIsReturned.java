@@ -3,7 +3,6 @@ package org.jhotdraw.samples.svg.undoredo.BDD.getid.redo;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import org.jhotdraw.action.edit.RedoAction;
-import org.jhotdraw.api.app.View;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

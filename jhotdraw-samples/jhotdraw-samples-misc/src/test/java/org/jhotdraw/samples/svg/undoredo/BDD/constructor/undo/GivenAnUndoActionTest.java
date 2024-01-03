@@ -1,7 +1,6 @@
 package org.jhotdraw.samples.svg.undoredo.BDD.constructor.undo;
 
 import com.tngtech.jgiven.junit.ScenarioTest;
-import org.jhotdraw.samples.svg.undoredo.BDD.constructor.redo.GivenAnRedoAction;
 import org.jhotdraw.samples.svg.undoredo.BDD.constructor.redo.ThenExists;
 import org.jhotdraw.samples.svg.undoredo.BDD.constructor.redo.WhenInitialized;
 import org.junit.Test;
