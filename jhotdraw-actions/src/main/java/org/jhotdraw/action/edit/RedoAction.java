@@ -6,8 +6,6 @@
  * accompanying license terms.
  */
 package org.jhotdraw.action.edit;
-
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.util.*;
@@ -34,7 +32,6 @@ public class RedoAction extends UndoRedoAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "RedoAction")
     public RedoAction(Application app, View view) {
         super(app, view, ID);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");

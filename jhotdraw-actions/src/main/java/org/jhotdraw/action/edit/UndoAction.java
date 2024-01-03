@@ -9,7 +9,6 @@ package org.jhotdraw.action.edit;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.util.*;
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 
 /**
  * Undoes the last user action.
@@ -33,7 +32,6 @@ public class UndoAction extends UndoRedoAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "UndoAction")
     public UndoAction(Application app, View view) {
         super(app, view, ID);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
