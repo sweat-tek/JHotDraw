@@ -10,11 +10,8 @@ package org.jhotdraw.samples.net;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-import org.jhotdraw.action.edit.CopyAction;
-import org.jhotdraw.action.edit.CutAction;
-import org.jhotdraw.action.edit.DuplicateAction;
-import org.jhotdraw.action.edit.PasteAction;
-import org.jhotdraw.action.edit.SelectAllAction;
+
+import org.jhotdraw.action.edit.*;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.DefaultDrawing;
@@ -67,6 +64,7 @@ public class NetPanel extends JPanel {
         pb.add(new BringToFrontAction(editor));
         pb.add(new SendToBackAction(editor));
         pb.addSeparator();
+        pb.add(new DeleteAction());
         pb.add(new CutAction());
         pb.add(new CopyAction());
         pb.add(new PasteAction());

@@ -1,0 +1,71 @@
+{
+  "className": "org.jhotdraw.samples.svg.DeleteDrawingBDDTest",
+  "name": "Delete Drawing BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.DeleteDrawingBDDTest",
+      "testMethodName": "deleteDrawing",
+      "description": "Delete drawing",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "casesAsTable": false,
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "empty drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "empty drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 135710200
+            },
+            {
+              "name": "deleting the drawing",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "deleting the drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 446600
+            },
+            {
+              "name": "the drawing is deleted",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the drawing is deleted"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 366700
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 170965400
+        }
+      ],
+      "durationInNanos": 170965400,
+      "executionStatus": "SUCCESS"
+    }
+  ],
+  "tagMap": {}
+}
