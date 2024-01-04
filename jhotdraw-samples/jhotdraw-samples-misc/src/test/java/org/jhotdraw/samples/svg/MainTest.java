@@ -34,7 +34,6 @@ public class MainTest {
      * Test of main method, of class Main.
      */
     @Test
-    @Ignore
     public void testMain() {
         String[] args = {};
         Main.main(args);
@@ -43,6 +42,7 @@ public class MainTest {
     }
 
     @Test
+    @Ignore
     public void test() {
         assertEquals(true, true);
     }

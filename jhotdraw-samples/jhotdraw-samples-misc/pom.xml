@@ -90,7 +90,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:'/home/lorenzo/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar' --add-opens java.base/java.lang=ALL-UNNAMED
+                        -javaagent:'/home/mitsch/.m2/repository/org/aspectj/aspectjweaver/1.9.9/aspectjweaver-1.9.9.jar' --add-opens java.base/java.lang=ALL-UNNAMED
                     </argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <forkMode>always</forkMode>

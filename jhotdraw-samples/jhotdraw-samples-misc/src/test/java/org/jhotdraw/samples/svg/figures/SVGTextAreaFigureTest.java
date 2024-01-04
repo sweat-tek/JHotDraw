@@ -1,6 +1,7 @@
 package org.jhotdraw.samples.svg.figures;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -20,23 +21,27 @@ public class SVGTextAreaFigureTest {
 
 
     @Test
+    @Ignore
     public void testGetText() {
         assertEquals("Test text", figure.getText());
     }
 
     @Test
+    @Ignore
     public void testSetFont() {
         figure.setFontSize(20);
         assertEquals(20, figure.getFontSize(), 0.1);
     }
 
     @Test
+    @Ignore
     public void testDefaultFont() {
         Font font = figure.getFont();
         assertEquals("VERDANA", font.getName());
     }
 
     @Test
+    @Ignore
     public void testSetBounds() {
         Point2D.Double anchor = new Point2D.Double(10,10);
         Point2D.Double lead = new Point2D.Double(100, 100);

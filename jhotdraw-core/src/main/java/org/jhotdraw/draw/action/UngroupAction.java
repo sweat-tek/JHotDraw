@@ -7,10 +7,14 @@
  */
 package org.jhotdraw.draw.action;
 
+import org.jhotdraw.draw.DrawingEditor;
+import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.CompositeFigure;
-import org.jhotdraw.draw.figure.GroupFigure;
-import org.jhotdraw.draw.*;
+import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 /**
  * UngroupAction.
@@ -18,29 +22,56 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class UngroupAction extends GroupAction {
+public class UngroupAction extends AbstractSelectedAction {
 
-    private static final long serialVersionUID = 1L;
-    public static final String ID = "edit.ungroupSelection";
-    /**
-     * Creates a new instance.
-     */
-    private CompositeFigure prototype;
+  private static final long serialVersionUID = 1L;
+  public static final String ID = "edit.ungroupSelection";
+  /**
+   * Creates a new instance.
+   */
+  private CompositeFigure prototype;
 
-    /**
-     * Creates a new instance.
-     */
-    public UngroupAction(DrawingEditor editor) {
-        super(editor, new GroupFigure(), false);
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
+  /**
+   * Creates a new instance.
+   */
+  public UngroupAction(DrawingEditor editor) {
+    super(editor);
+    ResourceBundleUtil labels = ResourceBundleUtil.getBundle(
+            "org.jhotdraw.draw.Labels");
+    labels.configureAction(this, ID);
+    updateEnabledState();
+  }
+
+  public UngroupAction(DrawingEditor editor, CompositeFigure prototype) {
+    super(editor);
+    this.prototype = prototype;
+    ResourceBundleUtil labels = ResourceBundleUtil.getBundle(
+            "org.jhotdraw.draw.Labels");
+    labels.configureAction(this, ID);
+    updateEnabledState();
+  }
+
+  protected boolean canUngroup() {
+    return getView() != null
+            && getView().getSelectionCount() == 1
+            && prototype != null
+            && getView().getSelectedFigures().iterator().next().getClass()
+            .equals(
+                    prototype.getClass());
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (canUngroup()) {
+      final DrawingView view = getView();
+      final CompositeFigure group = (CompositeFigure) view.getSelectedFigures()
+              .iterator().next();
+      final LinkedList<Figure> ungroupedFigures = new LinkedList<>();
+      GroupingManager groupingManager = new GroupingManager(view, group,
+              ungroupedFigures);
+      UndoableUngroupEdit edit = new UndoableUngroupEdit(groupingManager);
+      ungroupedFigures.addAll(groupingManager.ungroupFigures());
+      fireUndoableEditHappened(edit);
     }
-
-    public UngroupAction(DrawingEditor editor, CompositeFigure prototype) {
-        super(editor, prototype, false);
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
-    }
+  }
 }
