@@ -91,8 +91,12 @@ public class SVGCreateFromFileTool extends CreationTool {
     @Override
     public void activate(DrawingEditor editor) {
         super.activate(editor);
-        final DrawingView v = getView();
-        if (v == null) {
+        final DrawingView v;
+        try {
+            v = getView();
+        }
+        catch(NullPointerException e)
+        {
             return;
         }
         final File file;
@@ -104,10 +108,16 @@ public class SVGCreateFromFileTool extends CreationTool {
                 file = null;
             }
         } else {
-            if (getFileChooser().showOpenDialog(v.getComponent()) == JFileChooser.APPROVE_OPTION) {
-                file = getFileChooser().getSelectedFile();
-            } else {
-                file = null;
+            try {
+                if (getFileChooser().showOpenDialog(v.getComponent()) == JFileChooser.APPROVE_OPTION) {
+                    file = getFileChooser().getSelectedFile();
+                } else {
+                    file = null;
+                }
+            }
+            catch(NullPointerException e)
+            {
+                return;
             }
         }
         if (file != null) {

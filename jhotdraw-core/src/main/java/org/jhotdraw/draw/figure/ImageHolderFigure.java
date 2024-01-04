@@ -13,7 +13,7 @@ import java.io.*;
 /**
  * The interface of a {@link Figure} which has some editable image contents.
  * <p>
- * The {@link org.jhotdraw.draw.tool.ImageTool} can be used to create figures which implement this
+ * The {@link org.jhotdraw.samples.svg.SVGCreateFromFileTool} can be used to create figures which implement this
  * interface.
  *
  * <hr>
@@ -25,7 +25,7 @@ import java.io.*;
  * That's the reason why {@code Figure} extends the {@code Cloneable} interface.
  * <br>
  * Prototype: {@link ImageHolderFigure};
- * Client: {@link org.jhotdraw.draw.tool.ImageTool}.
+ * Client: {@link org.jhotdraw.samples.svg.SVGCreateFromFileTool}.
  *
  *
  * <p>
