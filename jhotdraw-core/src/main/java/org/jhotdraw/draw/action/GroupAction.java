@@ -28,7 +28,6 @@ public class GroupAction extends AbstractSelectedAction {
   public static final String ID = "edit.groupSelection";
 
   private final CompositeFigure prototype;
-  private GroupingManager groupingManager;
 
   /**
    * Creates a new instance.
