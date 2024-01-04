@@ -11,12 +11,10 @@ import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoableEdit;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.text.*;
 import org.jhotdraw.geom.Insets2D;
-import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
  * A tool to edit existing figures that implement the TextHolderFigure
