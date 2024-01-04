@@ -97,7 +97,7 @@ public class ODGEllipseFigure extends ODGAttributedFigure implements ODGFigure {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
         if (get(TRANSFORM) == null) {
-            double g = ODGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2;
+            double g = AttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2;
             Geom.grow(r, g, g);
         } else {
             double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this, 1.0);

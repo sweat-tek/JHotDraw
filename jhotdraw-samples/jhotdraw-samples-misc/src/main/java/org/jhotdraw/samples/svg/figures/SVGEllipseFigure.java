@@ -143,12 +143,12 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
             return cachedHitShape;
         }
         if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
-            double grow = SVGAttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f;
-            double miterLimit = SVGAttributeKeys.getStrokeTotalMiterLimit(this, 1.0);
+            double grow = AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f;
+            double miterLimit = AttributeKeys.getStrokeTotalMiterLimit(this, 1.0);
 
             cachedHitShape = new GrowStroke(grow, miterLimit).createStrokedShape(getTransformedShape());
         } else {
-            cachedHitShape = SVGAttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
+            cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
         }
         return cachedHitShape;
     }
