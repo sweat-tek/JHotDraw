@@ -69,7 +69,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
             extends AbstractAction {
 
         private static final long serialVersionUID = 1L;
-
         public UndoAction() {
             labels.configureAction(this, "edit.undo");
             setEnabled(false);
@@ -96,7 +95,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
             extends AbstractAction {
 
         private static final long serialVersionUID = 1L;
-
         public RedoAction() {
             labels.configureAction(this, "edit.redo");
             setEnabled(false);

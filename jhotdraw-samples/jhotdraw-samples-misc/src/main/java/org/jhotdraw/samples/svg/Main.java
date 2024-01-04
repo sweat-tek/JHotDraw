@@ -26,6 +26,8 @@ public class Main {
     /**
      * Creates a new instance.
      */
+
+    
     public static void main(String[] args) {
         // Debug resource bundle
         ResourceBundleUtil.setVerbose(true);

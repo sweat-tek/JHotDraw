@@ -14,6 +14,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.DefaultDrawing;
@@ -53,6 +55,7 @@ public class SVGCreateFromFileTool extends CreationTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("SVGTool1")
     public SVGCreateFromFileTool(ImageHolderFigure imagePrototype, CompositeFigure groupPrototype) {
         super(imagePrototype);
         this.groupPrototype = groupPrototype;
@@ -62,12 +65,14 @@ public class SVGCreateFromFileTool extends CreationTool {
     /**
      * Creates a new instance.
      */
+    @FeatureEntryPoint("SVGTool2")
     public SVGCreateFromFileTool(ImageHolderFigure imagePrototype, CompositeFigure groupPrototype, Map<AttributeKey<?>, Object> attributes) {
         super(imagePrototype, attributes);
         this.groupPrototype = groupPrototype;
         this.imagePrototype = imagePrototype;
     }
 
+    @FeatureEntryPoint("SVGTool3")
     public void setUseFileDialog(boolean newValue) {
         useFileDialog = newValue;
         if (useFileDialog) {
@@ -77,15 +82,21 @@ public class SVGCreateFromFileTool extends CreationTool {
         }
     }
 
+    @FeatureEntryPoint("SVGTool4")
     public boolean isUseFileDialog() {
         return useFileDialog;
     }
 
+    @FeatureEntryPoint("SVGTool5")
     @Override
     public void activate(DrawingEditor editor) {
         super.activate(editor);
-        final DrawingView v = getView();
-        if (v == null) {
+        final DrawingView v;
+        try {
+            v = getView();
+        }
+        catch(NullPointerException e)
+        {
             return;
         }
         final File file;
@@ -97,109 +108,126 @@ public class SVGCreateFromFileTool extends CreationTool {
                 file = null;
             }
         } else {
-            if (getFileChooser().showOpenDialog(v.getComponent()) == JFileChooser.APPROVE_OPTION) {
-                file = getFileChooser().getSelectedFile();
-            } else {
-                file = null;
+            try {
+                if (getFileChooser().showOpenDialog(v.getComponent()) == JFileChooser.APPROVE_OPTION) {
+                    file = getFileChooser().getSelectedFile();
+                } else {
+                    file = null;
+                }
+            }
+            catch(NullPointerException e)
+            {
+                return;
             }
         }
         if (file != null) {
             if (file.getName().toLowerCase().endsWith(".svg")
                     || file.getName().toLowerCase().endsWith(".svgz")) {
                 prototype = groupPrototype.clone();
-                new SwingWorker<Drawing, Drawing>() {
-                    @Override
-                    protected Drawing doInBackground() throws Exception {
-                        Drawing drawing = new DefaultDrawing();
-                        InputFormat in = (file.getName().toLowerCase().endsWith(".svg")) ? new SVGInputFormat() : new SVGZInputFormat();
-                        in.read(file.toURI(), drawing);
-                        return drawing;
-                    }
-
-                    @Override
-                    protected void done() {
-                        try {
-                            Drawing drawing = get();
-                            CompositeFigure parent;
-                            if (createdFigure == null) {
-                                parent = (CompositeFigure) prototype;
-                                for (Figure f : drawing.getChildren()) {
-                                    parent.basicAdd(f);
-                                }
-                            } else {
-                                parent = (CompositeFigure) createdFigure;
-                                parent.willChange();
-                                for (Figure f : drawing.getChildren()) {
-                                    parent.add(f);
-                                }
-                                parent.changed();
-                            }
-                        } catch (InterruptedException | ExecutionException ex) {
-                            Logger.getLogger(SVGCreateFromFileTool.class.getName()).log(Level.SEVERE, null, ex);
-                            failed(ex);
-                        }
-                    }
-
-                    protected void failed(Throwable t) {
-                        JOptionPane.showMessageDialog(v.getComponent(),
-                                t.getMessage(),
-                                null,
-                                JOptionPane.ERROR_MESSAGE);
-                        getDrawing().remove(createdFigure);
-                        fireToolDone();
-                    }
-                }.execute();
+                SVGSwingWorker(file, v);
             } else {
                 prototype = imagePrototype;
-                final ImageHolderFigure loaderFigure = ((ImageHolderFigure) prototype.clone());
-                new SwingWorker() {
-                    @Override
-                    protected Object doInBackground() throws Exception {
-                        loaderFigure.loadImage(file);
-                        return null;
-                    }
-
-                    @Override
-                    protected void done() {
-                        try {
-                            get();
-                            try {
-                                if (createdFigure == null) {
-                                    ((ImageHolderFigure) prototype).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
-                                } else {
-                                    ((ImageHolderFigure) createdFigure).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
-                                }
-                            } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(v.getComponent(),
-                                                          ex.getMessage(),
-                                                          null,
-                                                          JOptionPane.ERROR_MESSAGE);
-                            }
-                        } catch (InterruptedException | ExecutionException ex) {
-                            Logger.getLogger(SVGCreateFromFileTool.class.getName()).log(                                    Level.SEVERE, null, ex);
-                            failed(ex);
-                        }
-                        
-                    }
-
-                    protected void failed(Throwable t) {
-                        JOptionPane.showMessageDialog(v.getComponent(),
-                                t.getMessage(),
-                                null,
-                                JOptionPane.ERROR_MESSAGE);
-                        getDrawing().remove(createdFigure);
-                        fireToolDone();
-                    }
-                }.execute();
+                imageSwingWorker(file, v);
             }
         } else {
-            //getDrawing().remove(createdFigure);
             if (isToolDoneAfterCreation()) {
                 fireToolDone();
             }
         }
     }
 
+    protected void SVGSwingWorker(File file, DrawingView v) {
+        new SwingWorker<Drawing, Drawing>() {
+
+            @Override
+            protected Drawing doInBackground() throws Exception {
+                Drawing drawing = new DefaultDrawing();
+                InputFormat in = (file.getName().toLowerCase().endsWith(".svg")) ? new SVGInputFormat() : new SVGZInputFormat();
+                in.read(file.toURI(), drawing);
+                return drawing;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    Drawing drawing = get();
+                    CompositeFigure parent;
+                    if (createdFigure == null) {
+                        parent = (CompositeFigure) prototype;
+                        for (Figure f : drawing.getChildren()) {
+                            parent.basicAdd(f);
+                        }
+                    } else {
+                        parent = (CompositeFigure) createdFigure;
+                        parent.willChange();
+                        for (Figure f : drawing.getChildren()) {
+                            parent.add(f);
+                        }
+                        parent.changed();
+                    }
+                } catch (InterruptedException | ExecutionException ex) {
+                    Logger.getLogger(SVGCreateFromFileTool.class.getName()).log(Level.SEVERE, null, ex);
+                    failed(ex);
+                }
+            }
+
+            protected void failed(Throwable t) {
+                JOptionPane.showMessageDialog(v.getComponent(),
+                        t.getMessage(),
+                        null,
+                        JOptionPane.ERROR_MESSAGE);
+                getDrawing().remove(createdFigure);
+                fireToolDone();
+            }
+
+        }.execute();
+    }
+
+    protected void imageSwingWorker(File file, DrawingView v) {
+        final ImageHolderFigure loaderFigure = ((ImageHolderFigure) prototype.clone());
+        new SwingWorker() {
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                loaderFigure.loadImage(file);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    get();
+                    try {
+                        if (createdFigure == null) {
+                            ((ImageHolderFigure) prototype).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
+                        } else {
+                            ((ImageHolderFigure) createdFigure).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
+                        }
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(v.getComponent(),
+                                ex.getMessage(),
+                                null,
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (InterruptedException | ExecutionException ex) {
+                    Logger.getLogger(SVGCreateFromFileTool.class.getName()).log(Level.SEVERE, null, ex);
+                    failed(ex);
+                }
+
+            }
+            protected void failed(Throwable t) {
+                JOptionPane.showMessageDialog(v.getComponent(),
+                        t.getMessage(),
+                        null,
+                        JOptionPane.ERROR_MESSAGE);
+                getDrawing().remove(createdFigure);
+                fireToolDone();
+            }
+
+        }.execute();
+    }
+
+    @FeatureEntryPoint("SVGTool6")
     @Override
     protected Figure createFigure() {
         if (prototype instanceof CompositeFigure) {
@@ -212,6 +240,7 @@ public class SVGCreateFromFileTool extends CreationTool {
         }
     }
 
+    @FeatureEntryPoint("SVGTool7")
     private JFileChooser getFileChooser() {
         if (fileChooser == null) {
             fileChooser = new JFileChooser();
@@ -219,6 +248,7 @@ public class SVGCreateFromFileTool extends CreationTool {
         return fileChooser;
     }
 
+    @FeatureEntryPoint("SVGTool8")
     private FileDialog getFileDialog() {
         if (fileDialog == null) {
             fileDialog = new FileDialog(new Frame());

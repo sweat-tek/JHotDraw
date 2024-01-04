@@ -15,6 +15,8 @@ import org.jhotdraw.api.app.ApplicationModel;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.api.gui.URIChooser;
 import org.jhotdraw.app.DefaultApplicationModel;
+import org.jhotdraw.draw.AttributeKey;
+import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.figure.AbstractAttributedFigure;
 import static org.jhotdraw.draw.AttributeKeys.*;
 import org.jhotdraw.draw.figure.BezierFigure;
@@ -23,7 +25,6 @@ import org.jhotdraw.draw.DefaultDrawingEditor;
 import org.jhotdraw.draw.figure.DiamondFigure;
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.figure.EllipseFigure;
-import org.jhotdraw.draw.figure.ImageFigure;
 import org.jhotdraw.draw.figure.LineConnectionFigure;
 import org.jhotdraw.draw.figure.LineFigure;
 import org.jhotdraw.draw.figure.RectangleFigure;
@@ -37,11 +38,13 @@ import org.jhotdraw.draw.liner.ElbowLiner;
 import org.jhotdraw.draw.tool.BezierTool;
 import org.jhotdraw.draw.tool.ConnectionTool;
 import org.jhotdraw.draw.tool.CreationTool;
-import org.jhotdraw.draw.tool.ImageTool;
 import org.jhotdraw.draw.tool.TextAreaCreationTool;
 import org.jhotdraw.draw.tool.TextCreationTool;
 import org.jhotdraw.gui.JFileURIChooser;
 import org.jhotdraw.gui.action.ButtonFactory;
+import org.jhotdraw.samples.svg.SVGCreateFromFileTool;
+import org.jhotdraw.samples.svg.figures.SVGGroupFigure;
+import org.jhotdraw.samples.svg.figures.SVGImageFigure;
 import org.jhotdraw.util.*;
 
 /**
@@ -147,7 +150,11 @@ public class DrawApplicationModel extends DefaultApplicationModel {
         ButtonFactory.addToolTo(tb, editor, new BezierTool(new BezierFigure(true)), "edit.createPolygon", labels);
         ButtonFactory.addToolTo(tb, editor, new TextCreationTool(new TextFigure()), "edit.createText", labels);
         ButtonFactory.addToolTo(tb, editor, new TextAreaCreationTool(new TextAreaFigure()), "edit.createTextArea", labels);
-        ButtonFactory.addToolTo(tb, editor, new ImageTool(new ImageFigure()), "edit.createImage", labels);
+        HashMap<AttributeKey<?>, Object> attributes;
+        attributes = new HashMap<AttributeKey<?>, Object>();
+        attributes.put(AttributeKeys.FILL_COLOR, null);
+        attributes.put(AttributeKeys.STROKE_COLOR, null);
+        ButtonFactory.addToolTo(tb, editor, new SVGCreateFromFileTool(new SVGImageFigure(), new SVGGroupFigure(), attributes), "edit.createImage", labels);
     }
 
     @Override
