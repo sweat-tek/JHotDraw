@@ -193,7 +193,7 @@ public class SVGTextFigure
 
     private TextLayout getTextLayout() {
         String text = getText();
-        if (text == null || text.length() == 0) {
+        if (text == null || text.isEmpty()) {
             text = " ";
         }
         FontRenderContext frc = getFontRenderContext();
@@ -202,8 +202,7 @@ public class SVGTextFigure
         if (FONT_UNDERLINE.get(this).equals(Boolean.TRUE)) {
             textAttributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         }
-        TextLayout textLayout = new TextLayout(text, textAttributes, frc);
-        return textLayout;
+        return new TextLayout(text, textAttributes, frc);
     }
 
     @Override
