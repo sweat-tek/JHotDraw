@@ -296,11 +296,11 @@ public class SVGTextFigure
 
     @Override
     public <T> void set(AttributeKey<T> key, T newValue) {
-        if (key.equals(SVGAttributeKeys.TRANSFORM)
-                || key.equals(SVGAttributeKeys.FONT_FACE)
-                || key.equals(SVGAttributeKeys.FONT_BOLD)
-                || key.equals(SVGAttributeKeys.FONT_ITALIC)
-                || key.equals(SVGAttributeKeys.FONT_SIZE)) {
+        if (key.equals(AttributeKeys.TRANSFORM)
+                || key.equals(AttributeKeys.FONT_FACE)
+                || key.equals(AttributeKeys.FONT_BOLD)
+                || key.equals(AttributeKeys.FONT_ITALIC)
+                || key.equals(AttributeKeys.FONT_SIZE)) {
             invalidate();
         }
         super.set(key, newValue);
@@ -331,7 +331,7 @@ public class SVGTextFigure
 
     @Override
     public Font getFont() {
-        return SVGAttributeKeys.getFont(this);
+        return AttributeKeys.getFont(this);
     }
 
     @Override
