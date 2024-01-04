@@ -1,0 +1,97 @@
+{
+  "className": "org.jhotdraw.samples.svg.figures.TestRunner",
+  "name": "Test Runner",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.figures.TestRunner",
+      "testMethodName": "moveTextTest",
+      "description": "Move text test",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "provide figure",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "provide figure"
+                },
+                {
+                  "value": "SVGTextFigure@147103498",
+                  "argumentInfo": {
+                    "argumentName": "figure",
+                    "formattedValue": "SVGTextFigure@147103498"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 116198500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "changing text to",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "changing text to"
+                },
+                {
+                  "value": "Random test string!",
+                  "argumentInfo": {
+                    "argumentName": "textValue",
+                    "formattedValue": "Random test string!"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2426000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "text holder text has changed to",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "text holder text has changed to"
+                },
+                {
+                  "value": "Random test string!",
+                  "argumentInfo": {
+                    "argumentName": "textValue",
+                    "formattedValue": "Random test string!"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 939500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 1761149000
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 1761149000
+    }
+  ],
+  "tagMap": {}
+}
