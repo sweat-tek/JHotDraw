@@ -48,11 +48,7 @@ public class GroupAction extends AbstractSelectedAction {
 
   @Override
   protected void updateEnabledState() {
-    if (getView() != null) {
-      setEnabled(canGroup());
-    } else {
-      setEnabled(false);
-    }
+    setEnabled(canGroup());
   }
 
   protected boolean canGroup() {

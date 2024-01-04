@@ -61,6 +61,11 @@ public class UngroupAction extends AbstractSelectedAction {
   }
 
   @Override
+  protected void updateEnabledState() {
+    setEnabled(canUngroup());
+  }
+
+  @Override
   public void actionPerformed(ActionEvent e) {
     if (canUngroup()) {
       final DrawingView view = getView();
