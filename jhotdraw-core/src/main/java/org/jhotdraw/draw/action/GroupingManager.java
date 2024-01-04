@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class GroupingManager {
-  private DrawingView view;
-  private CompositeFigure group;
-  private Collection<Figure> figures;
+  private final DrawingView view;
+  private final CompositeFigure group;
+  private final Collection<Figure> figures;
 
   public GroupingManager(DrawingView view, CompositeFigure group,
                          Collection<Figure> figures) {
@@ -19,17 +19,6 @@ public class GroupingManager {
     this.figures = figures;
   }
 
-  public void setView(DrawingView view) {
-    this.view = view;
-  }
-
-  public void setGroup(CompositeFigure group) {
-    this.group = group;
-  }
-
-  public void setFigures(Collection<Figure> figures) {
-    this.figures = figures;
-  }
 
   public void groupFigures() {
     Collection<Figure> sorted = view.getDrawing().sort(figures);
