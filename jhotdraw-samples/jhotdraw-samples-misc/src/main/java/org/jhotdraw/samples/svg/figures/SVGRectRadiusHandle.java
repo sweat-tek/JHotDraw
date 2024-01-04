@@ -11,7 +11,7 @@ import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.*;
-import org.jhotdraw.draw.*;
+
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import org.jhotdraw.draw.event.CompositeFigureEdit;
 import org.jhotdraw.draw.handle.AbstractHandle;
@@ -95,7 +95,7 @@ public class SVGRectRadiusHandle extends AbstractHandle {
             }
         }
         Rectangle2D.Double r = owner.getBounds();
-        owner.setArc(
+        owner.setBothArcs(
                 Math.min(owner.getWidth(), Math.max(0, p.x - r.x)),
                 Math.min(owner.getHeight(), Math.max(0, p.y - r.y)));
         owner.changed();
@@ -111,8 +111,8 @@ public class SVGRectRadiusHandle extends AbstractHandle {
         CompositeFigureEdit edit = new CompositeFigureEdit(svgRect, labels.getString("attribute.roundRectRadius"));
         edit.setVerbose(true);
         fireUndoableEditHappened(edit);
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_WIDTH_PROPERTY, oldValue.width, newValue.width));
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldValue.height, newValue.height));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.getArcWidthProperty(), oldValue.width, newValue.width));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.getArcHeightProperty(), oldValue.height, newValue.height));
         fireUndoableEditHappened(edit);
     }
 
@@ -145,14 +145,14 @@ public class SVGRectRadiusHandle extends AbstractHandle {
         }
         if (!newArc.equals(oldArc)) {
             owner.willChange();
-            owner.setArc(newArc.width, newArc.height);
+            owner.setBothArcs(newArc.width, newArc.height);
             owner.changed();
             ResourceBundleUtil labels
                     = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             CompositeFigureEdit edit = new CompositeFigureEdit(owner, labels.getString("attribute.roundRectRadius"));
             fireUndoableEditHappened(edit);
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_WIDTH_PROPERTY, oldArc.width, newArc.width));
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldArc.height, newArc.height));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.getArcWidthProperty(), oldArc.width, newArc.width));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.getArcHeightProperty(), oldArc.height, newArc.height));
             fireUndoableEditHappened(edit);
         }
     }

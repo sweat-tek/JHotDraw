@@ -7,21 +7,25 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.util.*;
-import org.jhotdraw.draw.*;
-import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
-import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
-import org.jhotdraw.draw.handle.BoundsOutlineHandle;
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.handle.Handle;
-import org.jhotdraw.draw.handle.ResizeHandleKit;
-import org.jhotdraw.draw.handle.TransformHandleKit;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.GrowStroke;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
-import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+
+import static org.jhotdraw.draw.AttributeKeys.FILL_COLOR;
+import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.FILL_GRADIENT;
+import static org.jhotdraw.samples.svg.SVGAttributeKeys.STROKE_GRADIENT;
 
 /**
  * SVGEllipse represents a SVG ellipse and a SVG circle element.
@@ -29,7 +33,7 @@ import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
+public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure{
 
     private static final long serialVersionUID = 1L;
     private Ellipse2D.Double ellipse;
@@ -49,6 +53,7 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         this(0, 0, 0, 0);
     }
 
+    @FeatureEntryPoint("SVGEllipseTool")
     public SVGEllipseFigure(double x, double y, double width, double height) {
         ellipse = new Ellipse2D.Double(x, y, width, height);
         SVGAttributeKeys.setDefaults(this);
@@ -96,6 +101,8 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
     public Rectangle2D.Double getDrawingArea() {
         Rectangle2D rx = getTransformedShape().getBounds2D();
         Rectangle2D.Double r = (rx instanceof Rectangle2D.Double) ? (Rectangle2D.Double) rx : new Rectangle2D.Double(rx.getX(), rx.getY(), rx.getWidth(), rx.getHeight());
+        // Assertion: The drawing area must not be null
+        assert r != null : "Drawing area is null";
         if (get(TRANSFORM) == null) {
             double g = SVGAttributeKeys.getPerpendicularHitGrowth(this, 1.0) * 2d + 1;
             Geom.grow(r, g, g);
@@ -116,29 +123,41 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         return getHitShape().contains(p);
     }
 
+    /*
+     * This method is used to determine the transformed shape of the figure.
+     */
     private Shape getTransformedShape() {
-        if (cachedTransformedShape == null) {
-            if (get(TRANSFORM) == null) {
-                cachedTransformedShape = ellipse;
-            } else {
-                cachedTransformedShape = get(TRANSFORM).createTransformedShape(ellipse);
-            }
+        if (cachedTransformedShape != null) {
+            return cachedTransformedShape;
+        }
+        if (get(TRANSFORM) == null) {
+            cachedTransformedShape = ellipse;
+        } else {
+            cachedTransformedShape = get(TRANSFORM).createTransformedShape(ellipse);
         }
         return cachedTransformedShape;
     }
 
+    /*
+     * This method is used to determine the hit shape of the figure.
+     */
     private Shape getHitShape() {
-        if (cachedHitShape == null) {
-            if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
-                cachedHitShape = new GrowStroke(
-                        (float) SVGAttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
-                        (float) SVGAttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
-            } else {
-                cachedHitShape = SVGAttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
-            }
+        if (cachedHitShape != null) {
+            return cachedHitShape;
+        }
+        if (get(FILL_COLOR) != null || get(FILL_GRADIENT) != null) {
+            cachedHitShape = new GrowStroke(
+                    (float) AttributeKeys.getStrokeTotalWidth(this, 1.0) / 2f,
+                    (float) AttributeKeys.getStrokeTotalMiterLimit(this, 1.0)).createStrokedShape(getTransformedShape());
+        } else {
+            cachedHitShape = AttributeKeys.getHitStroke(this, 1.0).createStrokedShape(getTransformedShape());
         }
         return cachedHitShape;
     }
+
+    /*
+     * This method is used to determine the drawing area of the figure.
+     */
 
     @Override
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
@@ -187,6 +206,9 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    /*
+     * This method is used to restore the transform of the figure.
+     */
     @Override
     public void restoreTransformTo(Object geometry) {
         Object[] restoreData = (Object[]) geometry;
@@ -197,40 +219,31 @@ public class SVGEllipseFigure extends SVGAttributedFigure implements SVGFigure {
         invalidate();
     }
 
+    /*
+     * This method is used to get the transform restore data of the figure.
+     */
     @Override
     public Object getTransformRestoreData() {
         return new Object[]{
-            ellipse.clone(),
-            TRANSFORM.getClone(this),
-            FILL_GRADIENT.getClone(this),
-            STROKE_GRADIENT.getClone(this)};
+                ellipse.clone(),
+                TRANSFORM.getClone(this),
+                FILL_GRADIENT.getClone(this),
+                STROKE_GRADIENT.getClone(this)};
     }
 
     // ATTRIBUTES
     // EDITING
     @Override
     public Collection<Handle> createHandles(int detailLevel) {
-        LinkedList<Handle> handles = new LinkedList<Handle>();
-        switch (detailLevel % 2) {
-            case -1: // Mouse hover handles
-                handles.add(new BoundsOutlineHandle(this, false, true));
-                break;
-            case 0:
-                ResizeHandleKit.addResizeHandles(this, handles);
-                handles.add(new LinkHandle(this));
-                break;
-            case 1:
-                TransformHandleKit.addTransformHandles(this, handles);
-                break;
-            default:
-                break;
-        }
-        return handles;
+        return HandleHelper.createHandles(detailLevel, this);
     }
 
     // CONNECTING
     // COMPOSITE FIGURES
     // CLONING
+    /*
+     * This method is used to clone the figure.
+     */
     @Override
     public SVGEllipseFigure clone() {
         SVGEllipseFigure that = (SVGEllipseFigure) super.clone();

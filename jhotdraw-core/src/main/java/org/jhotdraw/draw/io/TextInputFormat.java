@@ -58,10 +58,6 @@ public class TextInputFormat implements InputFormat {
      */
     private String fileExtension;
     /**
-     * Image IO image format name.
-     */
-    private String formatName;
-    /**
      * This should be set to true for ImageHolderFigures that can hold multiple
      * lines of text.
      */
@@ -89,7 +85,9 @@ public class TextInputFormat implements InputFormat {
     public TextInputFormat(TextHolderFigure prototype, String formatName,
             String description, String fileExtension, boolean isMultiline) {
         this.prototype = prototype;
-        this.formatName = formatName;
+        /**
+         * Image IO image format name.
+         */
         this.description = description;
         this.fileExtension = fileExtension;
         this.isMultiline = isMultiline;
@@ -137,7 +135,7 @@ public class TextInputFormat implements InputFormat {
         drawing.basicAddAll(0, createTextHolderFigures(in));
     }
 
-    public LinkedList<Figure> createTextHolderFigures(InputStream in) throws IOException {
+    public List<Figure> createTextHolderFigures(InputStream in) throws IOException {
         LinkedList<Figure> list = new LinkedList<>();
         BufferedReader r = new BufferedReader(new InputStreamReader(in, "UTF8"));
         if (isMultiline) {
@@ -169,7 +167,7 @@ public class TextInputFormat implements InputFormat {
                 y += s.height;
             }
         }
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             throw new IOException("No text found");
         }
         return list;

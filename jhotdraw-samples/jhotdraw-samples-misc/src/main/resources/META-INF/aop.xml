@@ -6,6 +6,9 @@
 		</concrete-aspect>
 	</aspects>
 
+	<weaver options="-Xlint:ignore">
+		<include within="oracle.jdbc..*"/>
+	</weaver>
 	<weaver>
 		<exclude within="! org.jhotdraw..*"/>
 		<include within="org.jhotdraw..*"/>
