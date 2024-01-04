@@ -11,7 +11,6 @@ import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.*;
-import org.jhotdraw.draw.*;
 import static org.jhotdraw.draw.AttributeKeys.TRANSFORM;
 import org.jhotdraw.draw.event.CompositeFigureEdit;
 import org.jhotdraw.draw.handle.AbstractHandle;
@@ -111,8 +110,8 @@ public class SVGRectRadiusHandle extends AbstractHandle {
         CompositeFigureEdit edit = new CompositeFigureEdit(svgRect, labels.getString("attribute.roundRectRadius"));
         edit.setVerbose(true);
         fireUndoableEditHappened(edit);
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_WIDTH_PROPERTY, oldValue.width, newValue.width));
-        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldValue.height, newValue.height));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, PROPERTY.ARC_WIDTH.name(), oldValue.width, newValue.width));
+        fireUndoableEditHappened(new PropertyChangeEdit(svgRect, PROPERTY.ARC_HEIGHT.getName(), oldValue.height, newValue.height));
         fireUndoableEditHappened(edit);
     }
 
@@ -151,8 +150,8 @@ public class SVGRectRadiusHandle extends AbstractHandle {
                     = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             CompositeFigureEdit edit = new CompositeFigureEdit(owner, labels.getString("attribute.roundRectRadius"));
             fireUndoableEditHappened(edit);
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_WIDTH_PROPERTY, oldArc.width, newArc.width));
-            fireUndoableEditHappened(new PropertyChangeEdit(owner, SVGRectFigure.ARC_HEIGHT_PROPERTY, oldArc.height, newArc.height));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, PROPERTY.ARC_WIDTH.getName(), oldArc.width, newArc.width));
+            fireUndoableEditHappened(new PropertyChangeEdit(owner, PROPERTY.ARC_HEIGHT.getName(), oldArc.height, newArc.height));
             fireUndoableEditHappened(edit);
         }
     }

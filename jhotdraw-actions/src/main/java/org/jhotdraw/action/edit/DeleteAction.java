@@ -14,7 +14,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import javax.swing.text.*;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.api.gui.EditableComponent;
 import org.jhotdraw.beans.WeakPropertyChangeListener;
 import org.jhotdraw.util.*;
@@ -110,7 +109,6 @@ public class DeleteAction extends TextAction {
         labels.configureAction(this, ID);
     }
 
-    @FeatureEntryPoint(value = "delete")
     @Override
     public void actionPerformed(ActionEvent evt) {
         JComponent c = target;
