@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Setup Maven and Java
-        uses: s4u/setup-maven-action
+        uses: s4u/setup-maven-action@1.19.0
         with:
           java-version: 11
           java-distribution: "temurin"
