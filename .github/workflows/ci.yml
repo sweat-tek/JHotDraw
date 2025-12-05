@@ -1,0 +1,39 @@
+name: ci.yml
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Maven and Java
+        uses: s4u/setup-maven-action
+        with:
+          java-version: 11
+          java-distribution: "temurin"
+          maven-version: 3.8.9
+
+      - name: Build with Maven
+        run: mvn clean install -B -DskipTests=true
+
+      - name: Run Tests with Maven
+        run: mvn test -B
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            "**/target/surefire-reports/"
+            "**/target/failsafe-reports/"
+
+      - name: Package with Maven
+        run: mvn package -B -DskipTests=true
