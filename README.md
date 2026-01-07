@@ -1,11 +1,13 @@
 # jhotdraw
 
-* maven build process
-* restructured project layout
-  * introduced submodules
+## Install and Run
+Install (**in project root**):
+* mvn clean install -DskipTests
+
+Run (**in jhotdraw-samples-misc**):
+* mvn exec:java "-Dexec.mainClass=org.jhotdraw.samples.svg.Main"
 
 ## License
-
 * LGPL V2.1
 * Creative Commons Attribution 2.5 License
 
