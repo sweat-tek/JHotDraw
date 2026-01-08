@@ -132,10 +132,10 @@ public class WheelsAndSlidersMain extends javax.swing.JPanel {
         w.setFlipY(flipY);
         w.setModel(m);
         JSlider s = new JSlider(JSlider.VERTICAL);
+        m.configureSlider(verticalIndex, s);
         s.setMajorTickSpacing(10);
         s.setPaintLabels(true);
         s.setPaintTicks(true);
-        m.configureSlider(verticalIndex, s);
         p.add(new JLabel("<html>" + ColorUtil.getName(sys) + "<br>α:" + angularIndex + " r:" + radialIndex + " v:" + verticalIndex), BorderLayout.NORTH);
         p.add(w, BorderLayout.CENTER);
         p.add(s, BorderLayout.EAST);
@@ -181,10 +181,10 @@ public class WheelsAndSlidersMain extends javax.swing.JPanel {
         for (int i = 0; i < m.getComponentCount(); i++) {
             final int comp = i;
             JSlider s = new JSlider(JSlider.HORIZONTAL);
+            m.configureSlider(comp, s);
             s.setMajorTickSpacing(50);
             s.setPaintTicks(true);
             s.setOrientation(vertical ? JSlider.VERTICAL : JSlider.HORIZONTAL);
-            m.configureSlider(comp, s);
             if (vertical) {
                 gbc.gridx = i;
                 gbc.gridy = 0;

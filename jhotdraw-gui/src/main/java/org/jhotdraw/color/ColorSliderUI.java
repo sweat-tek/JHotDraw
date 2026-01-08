@@ -314,7 +314,7 @@ public class ColorSliderUI extends BasicSliderUI {
             }
         }
         if (colorTrackImage != null) {
-            g.drawImage(colorTrackImage, x, y, slider);
+            g.drawImage(colorTrackImage, x, y, null);
         }
     }
 
