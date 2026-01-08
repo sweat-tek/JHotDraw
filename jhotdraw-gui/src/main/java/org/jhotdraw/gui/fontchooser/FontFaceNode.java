@@ -10,6 +10,7 @@ package org.jhotdraw.gui.fontchooser;
 import java.awt.Font;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Map;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
@@ -30,55 +31,47 @@ public class FontFaceNode implements MutableTreeNode, Comparable<FontFaceNode>, 
         this.name = beautifyName(typeface.getPSName());
     }
 
+    protected String capitalize(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+        String c = String.valueOf(s.charAt(0));
+        c = c.toUpperCase();
+        s = s.substring(1);
+        s = c.concat(s);
+        return s;
+    }
+
     protected String beautifyName(String name) {
         // 'Beautify' the name
         int p = name.lastIndexOf('-');
         if (p != -1) {
             name = name.substring(p + 1);
-            String lcName = name.toLowerCase();
-            if ("plain".equals(lcName)) {
-                name = "Plain";
-            } else if ("bolditalic".equals(lcName)) {
-                name = "Bold Italic";
-            } else if ("italic".equals(lcName)) {
-                name = "Italic";
-            } else if ("bold".equals(lcName)) {
-                name = "Bold";
-            }
-        } else {
-            String lcName = name.toLowerCase();
-            if (lcName.endsWith("plain")) {
-                name = "Plain";
-            } else if (lcName.endsWith("boldoblique")) {
-                name = "Bold Oblique";
-            } else if (lcName.endsWith("bolditalic")) {
-                name = "Bold Italic";
-            } else if (lcName.endsWith("bookita")) {
-                name = "Book Italic";
-            } else if (lcName.endsWith("bookit")) {
-                name = "Book Italic";
-            } else if (lcName.endsWith("demibold")) {
-                name = "Demi Bold";
-            } else if (lcName.endsWith("semiita")) {
-                name = "Semi Italic";
-            } else if (lcName.endsWith("italic")) {
-                name = "Italic";
-            } else if (lcName.endsWith("book")) {
-                name = "Book";
-            } else if (lcName.endsWith("bold")) {
-                name = "Bold";
-            } else if (lcName.endsWith("bol")) {
-                name = "Bold";
-            } else if (lcName.endsWith("oblique")) {
-                name = "Oblique";
-            } else if (lcName.endsWith("regular")) {
-                name = "Regular";
-            } else if (lcName.endsWith("semi")) {
-                name = "Semi";
-            } else {
-                name = "Plain";
+        }
+
+        String lcName = name.toLowerCase();
+        name = capitalize(lcName);
+
+        Map<String, String> replacements = Map.of(
+                "bolditalic", "Bold Italic",
+                "boldoblique", "Bold Oblique",
+                "bookita", "Book Italic",
+                "bookit", "Book Italic",
+                "demibold", "Demi Bold",
+                "semiita", "Semi Italic"
+        );
+
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+            if (lcName.endsWith(entry.getKey())) {
+                return entry.getValue();
             }
         }
+
+        name = insertSpaces(name);
+        return name;
+    }
+
+    private static String insertSpaces(String name) {
         StringBuilder buf = new StringBuilder();
         char prev = name.charAt(0);
         buf.append(prev);

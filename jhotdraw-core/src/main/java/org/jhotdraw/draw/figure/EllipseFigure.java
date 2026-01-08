@@ -9,6 +9,7 @@ package org.jhotdraw.draw.figure;
 
 import java.awt.*;
 import java.awt.geom.*;
+import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.draw.connector.ChopEllipseConnector;
 import org.jhotdraw.draw.connector.Connector;
@@ -24,6 +25,29 @@ public class EllipseFigure extends AbstractAttributedFigure {
 
     private static final long serialVersionUID = 1L;
     protected Ellipse2D.Double ellipse;
+
+    /**
+     * Copy constructor for EllipseFigure.
+     */
+    public EllipseFigure(EllipseFigure source) {
+        this.ellipse = copyEllipse(source.ellipse);
+        setAttributes(source.getAttributes());
+        for (AttributeKey<?> key : source.getAttributes().keySet()) {
+            if (!source.isAttributeEnabled(key)) {
+                setAttributeEnabled(key, false);
+            }
+        }
+    }
+
+
+    private Ellipse2D.Double copyEllipse(Ellipse2D.Double sourceEllipse) {
+        return new Ellipse2D.Double(
+                sourceEllipse.x,
+                sourceEllipse.y,
+                sourceEllipse.width,
+                sourceEllipse.height
+        );
+    }
 
     /**
      * Constructs a new {@code EllipseFigure}, initialized to
@@ -77,14 +101,21 @@ public class EllipseFigure extends AbstractAttributedFigure {
         return r;
     }
 
+    private Ellipse2D.Double prepareEllipse(double grow) {
+        Ellipse2D.Double copy = copyEllipse(this.ellipse);
+        copy.x -= grow;
+        copy.y -= grow;
+        copy.width += grow * 2;
+        copy.height += grow * 2;
+        return copy;
+    }
+
     @Override
     protected void drawFill(Graphics2D g) {
-        Ellipse2D.Double r = (Ellipse2D.Double) ellipse.clone();
-        double grow = AttributeKeys.getPerpendicularFillGrowth(this, AttributeKeys.getScaleFactorFromGraphics(g));
-        r.x -= grow;
-        r.y -= grow;
-        r.width += grow * 2;
-        r.height += grow * 2;
+        Ellipse2D.Double r = prepareEllipse(
+                AttributeKeys.getPerpendicularFillGrowth(this,
+                        AttributeKeys.getScaleFactorFromGraphics(g))
+        );
         if (r.width > 0 && r.height > 0) {
             g.fill(r);
         }
@@ -92,28 +123,20 @@ public class EllipseFigure extends AbstractAttributedFigure {
 
     @Override
     protected void drawStroke(Graphics2D g) {
-        Ellipse2D.Double r = (Ellipse2D.Double) ellipse.clone();
-        double grow = AttributeKeys.getPerpendicularDrawGrowth(this, AttributeKeys.getScaleFactorFromGraphics(g));
-        r.x -= grow;
-        r.y -= grow;
-        r.width += grow * 2;
-        r.height += grow * 2;
+        Ellipse2D.Double r = prepareEllipse(
+                AttributeKeys.getPerpendicularDrawGrowth(this,
+                        AttributeKeys.getScaleFactorFromGraphics(g))
+        );
         if (r.width > 0 && r.height > 0) {
             g.draw(r);
         }
     }
 
-    /**
-     * Checks if a Point2D.Double is inside the figure.
-     */
     @Override
     public boolean contains(Point2D.Double p) {
-        Ellipse2D.Double r = (Ellipse2D.Double) ellipse.clone();
-        double grow = AttributeKeys.getPerpendicularHitGrowth(this, 1.0);
-        r.x -= grow;
-        r.y -= grow;
-        r.width += grow * 2;
-        r.height += grow * 2;
+        Ellipse2D.Double r = prepareEllipse(
+                AttributeKeys.getPerpendicularHitGrowth(this, 1.0)
+        );
         return r.contains(p);
     }
 
@@ -137,13 +160,6 @@ public class EllipseFigure extends AbstractAttributedFigure {
         setBounds(
                 (Point2D.Double) tx.transform(anchor, anchor),
                 (Point2D.Double) tx.transform(lead, lead));
-    }
-
-    @Override
-    public EllipseFigure clone() {
-        EllipseFigure that = (EllipseFigure) super.clone();
-        that.ellipse = (Ellipse2D.Double) this.ellipse.clone();
-        return that;
     }
 
     @Override

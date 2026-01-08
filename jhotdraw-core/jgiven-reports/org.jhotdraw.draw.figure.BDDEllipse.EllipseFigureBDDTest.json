@@ -1,0 +1,202 @@
+{
+  "className": "org.jhotdraw.draw.figure.BDDEllipse.EllipseFigureBDDTest",
+  "name": "Ellipse Figure BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.draw.figure.BDDEllipse.EllipseFigureBDDTest",
+      "testMethodName": "ellipse_resizes_when_bounds_are_set",
+      "description": "ellipse resizes when bounds are set",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "an ellipse",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an ellipse"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 21426208,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "bounds are set",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "bounds are set"
+                },
+                {
+                  "value": "0.0",
+                  "argumentInfo": {
+                    "argumentName": "x1",
+                    "formattedValue": "0.0"
+                  }
+                },
+                {
+                  "value": "0.0",
+                  "argumentInfo": {
+                    "argumentName": "y1",
+                    "formattedValue": "0.0"
+                  }
+                },
+                {
+                  "value": "100.0",
+                  "argumentInfo": {
+                    "argumentName": "x2",
+                    "formattedValue": "100.0"
+                  }
+                },
+                {
+                  "value": "50.0",
+                  "argumentInfo": {
+                    "argumentName": "y2",
+                    "formattedValue": "50.0"
+                  }
+                }
+              ],
+              "status": "FAILED",
+              "durationInNanos": 18851584,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "ellipse should have size",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "ellipse should have size"
+                },
+                {
+                  "value": "100.0",
+                  "argumentInfo": {
+                    "argumentName": "width",
+                    "formattedValue": "100.0"
+                  }
+                },
+                {
+                  "value": "50.0",
+                  "argumentInfo": {
+                    "argumentName": "height",
+                    "formattedValue": "50.0"
+                  }
+                }
+              ],
+              "status": "SKIPPED",
+              "durationInNanos": 0,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "FAILED",
+          "errorMessage": "java.lang.NullPointerException: Cannot invoke \"org.jhotdraw.draw.figure.EllipseFigure.setBounds(java.awt.geom.Point2D$Double, java.awt.geom.Point2D$Double)\" because \"this.ellipse\" is null",
+          "stackTrace": [
+            "org.jhotdraw.draw.figure.BDDEllipse.WhenSettingBounds.bounds_are_set(WhenSettingBounds.java:16)",
+            "org.jhotdraw.draw.figure.BDDEllipse.WhenSettingBounds$ByteBuddy$rriOpszZ.bounds_are_set$accessor$FNcLk1s9(Unknown Source)",
+            "org.jhotdraw.draw.figure.BDDEllipse.WhenSettingBounds$ByteBuddy$rriOpszZ$auxiliary$zGYJXUzv.call(Unknown Source)",
+            "org.jhotdraw.draw.figure.BDDEllipse.WhenSettingBounds$ByteBuddy$rriOpszZ.bounds_are_set(Unknown Source)",
+            "org.jhotdraw.draw.figure.BDDEllipse.EllipseFigureBDDTest.ellipse_resizes_when_bounds_are_set(EllipseFigureBDDTest.java:13)",
+            "java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)",
+            "org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:701)",
+            "org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:502)",
+            "org.junit.jupiter.engine.support.MethodReflectionUtils.invoke(MethodReflectionUtils.java:45)",
+            "org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:61)",
+            "org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:124)",
+            "org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:163)",
+            "org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:148)",
+            "org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)",
+            "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:123)",
+            "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:105)",
+            "org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:99)",
+            "org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:66)",
+            "org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:47)",
+            "org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:39)",
+            "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:104)",
+            "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:98)",
+            "org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invokeVoid(InterceptingExecutableInvoker.java:71)",
+            "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$0(TestMethodTestDescriptor.java:219)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:215)",
+            "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:157)",
+            "org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:176)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)",
+            "org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)",
+            "java.base/java.util.ArrayList.forEach(ArrayList.java:1597)",
+            "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)",
+            "org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)",
+            "java.base/java.util.ArrayList.forEach(ArrayList.java:1597)",
+            "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)",
+            "org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)",
+            "org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)",
+            "org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)",
+            "org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36)",
+            "org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52)",
+            "org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157)",
+            "org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65)",
+            "org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125)",
+            "org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)",
+            "org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:93)",
+            "org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:48)",
+            "org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$0(InterceptingLauncher.java:41)",
+            "org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)",
+            "org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:40)",
+            "org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:48)",
+            "org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:67)",
+            "com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)",
+            "com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)",
+            "com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)",
+            "com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)",
+            "com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:231)",
+            "com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)"
+          ],
+          "durationInNanos": 99998209
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 99998209
+    }
+  ],
+  "tagMap": {}
+}
