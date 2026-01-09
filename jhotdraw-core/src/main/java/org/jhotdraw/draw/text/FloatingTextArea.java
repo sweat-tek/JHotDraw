@@ -10,9 +10,8 @@ package org.jhotdraw.draw.text;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.geom.*;
-import javax.swing.BorderFactory;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
+
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.event.FigureAdapter;
 import org.jhotdraw.draw.event.FigureEvent;
@@ -39,7 +38,7 @@ import org.jhotdraw.draw.event.FigureListener;
  * @author Werner Randelshofer
  * @version $Id: FloatingTextArea.java -1 $
  */
-public class FloatingTextArea {
+public class FloatingTextArea extends AbstractEditableFloatingText {
 
     /**
      * A scroll pane to allow for vertical scrolling while editing
@@ -88,6 +87,17 @@ public class FloatingTextArea {
         textArea.requestFocus();
     }
 
+    @Override
+    public JComponent getEditorComponent() {
+        return editScrollContainer;
+    }
+
+    @Override
+    protected DrawingView getDrawingView() {
+        return view;
+    }
+
+
     /**
      * Creates the overlay for the given Container using a
      * specific font.
@@ -104,6 +114,8 @@ public class FloatingTextArea {
             updateWidget();
         }
     }
+
+
 
     protected void updateWidget() {
         Font f = editedFigure.getFont();
@@ -148,20 +160,4 @@ public class FloatingTextArea {
         return new Dimension(textArea.getWidth(), textArea.getHeight());
     }
 
-    /**
-     * Removes the overlay.
-     */
-    public void endOverlay() {
-        view.getComponent().requestFocus();
-        if (editScrollContainer != null) {
-            editScrollContainer.setVisible(false);
-            view.getComponent().remove(editScrollContainer);
-            Rectangle bounds = editScrollContainer.getBounds();
-            view.getComponent().repaint(bounds.x, bounds.y, bounds.width, bounds.height);
-        }
-        if (editedFigure != null) {
-            editedFigure.removeFigureListener(figureHandler);
-            editedFigure = null;
-        }
-    }
 }

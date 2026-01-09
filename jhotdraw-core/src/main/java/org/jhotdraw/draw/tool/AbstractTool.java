@@ -36,173 +36,27 @@ import org.jhotdraw.draw.handle.Handle;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public abstract class AbstractTool extends AbstractBean implements Tool {
+public abstract class AbstractTool extends BaseToolImpl implements Tool {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * This is set to true, if this is the active tool of the editor.
-     */
-    private boolean isActive;
     /**
      * This is set to true, while the tool is doing some work. This prevents the currentView from
      * being changed when a mouseEnter event is received.
      */
     protected boolean isWorking;
-    protected DrawingEditor editor;
     protected Point anchor = new Point();
-    protected EventListenerList listenerList = new EventListenerList();
-    private DrawingEditorProxy editorProxy;
     /*
      private PropertyChangeListener editorHandler;
      private PropertyChangeListener viewHandler;
      */
-    /**
-     * The input map of the tool.
-     */
-    private InputMap inputMap;
-    /**
-     * The action map of the tool.
-     */
-    private ActionMap actionMap;
 
     /**
      * Creates a new instance.
      */
     public AbstractTool() {
-        editorProxy = new DrawingEditorProxy();
+        super();
         setInputMap(createInputMap());
         setActionMap(createActionMap());
-    }
-
-    public void addUndoableEditListener(UndoableEditListener l) {
-        listenerList.add(UndoableEditListener.class, l);
-    }
-
-    public void removeUndoableEditListener(UndoableEditListener l) {
-        listenerList.remove(UndoableEditListener.class, l);
-    }
-
-    @Override
-    public void activate(DrawingEditor editor) {
-        this.editor = editor;
-        editorProxy.setTarget(editor);
-        isActive = true;
-        // Repaint all handles
-        for (DrawingView v : editor.getDrawingViews()) {
-            v.repaintHandles();
-        }
-    }
-
-    @Override
-    public void deactivate(DrawingEditor editor) {
-        this.editor = editor;
-        editorProxy.setTarget(null);
-        isActive = false;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    protected DrawingView getView() {
-        return editor.getActiveView();
-    }
-
-    protected DrawingEditor getEditor() {
-        return editor;
-    }
-
-    protected Drawing getDrawing() {
-        return getView().getDrawing();
-    }
-
-    protected Point2D.Double viewToDrawing(Point p) {
-        return constrainPoint(getView().viewToDrawing(p));
-    }
-
-    protected Point2D.Double constrainPoint(Point p, Figure... figure) {
-        return constrainPoint(getView().viewToDrawing(p), figure);
-    }
-
-    protected Point2D.Double constrainPoint(Point2D.Double p, Figure... figure) {
-        if (getView() == null) {
-            return p;
-        }
-        return getView().getConstrainer() == null ? p : getView().getConstrainer().constrainPoint(p, figure);
-    }
-
-    /**
-     * Sets the InputMap for the Tool.
-     *
-     * @see #keyPressed
-     * @see #setActionMap
-     */
-    public void setInputMap(InputMap newValue) {
-        inputMap = newValue;
-    }
-
-    /**
-     * Gets the input map of the Tool
-     */
-    public InputMap getInputMap() {
-        return inputMap;
-    }
-
-    /**
-     * Sets the ActionMap for the Tool.
-     *
-     * @see #keyPressed
-     */
-    public void setActionMap(ActionMap newValue) {
-        actionMap = newValue;
-    }
-
-    /**
-     * Gets the action map of the Tool
-     */
-    public ActionMap getActionMap() {
-        return actionMap;
-    }
-
-    /**
-     * Deletes the selection. Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    @Override
-    public void editDelete() {
-        getView().getDrawing().removeAll(getView().getSelectedFigures());
-    }
-
-    /**
-     * Cuts the selection into the clipboard. Depending on the tool, this could be selected figures,
-     * selected points or selected text.
-     */
-    @Override
-    public void editCut() {
-    }
-
-    /**
-     * Copies the selection into the clipboard. Depending on the tool, this could be selected
-     * figures, selected points or selected text.
-     */
-    @Override
-    public void editCopy() {
-    }
-
-    /**
-     * Duplicates the selection. Depending on the tool, this could be selected figures, selected
-     * points or selected text.
-     */
-    @Override
-    public void editDuplicate() {
-    }
-
-    /**
-     * Pastes the contents of the clipboard. Depending on the tool, this could be selected figures,
-     * selected points or selected text.
-     */
-    @Override
-    public void editPaste() {
     }
 
     @Override
@@ -259,26 +113,6 @@ public abstract class AbstractTool extends AbstractBean implements Tool {
         }
     }
 
-    /**
-     * Override this method to create a tool-specific input map, which overrides the input map of
-     * the drawing edtior.
-     * <p>
-     * The implementation of this class returns null.
-     */
-    protected InputMap createInputMap() {
-        return null;
-    }
-
-    /**
-     * Override this method to create a tool-specific action map, which overrides the action map of
-     * the drawing edtior.
-     * <p>
-     * The implementation of this class returns null.
-     */
-    protected ActionMap createActionMap() {
-        return null;
-    }
-
     @Override
     public void mouseClicked(MouseEvent evt) {
     }
@@ -312,171 +146,4 @@ public abstract class AbstractTool extends AbstractBean implements Tool {
         isWorking = false;
     }
 
-    @Override
-    public void addToolListener(ToolListener l) {
-        listenerList.add(ToolListener.class, l);
-    }
-
-    @Override
-    public void removeToolListener(ToolListener l) {
-        listenerList.remove(ToolListener.class, l);
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     */
-    protected void fireToolStarted(DrawingView view) {
-        ToolEvent event = null;
-        // Notify all listeners that have registered interest for
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ToolListener.class) {
-                // Lazily create the event:
-                if (event == null) {
-                    event = new ToolEvent(this, view, new Rectangle(0, 0, -1, -1));
-                }
-                ((ToolListener) listeners[i + 1]).toolStarted(event);
-            }
-        }
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     */
-    protected void fireToolDone() {
-        ToolEvent event = null;
-        // Notify all listeners that have registered interest for
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ToolListener.class) {
-                // Lazily create the event:
-                if (event == null) {
-                    event = new ToolEvent(this, getView(), new Rectangle(0, 0, -1, -1));
-                }
-                ((ToolListener) listeners[i + 1]).toolDone(event);
-            }
-        }
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     */
-    protected void fireAreaInvalidated(Rectangle2D.Double r) {
-        Point p1 = getView().drawingToView(new Point2D.Double(r.x, r.y));
-        Point p2 = getView().drawingToView(new Point2D.Double(r.x + r.width, r.y + r.height));
-        fireAreaInvalidated(
-                new Rectangle(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y));
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     */
-    protected void fireAreaInvalidated(Rectangle invalidatedArea) {
-        ToolEvent event = null;
-        // Notify all listeners that have registered interest for
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ToolListener.class) {
-                // Lazily create the event:
-                if (event == null) {
-                    event = new ToolEvent(this, getView(), invalidatedArea);
-                }
-                ((ToolListener) listeners[i + 1]).areaInvalidated(event);
-            }
-        }
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     *
-     * Note: This method only fires an event, if the invalidated area is outside of the canvas
-     * bounds.
-     */
-    protected void maybeFireBoundsInvalidated(Rectangle invalidatedArea) {
-        Drawing d = getDrawing();
-        Rectangle2D.Double canvasBounds = new Rectangle2D.Double(0, 0, 0, 0);
-        if (d.get(CANVAS_WIDTH) != null) {
-            canvasBounds.width += d.get(CANVAS_WIDTH);
-        }
-        if (d.get(CANVAS_HEIGHT) != null) {
-            canvasBounds.height += d.get(CANVAS_HEIGHT);
-        }
-        if (!canvasBounds.contains(invalidatedArea)) {
-            fireBoundsInvalidated(invalidatedArea);
-        }
-    }
-
-    /**
-     * Notify all listenerList that have registered interest for notification on this event type.
-     */
-    protected void fireBoundsInvalidated(Rectangle invalidatedArea) {
-        ToolEvent event = null;
-        // Notify all listeners that have registered interest for
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ToolListener.class) {
-                // Lazily create the event:
-                if (event == null) {
-                    event = new ToolEvent(this, getView(), invalidatedArea);
-                }
-                ((ToolListener) listeners[i + 1]).boundsInvalidated(event);
-            }
-        }
-    }
-
-    @Override
-    public void draw(Graphics2D g) {
-    }
-
-    public void updateCursor(DrawingView view, Point p) {
-        if (view.isEnabled()) {
-            Handle handle = view.findHandle(p);
-            if (handle != null) {
-                view.setCursor(handle.getCursor());
-            } else {
-                Figure figure = view.findFigure(p);
-                Point2D.Double point = view.viewToDrawing(p);
-                Drawing drawing = view.getDrawing();
-                while (figure != null && !figure.isSelectable()) {
-                    figure = drawing.findFigureBehind(point, figure);
-                }
-                if (figure != null) {
-                    view.setCursor(figure.getCursor(view.viewToDrawing(p)));
-                } else {
-                    view.setCursor(Cursor.getDefaultCursor());
-                }
-            }
-        } else {
-            view.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        }
-    }
-
-    @Override
-    public String getToolTipText(DrawingView view, MouseEvent evt) {
-        return null;
-    }
-
-    /**
-     * Returns true, if this tool lets the user interact with handles.
-     * <p>
-     * Handles may draw differently, if interaction is not possible.
-     *
-     * @return True, if this tool supports interaction with the handles.
-     */
-    @Override
-    public boolean supportsHandleInteraction() {
-        return false;
-    }
 }

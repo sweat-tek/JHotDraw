@@ -43,7 +43,7 @@ import org.jhotdraw.draw.event.FigureListener;
  * @author Werner Randelshofer
  * @version $Id: FloatingTextField.java -1 $
  */
-public class FloatingTextField {
+public class FloatingTextField extends AbstractEditableFloatingText {
 
     private TextHolderFigure editedFigure;
     private JTextField textField;
@@ -63,6 +63,16 @@ public class FloatingTextField {
         textField.requestFocus();
     }
 
+    @Override
+    public JComponent getEditorComponent() {
+        return textField;
+    }
+
+    @Override
+    protected DrawingView getDrawingView() {
+        return view;
+    }
+
     /**
      * Creates the overlay for the given Container using a
      * specific font.
@@ -79,30 +89,33 @@ public class FloatingTextField {
         updateWidget();
     }
 
+
     protected void updateWidget() {
-        Font font = editedFigure.getFont();
-        font = font.deriveFont(font.getStyle(), (float) (editedFigure.getFontSize() * view.getScaleFactor()));
-        textField.setFont(font);
+        if (editedFigure == null) return;
+        Font fontOnFigure = editedFigure.getFont();
+        fontOnFigure = fontOnFigure.deriveFont(fontOnFigure.getStyle(), (float) (editedFigure.getFontSize() * view.getScaleFactor()));
+        textField.setFont(fontOnFigure);
         textField.setForeground(editedFigure.getTextColor());
         textField.setBackground(editedFigure.getFillColor());
-        Rectangle2D.Double fDrawBounds = editedFigure.getBounds();
-        Point2D.Double fDrawLoc = new Point2D.Double(fDrawBounds.getX(), fDrawBounds.getY());
+        Rectangle2D.Double fieldDrawBounds = editedFigure.getBounds();
+        Point2D.Double fieldDrawLocation = new Point2D.Double(fieldDrawBounds.getX(), fieldDrawBounds.getY());
         if (editedFigure.get(TRANSFORM) != null) {
-            editedFigure.get(TRANSFORM).transform(fDrawLoc, fDrawLoc);
+            editedFigure.get(TRANSFORM).transform(fieldDrawLocation, fieldDrawLocation);
         }
-        Point fViewLoc = view.drawingToView(fDrawLoc);
-        Rectangle fViewBounds = view.drawingToView(fDrawBounds);
-        fViewBounds.x = fViewLoc.x;
-        fViewBounds.y = fViewLoc.y;
-        Dimension tfDim = textField.getPreferredSize();
-        Insets tfInsets = textField.getInsets();
-        float fontBaseline = textField.getGraphics().getFontMetrics(font).getMaxAscent();
-        double fBaseline = editedFigure.getBaseline() * view.getScaleFactor();
+        Point fieldViewLocation = view.drawingToView(fieldDrawLocation);
+        Rectangle fieldViewBounds = view.drawingToView(fieldDrawBounds);
+        fieldViewBounds.x = fieldViewLocation.x;
+        fieldViewBounds.y = fieldViewLocation.y;
+        Dimension textFieldDimensions = textField.getPreferredSize();
+        Insets textFieldInsets = textField.getInsets();
+        if (textField.getGraphics() == null) return;
+        float fontBaseline = textField.getGraphics().getFontMetrics(fontOnFigure).getMaxAscent();
+        double fieldBaseline = editedFigure.getBaseline() * view.getScaleFactor();
         textField.setBounds(
-                fViewBounds.x - tfInsets.left,
-                fViewBounds.y - tfInsets.top - (int) (fontBaseline - fBaseline),
-                Math.max(fViewBounds.width + tfInsets.left + tfInsets.right, tfDim.width),
-                Math.max(fViewBounds.height + tfInsets.top + tfInsets.bottom, tfDim.height)
+                fieldViewBounds.x - textFieldInsets.left,
+                fieldViewBounds.y - textFieldInsets.top - (int) (fontBaseline - fieldBaseline),
+                Math.max(fieldViewBounds.width + textFieldInsets.left + textFieldInsets.right, textFieldDimensions.width),
+                Math.max(fieldViewBounds.height + textFieldInsets.top + textFieldInsets.bottom, textFieldDimensions.height)
         );
     }
 
@@ -139,20 +152,5 @@ public class FloatingTextField {
         return textField.getPreferredSize();
     }
 
-    /**
-     * Removes the overlay.
-     */
-    public void endOverlay() {
-        view.getComponent().requestFocus();
-        if (textField != null) {
-            textField.setVisible(false);
-            view.getComponent().remove(textField);
-            Rectangle bounds = textField.getBounds();
-            view.getComponent().repaint(bounds.x, bounds.y, bounds.width, bounds.height);
-        }
-        if (editedFigure != null) {
-            editedFigure.removeFigureListener(figureHandler);
-            editedFigure = null;
-        }
-    }
+
 }

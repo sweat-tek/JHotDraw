@@ -9,11 +9,7 @@ package org.jhotdraw.draw;
 
 import org.jhotdraw.draw.figure.Figure;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -29,6 +25,7 @@ import static org.jhotdraw.draw.AttributeKeys.*;
 import org.jhotdraw.draw.action.*;
 import org.jhotdraw.draw.event.ToolAdapter;
 import org.jhotdraw.draw.event.ToolEvent;
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.Tool;
 
 /**
@@ -44,7 +41,7 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
     private static final long serialVersionUID = 1L;
     private HashMap<AttributeKey<?>, Object> defaultAttributes = new HashMap<>();
     private HashMap<AttributeKey<?>, Object> handleAttributes = new HashMap<>();
-    private Tool tool;
+    private BaseTool tool;
     private HashSet<DrawingView> views;
     private DrawingView activeView;
     private boolean isEnabled = true;
@@ -114,16 +111,16 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
     }
 
     @Override
-    public void setTool(Tool newValue) {
-        Tool oldValue = tool;
+    public void setTool(BaseTool newValue) {
+        BaseTool oldValue = tool;
         if (newValue == tool) {
             return;
         }
         if (tool != null) {
             for (DrawingView v : views) {
-                v.removeMouseListener(tool);
-                v.removeMouseMotionListener(tool);
-                v.removeKeyListener(tool);
+                if (tool instanceof MouseListener) v.removeMouseListener((MouseListener) tool);
+                if (tool instanceof MouseMotionListener) v.removeMouseMotionListener((MouseMotionListener) tool);
+                if (tool instanceof KeyListener) v.removeKeyListener((KeyListener) tool);
                 if (tool instanceof MouseWheelListener) {
                     v.removeMouseWheelListener((MouseWheelListener) tool);
                 }
@@ -135,9 +132,9 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         if (tool != null) {
             tool.activate(this);
             for (DrawingView v : views) {
-                v.addMouseListener(tool);
-                v.addMouseMotionListener(tool);
-                v.addKeyListener(tool);
+                if (tool instanceof MouseListener) v.addMouseListener((MouseListener) tool);
+                if (tool instanceof MouseMotionListener) v.addMouseMotionListener((MouseMotionListener) tool);
+                if (tool instanceof KeyListener) v.addKeyListener((KeyListener) tool);
                 if (tool instanceof MouseWheelListener) {
                     v.addMouseWheelListener((MouseWheelListener) tool);
                 }
@@ -155,7 +152,7 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
     }
 
     @Override
-    public Tool getTool() {
+    public BaseTool getTool() {
         return tool;
     }
 
@@ -204,9 +201,9 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         view.getComponent().removeFocusListener(focusHandler);
         views.remove(view);
         if (tool != null) {
-            view.removeMouseListener(tool);
-            view.removeMouseMotionListener(tool);
-            view.removeKeyListener(tool);
+            if (tool instanceof MouseListener) view.removeMouseListener((MouseListener) tool);
+            if (tool instanceof MouseMotionListener) view.removeMouseMotionListener((MouseMotionListener) tool);
+            if (tool instanceof KeyListener) view.removeKeyListener((KeyListener) tool);
         }
         view.removeNotify(this);
         if (activeView == view) {
@@ -221,9 +218,9 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         view.addNotify(this);
         view.getComponent().addFocusListener(focusHandler);
         if (tool != null) {
-            view.addMouseListener(tool);
-            view.addMouseMotionListener(tool);
-            view.addKeyListener(tool);
+            if (tool instanceof MouseListener) view.addMouseListener((MouseListener) tool);
+            if (tool instanceof MouseMotionListener) view.addMouseMotionListener((MouseMotionListener) tool);
+            if (tool instanceof KeyListener) view.addKeyListener((KeyListener) tool);
         }
         updateActiveView();
     }

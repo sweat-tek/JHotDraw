@@ -298,7 +298,7 @@ public class DelegationSelectionTool extends SelectionTool {
                 if (DEBUG) {
                     System.out.println("DelegationSelectionTool.handleDoubleClick by figure");
                 }
-                Tool figureTool = figure.getTool(p);
+                BaseTool figureTool = figure.getTool(p);
                 if (figureTool == null) {
                     figure = getDrawing().findFigureInside(p);
                     if (figure != null) {
@@ -307,7 +307,8 @@ public class DelegationSelectionTool extends SelectionTool {
                 }
                 if (figureTool != null) {
                     setTracker(figureTool);
-                    figureTool.mousePressed(evt);
+                    if (figureTool instanceof ClickListeningTool)
+                        ((ClickListeningTool) figureTool).mousePressed(evt);
                 } else {
                     if (outerFigure.handleMouseClick(p, evt, getView())) {
                         v.clearSelection();

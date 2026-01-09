@@ -11,22 +11,35 @@ import java.awt.geom.*;
 import java.util.*;
 import org.jhotdraw.draw.event.FigureEvent;
 import org.jhotdraw.draw.event.FigureListener;
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.TextEditingTool;
-import org.jhotdraw.draw.tool.Tool;
+
 
 /**
  * A LabelFigure can be used to provide more double clickable area for a
  * TextHolderFigure.
  *
- * FIXME - Move FigureListener into inner class.
  *
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class LabelFigure extends TextFigure implements FigureListener {
+public class LabelFigure extends TextFigure {
 
     private static final long serialVersionUID = 1L;
     private TextHolderFigure target;
+    private final transient EventHandler eventHandler = new EventHandler();
+
+
+    private class EventHandler implements FigureListener {
+        @Override
+        public void figureRemoved(FigureEvent e) {
+            if (e.getFigure() == target) {
+                target.removeFigureListener(this);
+                target = null;
+            }
+        }
+    }
+
 
     /**
      * Creates a new instance.
@@ -40,15 +53,18 @@ public class LabelFigure extends TextFigure implements FigureListener {
         setEditable(false);
     }
 
+
     public void setLabelFor(TextHolderFigure target) {
         if (this.target != null) {
-            this.target.removeFigureListener(this);
+            this.target.removeFigureListener(eventHandler);
         }
         this.target = target;
         if (this.target != null) {
-            this.target.addFigureListener(this);
+            this.target.addFigureListener(eventHandler);
         }
     }
+
+
 
     @Override
     public TextHolderFigure getLabelFor() {
@@ -61,37 +77,15 @@ public class LabelFigure extends TextFigure implements FigureListener {
      * Returns null, if no specialized tool is available.
      */
     @Override
-    public Tool getTool(Point2D.Double p) {
-        return (target != null && contains(p)) ? new TextEditingTool(target) : null;
+    public BaseTool getTool(Point2D.Double coordinate) {
+        return (target != null && contains(coordinate)) ? new TextEditingTool(target) : null;
     }
 
-    @Override
-    public void areaInvalidated(FigureEvent e) {
-    }
 
-    @Override
-    public void attributeChanged(FigureEvent e) {
-    }
 
-    @Override
-    public void figureAdded(FigureEvent e) {
-    }
 
-    @Override
-    public void figureChanged(FigureEvent e) {
-    }
 
-    @Override
-    public void figureRemoved(FigureEvent e) {
-        if (e.getFigure() == target) {
-            target.removeFigureListener(this);
-            target = null;
-        }
-    }
 
-    @Override
-    public void figureRequestRemove(FigureEvent e) {
-    }
 
     @Override
     public void remap(Map<Figure, Figure> oldToNew, boolean disconnectIfNotInMap) {
@@ -99,14 +93,12 @@ public class LabelFigure extends TextFigure implements FigureListener {
         if (target != null) {
             Figure newTarget = oldToNew.get(target);
             if (newTarget != null) {
-                target.removeFigureListener(this);
+                target.removeFigureListener(eventHandler);
                 target = (TextHolderFigure) newTarget;
-                newTarget.addFigureListener(this);
+                newTarget.addFigureListener(eventHandler);
             }
         }
     }
 
-    @Override
-    public void figureHandlesChanged(FigureEvent e) {
-    }
+
 }

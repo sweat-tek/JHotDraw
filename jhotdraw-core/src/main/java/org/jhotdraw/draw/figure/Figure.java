@@ -20,6 +20,7 @@ import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.connector.Connector;
 import org.jhotdraw.draw.event.FigureListener;
 import org.jhotdraw.draw.handle.Handle;
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.Tool;
 import org.jhotdraw.geom.Dimension2DDouble;
 
@@ -411,7 +412,7 @@ public interface Figure extends Cloneable, Serializable {
      * <p>
      * Returns null, if no specialized tool is available.
      */
-    public Tool getTool(Point2D.Double p);
+    public BaseTool getTool(Point2D.Double p);
 
     /**
      * Returns a tooltip for the specified location on the figure.

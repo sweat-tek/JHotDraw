@@ -197,6 +197,7 @@ public abstract class AbstractDrawingView implements DrawingView, EditableCompon
         return selectedFigures.isEmpty();
     }
 
+
     private class EventHandler implements FigureListener, CompositeFigureListener, HandleListener, FocusListener {
 
         @Override
@@ -299,6 +300,7 @@ public abstract class AbstractDrawingView implements DrawingView, EditableCompon
         public void figureRequestRemove(FigureEvent e) {
         }
     }
+
     private final EventHandler eventHandler = new EventHandler();
 
 
@@ -1001,6 +1003,7 @@ public abstract class AbstractDrawingView implements DrawingView, EditableCompon
             f.remap(originalToDuplicateMap, false);
         }
         addToSelection(duplicates);
+
         drawing.fireUndoableEditHappened(new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 

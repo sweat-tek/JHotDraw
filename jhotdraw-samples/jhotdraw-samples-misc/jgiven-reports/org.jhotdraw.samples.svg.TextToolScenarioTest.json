@@ -1,0 +1,1340 @@
+{
+  "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+  "name": "Text Tool Scenario",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+      "testMethodName": "pressing_escape_exits_edit_mode",
+      "description": "pressing escape exits edit mode",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@75a2673b",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@75a2673b"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@1e8823d2",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@1e8823d2"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@3b42d73b",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@3b42d73b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 34309800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@75a2673b",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@75a2673b"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@1e8823d2",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@1e8823d2"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@3b42d73b",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@3b42d73b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1414800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1119000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1138200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the text tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the text tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 371494900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clicks on the canvas at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clicks on the canvas at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 291831100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user types",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user types"
+                },
+                {
+                  "value": "Pass Rot, Pop Green, Watch The Rots",
+                  "argumentInfo": {
+                    "argumentName": "text",
+                    "formattedValue": "Pass Rot, Pop Green, Watch The Rots"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 6250877400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user presses the escape key",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user presses the escape key"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 339768500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figure should not be in edit mode",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figure should not be in edit mode"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 165131500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 9556947500
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 9556947500
+    },
+    {
+      "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+      "testMethodName": "figure_stays_at_original_location",
+      "description": "figure stays at original location",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@7a306bb2",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@7a306bb2"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@971e903",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@971e903"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@1e56c8e6",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@1e56c8e6"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 724800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@7a306bb2",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@7a306bb2"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@971e903",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@971e903"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@1e56c8e6",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@1e56c8e6"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 428400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 445100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 442800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the text tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the text tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 359124600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clicks on the canvas at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clicks on the canvas at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 262065600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user types",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user types"
+                },
+                {
+                  "value": "Red is defamation",
+                  "argumentInfo": {
+                    "argumentName": "text",
+                    "formattedValue": "Red is defamation"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2447705400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "get figure anchor",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "get figure anchor"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 71800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user finishes editing",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user finishes editing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 247323400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figure should exist at",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figure should exist at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "187",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "187"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 4357900,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 4308424000
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 4308424000
+    },
+    {
+      "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+      "testMethodName": "user_can_create_and_type_text",
+      "description": "user can create and type text",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@4b7cd802",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@4b7cd802"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@715d6168",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@715d6168"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@29c4fdbe",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@29c4fdbe"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 929700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@4b7cd802",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@4b7cd802"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@715d6168",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@715d6168"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@29c4fdbe",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@29c4fdbe"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1179800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 696600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 681400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the text tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the text tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 311449200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clicks on the canvas at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clicks on the canvas at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 253738100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user types",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user types"
+                },
+                {
+                  "value": "Hello Near World",
+                  "argumentInfo": {
+                    "argumentName": "text",
+                    "formattedValue": "Hello Near World"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2744810300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a new text figure should exist",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a new text figure should exist"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 3601600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figure should be selected",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figure should be selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 8048500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 4254722000
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 4254722000
+    },
+    {
+      "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+      "testMethodName": "clicking_existing_text_with_selection_tool_enters_edit_mode",
+      "description": "clicking existing text with selection tool enters edit mode",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@286026f9",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@286026f9"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@4ac86d6a",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@4ac86d6a"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@27109b22",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@27109b22"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 874100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@286026f9",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@286026f9"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@4ac86d6a",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@4ac86d6a"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@27109b22",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@27109b22"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 561600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 550600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 980200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the text tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the text tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 300273000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clicks on the canvas at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clicks on the canvas at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 248783700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user types",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user types"
+                },
+                {
+                  "value": "Hello Far World",
+                  "argumentInfo": {
+                    "argumentName": "text",
+                    "formattedValue": "Hello Far World"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2611925500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user finishes editing",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user finishes editing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 249152600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the selection tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the selection tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 296281100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user double clicks the figure at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user double clicks the figure at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 125254300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the figure should be in edit mode",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the figure should be in edit mode"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 62053600,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 4813757300
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 4813757300
+    },
+    {
+      "className": "org.jhotdraw.samples.svg.TextToolScenarioTest",
+      "testMethodName": "text_figure_is_removed_if_empty_on_deselect",
+      "description": "text figure is removed if empty on deselect",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@7f685c37",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@7f685c37"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@3eb3232b",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@3eb3232b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@2929538b",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@2929538b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 876700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set fixtures",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set fixtures"
+                },
+                {
+                  "value": "org.assertj.swing.fixture.FrameFixture@7f685c37",
+                  "argumentInfo": {
+                    "argumentName": "fixture",
+                    "formattedValue": "org.assertj.swing.fixture.FrameFixture@7f685c37"
+                  }
+                },
+                {
+                  "value": "org.assertj.swing.core.BasicRobot@3eb3232b",
+                  "argumentInfo": {
+                    "argumentName": "robotInstance",
+                    "formattedValue": "org.assertj.swing.core.BasicRobot@3eb3232b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingEditor@2929538b",
+                  "argumentInfo": {
+                    "argumentName": "drawingEditor",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingEditor@2929538b"
+                  }
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "drawingView",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 527600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 435300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "set view",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "set view"
+                },
+                {
+                  "value": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]",
+                  "argumentInfo": {
+                    "argumentName": "view",
+                    "formattedValue": "org.jhotdraw.draw.DefaultDrawingView[drawingCanvas,0,0,1920x887,alignmentX\u003d0.0,alignmentY\u003d0.0,border\u003d,flags\u003d16777224,maximumSize\u003d,minimumSize\u003d,preferredSize\u003d]"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 501100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the text tool is selected",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the text tool is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 299522300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clicks on the canvas at",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clicks on the canvas at"
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "200"
+                  }
+                },
+                {
+                  "value": "200",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "200"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 244351300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user clears the text and deselects",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user clears the text and deselects"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 607333600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the canvas should be empty",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the canvas should be empty"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 193300,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 2079950300
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 2079950300
+    }
+  ],
+  "tagMap": {}
+}

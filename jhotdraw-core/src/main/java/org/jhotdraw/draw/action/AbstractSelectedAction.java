@@ -164,6 +164,8 @@ public abstract class AbstractSelectedAction
      * Returns true, if this action automatically updates its enabled
      * state to reflect the enabled state of the active {@code DrawingView}.
      */
+
+    //FIXME: Typo
     public boolean isUpdatEnabledState() {
         return eventHandler != null;
     }

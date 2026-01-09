@@ -27,6 +27,7 @@ import org.jhotdraw.draw.event.SetBoundsEdit;
 import org.jhotdraw.draw.handle.BoundsOutlineHandle;
 import org.jhotdraw.draw.handle.Handle;
 import org.jhotdraw.draw.handle.ResizeHandleKit;
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.Tool;
 import org.jhotdraw.geom.Dimension2DDouble;
 
@@ -460,7 +461,7 @@ public abstract class AbstractFigure
      * Returns null, if no specialized tool is available.
      */
     @Override
-    public Tool getTool(Point2D.Double p) {
+    public BaseTool getTool(Point2D.Double p) {
         return null;
     }
 

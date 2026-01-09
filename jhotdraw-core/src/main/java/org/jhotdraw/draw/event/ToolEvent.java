@@ -10,6 +10,7 @@ package org.jhotdraw.draw.event;
 import java.awt.*;
 import java.util.*;
 import org.jhotdraw.draw.*;
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.Tool;
 
 /**
@@ -38,7 +39,7 @@ public class ToolEvent extends EventObject {
     /**
      * Creates a new instance.
      */
-    public ToolEvent(Tool src, DrawingView view, Rectangle invalidatedArea) {
+    public ToolEvent(BaseTool src, DrawingView view, Rectangle invalidatedArea) {
         super(src);
         this.view = view;
         this.invalidatedArea = invalidatedArea;
@@ -47,8 +48,8 @@ public class ToolEvent extends EventObject {
     /**
      * Gets the tool which is the source of the event.
      */
-    public Tool getTool() {
-        return (Tool) getSource();
+    public BaseTool getTool() {
+        return (BaseTool) getSource();
     }
 
     /**

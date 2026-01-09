@@ -7,12 +7,11 @@
  */
 package org.jhotdraw.draw.tool;
 
-import java.awt.*;
-import java.awt.event.*;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.event.ToolListener;
 
 /**
+ * @deprecated
  * A <em>tool</em> defines an editing mode of a {@link DrawingEditor}.
  * <p>
  * Tools are used for user interaction. Unlike figures, a tool works with
@@ -73,85 +72,7 @@ import org.jhotdraw.draw.event.ToolListener;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public interface Tool extends MouseListener, MouseMotionListener, KeyListener {
-
-    /**
-     * Activates the tool for the given editor. This method is called
-     * whenever the user switches to this tool.
-     */
-    public void activate(DrawingEditor editor);
-
-    /**
-     * Deactivates the tool. This method is called whenever the user
-     * switches to another tool.
-     */
-    public void deactivate(DrawingEditor editor);
-
-    /**
-     * Adds a listener for this tool.
-     */
-    void addToolListener(ToolListener l);
-
-    /**
-     * Removes a listener for this tool.
-     */
-    void removeToolListener(ToolListener l);
-
-    /**
-     * Draws the tool.
-     */
-    void draw(Graphics2D g);
-
-    /**
-     * Deletes the selection.
-     * Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    public void editDelete();
-
-    /**
-     * Cuts the selection into the clipboard.
-     * Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    public void editCut();
-
-    /**
-     * Copies the selection into the clipboard.
-     * Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    public void editCopy();
-
-    /**
-     * Duplicates the selection.
-     * Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    public void editDuplicate();
-
-    /**
-     * Pastes the contents of the clipboard.
-     * Depending on the tool, this could be selected figures, selected points
-     * or selected text.
-     */
-    public void editPaste();
-
-    /**
-     * Returns the tooltip text for a mouse event on a drawing view.
-     *
-     * @param view A drawing view.
-     * @param evt A mouse event.
-     * @return A tooltip text or null.
-     */
-    public String getToolTipText(DrawingView view, MouseEvent evt);
-
-    /**
-     * Returns true, if this tool lets the user interact with handles.
-     * <p>
-     * Handles may draw differently, if interaction is not possible.
-     *
-     * @return True, if this tool supports interaction with the handles.
-     */
-    public boolean supportsHandleInteraction();
+@Deprecated
+public interface Tool extends BaseTool, ClickListeningTool, DragableTool, KeyListeningTool {
+    // Legacy God Tool to maintain compatibility
 }

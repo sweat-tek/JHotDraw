@@ -305,6 +305,7 @@ public class DefaultDrawingView
         setTransferHandler(new DefaultDrawingViewTransferHandler());
         setBackground(new Color(0xb0b0b0));
         setOpaque(true);
+        setName("drawingCanvas"); // For BDD Testing
     }
 
     protected EventHandler createEventHandler() {

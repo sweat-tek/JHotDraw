@@ -13,6 +13,8 @@ import java.beans.*;
 import java.util.*;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+
+import org.jhotdraw.draw.tool.BaseTool;
 import org.jhotdraw.draw.tool.Tool;
 
 /**
@@ -157,14 +159,14 @@ public interface DrawingEditor {
      * <p>
      * This is a bound property.
      */
-    void setTool(Tool t);
+    void setTool(BaseTool t);
 
     /**
      * Gets the current tool.
      * <p>
      * This is a bound property.
      */
-    Tool getTool();
+    BaseTool getTool();
 
     /**
      * Sets the cursor on the view(s) of the drawing editor.

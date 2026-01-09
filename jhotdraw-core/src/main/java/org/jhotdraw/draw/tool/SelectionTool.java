@@ -56,7 +56,7 @@ public class SelectionTool extends AbstractTool {
     /**
      * The tracker encapsulates the current state of the SelectionTool.
      */
-    private Tool tracker;
+    private BaseTool tracker;
     /**
      * The tracker encapsulates the current state of the SelectionTool.
      */
@@ -161,59 +161,68 @@ public class SelectionTool extends AbstractTool {
     @Override
     public void keyPressed(KeyEvent e) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.keyPressed(e);
+            if (tracker instanceof KeyListeningTool)
+                ((KeyListeningTool) tracker).keyPressed(e);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.keyReleased(evt);
+            if (tracker instanceof KeyListeningTool)
+                ((KeyListeningTool) tracker).keyReleased(evt);
         }
     }
 
     @Override
     public void keyTyped(KeyEvent evt) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.keyTyped(evt);
+            if (tracker instanceof KeyListeningTool)
+                ((KeyListeningTool) tracker).keyTyped(evt);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent evt) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.mouseClicked(evt);
+            if (tracker instanceof ClickListeningTool)
+                ((ClickListeningTool) tracker).mouseClicked(evt);
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent evt) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.mouseDragged(evt);
+            if (tracker instanceof DragableTool)
+                ((DragableTool) tracker).mouseDragged(evt);
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent evt) {
         super.mouseEntered(evt);
-        tracker.mouseEntered(evt);
+        if (tracker instanceof ClickListeningTool)
+            ((ClickListeningTool) tracker).mouseEntered(evt);
     }
 
     @Override
     public void mouseExited(MouseEvent evt) {
         super.mouseExited(evt);
-        tracker.mouseExited(evt);
+        if (tracker instanceof ClickListeningTool)
+            ((ClickListeningTool) tracker).mouseExited(evt);
     }
 
     @Override
     public void mouseMoved(MouseEvent evt) {
-        tracker.mouseMoved(evt);
+        if (tracker instanceof DragableTool)
+            ((DragableTool) tracker).mouseMoved(evt);
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
         if (getView() != null && getView().isEnabled()) {
-            tracker.mouseReleased(evt);
+            if (tracker instanceof ClickListeningTool)
+                ((ClickListeningTool) tracker).mouseReleased(evt);
         }
     }
 
@@ -286,11 +295,12 @@ public class SelectionTool extends AbstractTool {
             if (newTracker != null) {
                 setTracker(newTracker);
             }
-            tracker.mousePressed(evt);
+            if (tracker instanceof ClickListeningTool)
+                ((ClickListeningTool) tracker).mousePressed(evt);
         }
     }
 
-    protected void setTracker(Tool newTracker) {
+    protected void setTracker(BaseTool newTracker) {
         if (tracker != null) {
             tracker.deactivate(getEditor());
             tracker.removeToolListener(trackerHandler);
