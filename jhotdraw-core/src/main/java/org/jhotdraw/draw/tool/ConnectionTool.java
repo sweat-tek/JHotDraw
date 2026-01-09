@@ -16,6 +16,7 @@ import java.util.*;
 import javax.swing.undo.*;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.connector.Connector;
+import org.jhotdraw.undo.CompositeEdit;
 import org.jhotdraw.util.*;
 
 /**
@@ -283,7 +284,9 @@ public class ConnectionTool extends AbstractTool {
             createdFigure.changed();
             final Figure addedFigure = createdFigure;
             final Drawing addedDrawing = getDrawing();
-            getDrawing().fireUndoableEditHappened(new AbstractUndoableEdit() {
+
+            CompositeEdit compositeEdit = new CompositeEdit(presentationName);
+            UndoableEdit undoableEdit = new AbstractUndoableEdit() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
@@ -302,7 +305,11 @@ public class ConnectionTool extends AbstractTool {
                     super.redo();
                     addedDrawing.add(addedFigure);
                 }
-            });
+            };
+            compositeEdit.addEdit(undoableEdit);
+            compositeEdit.end();
+            getDrawing().fireUndoableEditHappened(compositeEdit);
+
             targetFigure = null;
             Point2D.Double anchor = startConnector.getAnchor();
             Rectangle r = new Rectangle(getView().drawingToView(anchor));

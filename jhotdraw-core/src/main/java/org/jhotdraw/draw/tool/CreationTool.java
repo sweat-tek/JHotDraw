@@ -15,6 +15,7 @@ import java.awt.geom.*;
 import java.util.*;
 import javax.swing.undo.*;
 import org.jhotdraw.draw.*;
+import org.jhotdraw.undo.CompositeEdit;
 import org.jhotdraw.util.*;
 
 /**
@@ -60,7 +61,7 @@ public class CreationTool extends AbstractTool {
      * Attributes to be applied to the created ConnectionFigure. These attributes override the
      * default attributes of the DrawingEditor.
      */
-    protected Map<AttributeKey<?>, Object> prototypeAttributes;
+    protected transient Map<AttributeKey<?>, Object> prototypeAttributes;
     /**
      * A localized name for this tool. The presentationName is displayed by the UndoableEdit.
      */
@@ -239,7 +240,9 @@ public class CreationTool extends AbstractTool {
                 }
                 final Figure addedFigure = createdFigure;
                 final Drawing addedDrawing = getDrawing();
-                getDrawing().fireUndoableEditHappened(new AbstractUndoableEdit() {
+                CompositeEdit compositeEdit = new CompositeEdit(presentationName);
+
+                UndoableEdit edit = new AbstractUndoableEdit() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -258,7 +261,12 @@ public class CreationTool extends AbstractTool {
                         super.redo();
                         addedDrawing.add(addedFigure);
                     }
-                });
+                };
+
+                compositeEdit.addEdit(edit);
+                compositeEdit.end();
+                getDrawing().fireUndoableEditHappened(compositeEdit);
+
                 Rectangle r = new Rectangle(anchor.x, anchor.y, 0, 0);
                 r.add(evt.getX(), evt.getY());
                 maybeFireBoundsInvalidated(r);

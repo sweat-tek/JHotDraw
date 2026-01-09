@@ -1,0 +1,55 @@
+name: CI (Maven)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      checks: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: Build & test (use wrapper if present)
+        run: |
+          if [ -f mvnw ]; then
+            ./mvnw -B -ntp -DskipITs=true verify
+          else
+            mvn -B -ntp -DskipITs=true verify
+          fi
+
+      - name: Upload surefire test report (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: |
+            **/target/surefire-reports/*.txt
+            **/target/surefire-reports/*.xml
+            **/target/surefire-reports/*.dumpstream
+
+      - name: Publish JUnit results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unit tests
+          path: "**/target/surefire-reports/*.xml"
+          reporter: java-junit

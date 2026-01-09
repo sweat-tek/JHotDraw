@@ -18,6 +18,7 @@ import org.jhotdraw.draw.*;
 import org.jhotdraw.geom.Bezier;
 import org.jhotdraw.geom.BezierPath;
 import org.jhotdraw.geom.Geom;
+import org.jhotdraw.undo.CompositeEdit;
 import org.jhotdraw.util.*;
 
 /**
@@ -225,7 +226,10 @@ public class BezierTool extends AbstractTool {
         final Figure addedFigure = createdFigure;
         final Drawing addedDrawing = creationView.getDrawing();
         final DrawingView addedView = creationView;
-        getDrawing().fireUndoableEditHappened(new AbstractUndoableEdit() {
+
+        CompositeEdit compositeEdit = new CompositeEdit(presentationName);
+
+        UndoableEdit undoableEdit = new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -246,7 +250,10 @@ public class BezierTool extends AbstractTool {
                 addedDrawing.add(addedFigure);
                 addedView.addToSelection(addedFigure);
             }
-        });
+        };
+        compositeEdit.addEdit(undoableEdit);
+        compositeEdit.end();
+        getDrawing().fireUndoableEditHappened(compositeEdit);
     }
 
     @Override
