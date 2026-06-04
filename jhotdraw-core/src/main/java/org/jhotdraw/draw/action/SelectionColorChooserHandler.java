@@ -31,7 +31,6 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
     protected JPopupMenu popupMenu;
     protected int isUpdating;
 
-    //protected Map<AttributeKey, Object> attributes;
     /**
      * Creates a new instance.
      */
@@ -40,59 +39,55 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
         this.key = key;
         this.colorChooser = colorChooser;
         this.popupMenu = popupMenu;
-        //colorChooser.addActionListener(this);
         colorChooser.getSelectionModel().addChangeListener(this);
         updateEnabledState();
     }
 
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
-        /*
-        if (evt.getActionCommand() == JColorChooser.APPROVE_SELECTION) {
-            applySelectedColorToFigures();
-        } else if (evt.getActionCommand() == JColorChooser.CANCEL_SELECTION) {
-        }*/
         popupMenu.setVisible(false);
     }
 
     protected void applySelectedColorToFigures() {
         final ArrayList<Figure> selectedFigures = new ArrayList<>(getView().getSelectedFigures());
-        final ArrayList<Object> restoreData = new ArrayList<>(selectedFigures.size());
-        Color selectedColor = colorChooser.getColor();
-        if (selectedColor != null && selectedColor.getAlpha() == 0) {
-            selectedColor = null;
+        final Color selectedColor = normalizeChosenColor(colorChooser.getColor());
+        final ArrayList<Object> restoreData = applyColorToFigures(selectedColor, selectedFigures);
+        getEditor().setDefaultAttribute(key, selectedColor);
+        fireUndoableEditHappened(createUndoableEdit(selectedColor, selectedFigures, restoreData));
+    }
+
+    public static Color normalizeChosenColor(Color color) {
+        if (color != null && color.getAlpha() == 0) {
+            return null;
         }
-        for (Figure figure : selectedFigures) {
+        return color;
+    }
+
+    ArrayList<Object> applyColorToFigures(Color color, ArrayList<Figure> figures) {
+        ArrayList<Object> restoreData = new ArrayList<>(figures.size());
+        for (Figure figure : figures) {
             restoreData.add(figure.getAttributesRestoreData());
             figure.willChange();
-            figure.set(key, selectedColor);
+            figure.set(key, color);
             figure.changed();
         }
-        getEditor().setDefaultAttribute(key, selectedColor);
-        final Color undoValue = selectedColor;
-        UndoableEdit edit = new AbstractUndoableEdit() {
+        return restoreData;
+    }
+
+    UndoableEdit createUndoableEdit(final Color undoValue, final ArrayList<Figure> figures, final ArrayList<Object> restoreData) {
+        return new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public String getPresentationName() {
                 return AttributeKeys.FONT_FACE.getPresentationName();
-                /*
-            String name = (String) getValue(Actions.UNDO_PRESENTATION_NAME_KEY);
-            if (name == null) {
-            name = (String) getValue(AbstractAction.NAME);
-            }
-            if (name == null) {
-            ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-            name = labels.getString("attribute.text");
-            }
-            return name;*/
             }
 
             @Override
             public void undo() {
                 super.undo();
                 Iterator<Object> iRestore = restoreData.iterator();
-                for (Figure figure : selectedFigures) {
+                for (Figure figure : figures) {
                     figure.willChange();
                     figure.restoreAttributesTo(iRestore.next());
                     figure.changed();
@@ -102,15 +97,13 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
             @Override
             public void redo() {
                 super.redo();
-                for (Figure figure : selectedFigures) {
-                    //restoreData.add(figure.getAttributesRestoreData());
+                for (Figure figure : figures) {
                     figure.willChange();
                     figure.set(key, undoValue);
                     figure.changed();
                 }
             }
         };
-        fireUndoableEditHappened(edit);
     }
 
     @Override
@@ -120,12 +113,10 @@ public class SelectionColorChooserHandler extends AbstractSelectedAction
             colorChooser.setEnabled(getView().getSelectionCount() > 0);
             popupMenu.setEnabled(getView().getSelectionCount() > 0);
             isUpdating++;
-            if (getView().getSelectionCount() > 0 /*&& colorChooser.isShowing()*/) {
-                for (Figure f : getView().getSelectedFigures()) {
-                    Color figureColor = f.get(key);
-                    colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
-                    break;
-                }
+            if (getView().getSelectionCount() > 0) {
+                Figure firstSelected = getView().getSelectedFigures().iterator().next();
+                Color figureColor = firstSelected.get(key);
+                colorChooser.setColor(figureColor == null ? new Color(0, true) : figureColor);
             }
             isUpdating--;
         }
