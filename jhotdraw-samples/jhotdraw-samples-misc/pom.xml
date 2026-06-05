@@ -47,6 +47,25 @@
      <groupId>org.codehaus.mojo</groupId>
      <artifactId>exec-maven-plugin</artifactId>
      <version>3.1.0</version>
+     <configuration>
+          <!--
+            htmlunit pulls in the old standalone Xerces (xerces:xercesImpl /
+            xml-apis), whose META-INF/services registers a DocumentBuilderFactory
+            that is "not a subtype" of JDK 21's java.xml DocumentBuilderFactory.
+            Force the JDK's built-in parser so the app's XML/preferences code
+            (AbstractApplication.init) does not pick up the broken provider.
+          -->
+          <systemProperties>
+               <systemProperty>
+                    <key>javax.xml.parsers.DocumentBuilderFactory</key>
+                    <value>com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl</value>
+               </systemProperty>
+               <systemProperty>
+                    <key>javax.xml.parsers.SAXParserFactory</key>
+                    <value>com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl</value>
+               </systemProperty>
+          </systemProperties>
+     </configuration>
 </plugin>
         </plugins>
     </build>

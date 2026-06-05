@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug JHotDraw Draw Sample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.draw.Main",
+            "projectName": "jhotdraw-samples-misc",
+            "classPaths": [
+                "${workspaceFolder}/jhotdraw-samples/jhotdraw-samples-misc/target/classes",
+                "${workspaceFolder}/jhotdraw-core/target/classes",
+                "${workspaceFolder}/jhotdraw-actions/target/classes",
+                "${workspaceFolder}/jhotdraw-app/target/classes",
+                "${workspaceFolder}/jhotdraw-api/target/classes",
+                "${workspaceFolder}/jhotdraw-gui/target/classes",
+                "${workspaceFolder}/jhotdraw-utils/target/classes",
+                "${workspaceFolder}/jhotdraw-xml/target/classes",
+                "${workspaceFolder}/jhotdraw-datatransfer/target/classes"
+            ]
+        }
+    ]
+}
