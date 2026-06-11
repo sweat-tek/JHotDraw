@@ -50,7 +50,6 @@ public class CombineAction extends GroupAction {
         return canCombine;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
     public Collection<Figure> ungroupFigures(DrawingView view, CompositeFigure group) {
         LinkedList<Figure> figures = new LinkedList<Figure>(group.getChildren());
