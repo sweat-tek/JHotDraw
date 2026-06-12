@@ -12,7 +12,7 @@ import javax.swing.undo.*;
 import org.jhotdraw.draw.*;
 
 /**
- * An {@code UndoableEdit} event which can undo a change of a {@link Figure}
+ * An {@code UndoableEdit} event which can Undo.java a change of a {@link Figure}
  * attribute.
  *
  * @author Werner Randelshofer

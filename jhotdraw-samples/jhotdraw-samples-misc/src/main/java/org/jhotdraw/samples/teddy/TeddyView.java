@@ -96,7 +96,7 @@ public class TeddyView extends AbstractView {
     }
     protected EditorPanel editorViewport;
     /**
-     * The undo/redo manager.
+     * The Undo.java/redo manager.
      */
     protected UndoRedoManager undoManager;
     /**

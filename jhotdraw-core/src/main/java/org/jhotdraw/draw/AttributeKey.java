@@ -185,7 +185,7 @@ public class AttributeKey<T> implements Serializable {
 
     /**
      * Sets the attribute and returns an UndoableEditEvent which can be used
-     * to undo it.
+     * to Undo.java it.
      * <p>
      * Note: Unlike in previous versions of JHotDraw 7, this method does
      * not call {@code f.willChange()} before setting the value, and

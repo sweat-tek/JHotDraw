@@ -131,7 +131,7 @@ public class PaletteFontChooserUI extends FontChooserUI {
      * Reverses configuration which was done on the specified component during
      * <code>installUI</code>. This method is invoked when this
      * <code>UIComponent</code> instance is being removed as the UI delegate
-     * for the specified component. This method should undo the
+     * for the specified component. This method should Undo.java the
      * configuration performed in <code>installUI</code>, being careful to
      * leave the <code>JComponent</code> instance in a clean state (no
      * extraneous listeners, look-and-feel-specific property objects, etc.).

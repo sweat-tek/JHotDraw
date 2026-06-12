@@ -49,7 +49,7 @@ public class PertView extends AbstractView {
     private static final long serialVersionUID = 1L;
     public static final String GRID_VISIBLE_PROPERTY = "gridVisible";
     /**
-     * Each view uses its own undo redo manager.
+     * Each view uses its own Undo.java redo manager.
      * This allows for undoing and redoing actions per view.
      */
     private UndoRedoManager undo;

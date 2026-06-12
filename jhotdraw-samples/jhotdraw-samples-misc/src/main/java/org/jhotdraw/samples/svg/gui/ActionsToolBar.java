@@ -130,7 +130,7 @@ public class ActionsToolBar extends AbstractToolBar {
                 btn = new JButton(undoManager.getUndoAction());
                 btn.setUI((PaletteButtonUI) PaletteButtonUI.createUI(btn));
                 btn.setText(null);
-                labels.configureToolBarButton(btn, "edit.undo");
+                labels.configureToolBarButton(btn, "edit.Undo.java");
                 btn.putClientProperty("hideActionText", Boolean.TRUE);
                 gbc = new GridBagConstraints();
                 gbc.gridy = 0;

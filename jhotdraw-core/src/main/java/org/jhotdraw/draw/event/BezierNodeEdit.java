@@ -16,7 +16,7 @@ import org.jhotdraw.geom.BezierPath;
 import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
- * An {@code UndoableEdit} event which can undo a change of a node in
+ * An {@code UndoableEdit} event which can Undo.java a change of a node in
  * a {@link BezierFigure}.
  *
  * @version $Id: BezierNodeEdit.java -1 $

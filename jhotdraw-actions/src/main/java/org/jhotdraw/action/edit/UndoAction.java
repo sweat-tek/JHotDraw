@@ -19,7 +19,7 @@ import org.jhotdraw.util.*;
  * Undoes the last user action.
  * <p>
  * This action requires that the View returns a project
- * specific undo action when invoking getActionMap("redo") on a View.
+ * specific Undo.java action when invoking getActionMap("redo") on a View.
  * <p>
  * This action is called when the user selects the Undo item in the Edit
  * menu. The menu item is automatically created by the application.
@@ -34,7 +34,7 @@ import org.jhotdraw.util.*;
 public class UndoAction extends AbstractViewAction {
 
     private static final long serialVersionUID = 1L;
-    public static final String ID = "edit.undo";
+    public static final String ID = "edit.Undo.java";
     private ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.action.Labels");
     private PropertyChangeListener redoActionPropertyListener = new PropertyChangeListener() {
         @Override

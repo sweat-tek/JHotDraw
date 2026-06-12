@@ -274,7 +274,7 @@ public interface Figure extends Cloneable, Serializable {
      * Transforms the shape of the Figure. Transformations using double
      * precision arithmethics are inherently lossy operations. Therefore it is
      * recommended to use getTransformRestoreData() restoreTransformTo() to
-     * provide lossless undo/redo functionality.
+     * provide lossless Undo.java/redo functionality.
      * <p>
      * This is a basic operation which does not fire events. Use the following
      * code sequence, if you need event firing:

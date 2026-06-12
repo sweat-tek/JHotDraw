@@ -53,7 +53,7 @@ public class DrawView extends AbstractView {
 
     private static final long serialVersionUID = 1L;
     /**
-     * Each DrawView uses its own undo redo manager.
+     * Each DrawView uses its own Undo.java redo manager.
      * This allows for undoing and redoing actions per view.
      */
     private UndoRedoManager undo;

@@ -8,7 +8,7 @@
  * @version $Id$
  */
 /**
- * Provides undo/redo support leveraging the javax.swing.undo package.
+ * Provides Undo.java/redo support leveraging the javax.swing.Undo.java package.
  *
  */
 package org.jhotdraw.undo;

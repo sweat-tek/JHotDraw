@@ -112,7 +112,7 @@ public class ResizeHandleKit {
          */
         private int sx, sy;
         /**
-         * Geometry for undo.
+         * Geometry for Undo.java.
          */
         private Object geometry;
         /**

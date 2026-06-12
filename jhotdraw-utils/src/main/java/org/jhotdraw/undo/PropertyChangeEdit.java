@@ -15,7 +15,7 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.UndoableEdit;
 
 /**
- * An {@code UndoableEdit} event which can undo a change of a JavaBeans property.
+ * An {@code UndoableEdit} event which can Undo.java a change of a JavaBeans property.
  *
  * @author Werner Randelshofer
  * @version $Id$

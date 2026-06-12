@@ -13,7 +13,7 @@ import javax.swing.undo.*;
 import org.jhotdraw.util.*;
 
 /**
- * An {@code UndoableEdit} event which can undo a lossy transform of a single
+ * An {@code UndoableEdit} event which can Undo.java a lossy transform of a single
  * {@link Figure} by restoring the figure using its transform restore data.
  * <p>
  * This object is useful for undoing lossy transformations, such as the

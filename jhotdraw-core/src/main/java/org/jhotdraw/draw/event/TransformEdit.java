@@ -15,7 +15,7 @@ import org.jhotdraw.draw.*;
 import org.jhotdraw.util.*;
 
 /**
- * An {@code UndoableEdit} event which can undo a lossless transform of
+ * An {@code UndoableEdit} event which can Undo.java a lossless transform of
  * {@link Figure}s by applying the inverse of the transform to the figures.
  * <p>
  * This object is useful for undoing lossless transformations, such as the

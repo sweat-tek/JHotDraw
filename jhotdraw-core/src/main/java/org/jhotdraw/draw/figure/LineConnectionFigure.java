@@ -306,7 +306,7 @@ public class LineConnectionFigure extends LineFigure
         }
         // Note: we do not set the connectors to null here, because we
         // need them when we are added back to a drawing again. For example,
-        // when an undo is performed, after the LineConnection has been
+        // when an Undo.java is performed, after the LineConnection has been
         // deleted.
         /*
         setStartConnector(null);

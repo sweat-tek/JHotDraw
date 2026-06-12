@@ -62,7 +62,7 @@ public class ODGView extends AbstractView {
     public static final String GRID_VISIBLE_PROPERTY = "gridVisible";
     protected JFileURIChooser exportChooser;
     /**
-     * Each ODGView uses its own undo redo manager.
+     * Each ODGView uses its own Undo.java redo manager.
      * This allows for undoing and redoing actions per view.
      */
     private UndoRedoManager undo;

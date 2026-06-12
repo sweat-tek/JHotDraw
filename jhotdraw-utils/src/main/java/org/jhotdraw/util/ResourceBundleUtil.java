@@ -25,9 +25,9 @@ import javax.swing.*;
  * property name and format type between <code>"${"</code> and <code>"}"</code>.
  * <p>
  * For example, if there is a {@code "imagedir"} property with the value
- * {@code "/org/jhotdraw/undo/images"}, then this could be used in an attribute
+ * {@code "/org/jhotdraw/Undo.java/images"}, then this could be used in an attribute
  * like this: <code>${imagedir}/editUndo.png</code>. This is resolved at run-time
- * as {@code /org/jhotdraw/undo/images/editUndo.png}.
+ * as {@code /org/jhotdraw/Undo.java/images/editUndo.png}.
  * <p>
  * Property names in placeholders can contain modifiers. Modifiers are written
  * between @code "[$"} and {@code "]"}. Each modifier has a fallback chain.

@@ -45,7 +45,7 @@ public class SVGView extends AbstractView {
     public static final String GRID_VISIBLE_PROPERTY = "gridVisible";
     protected JFileURIChooser exportChooser;
     /**
-     * Each SVGView uses its own undo redo manager.
+     * Each SVGView uses its own Undo.java redo manager.
      * This allows for undoing and redoing actions per view.
      */
     private UndoRedoManager undo;

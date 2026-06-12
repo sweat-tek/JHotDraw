@@ -10,7 +10,7 @@ package org.jhotdraw.undo;
 import javax.swing.undo.*;
 
 /**
- * This is basically the same like javax.swing.undo.CompoundEdit but
+ * This is basically the same like javax.swing.Undo.java.CompoundEdit but
  * it has a slightly different behaviour:
  * The compound edit ends, when it is added to itself. This way it
  * can be fired two times to an UndoManager: The first time, when
@@ -105,7 +105,7 @@ public class CompositeEdit extends CompoundEdit {
     }
 
     /**
-     * Returns the undo presentation name.
+     * Returns the Undo.java presentation name.
      * If the presentation name is null, then CompoundEdit.getUndoPresentationName
      * is returned.
      *
