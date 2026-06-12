@@ -12,14 +12,14 @@ import java.io.*;
 import java.util.*;
 
 /**
- * ComoositeTransferable.
+ * CompositeTransferable.
  *
  * @author Werner Randelshofer
  */
 public class CompositeTransferable implements Transferable, ClipboardOwner {
 
-    private HashMap<DataFlavor, Transferable> transferables = new HashMap<>();
-    private LinkedList<DataFlavor> flavors = new LinkedList<>();
+    private final HashMap<DataFlavor, Transferable> transferables = new HashMap<>();
+    private final LinkedList<DataFlavor> flavors = new LinkedList<>();
 
     /**
      * Creates a new instance of CompositeTransferable
@@ -74,7 +74,7 @@ public class CompositeTransferable implements Transferable, ClipboardOwner {
      * this object.
      *
      * @param flavor the requested flavor for the data
-     * @return boolean indicating wjether or not the data flavor is supported
+     * @return boolean indicating whether or not the data flavor is supported
      */
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {

@@ -98,43 +98,9 @@ public class DefaultDrawingViewTransferHandler extends TransferHandler {
 SearchLoop:             for (InputFormat format : drawing.getInputFormats()) {
                             for (DataFlavor flavor : transferFlavors) {
                                 if (format.isDataFlavorSupported(flavor)) {
-                                    LinkedList<Figure> existingFigures = new LinkedList<>(drawing.getChildren());
-                                    try {
-                                        format.read(t, drawing, false);
-                                        final LinkedList<Figure> importedFigures = new LinkedList<>(drawing.
-                                                getChildren());
-                                        importedFigures.removeAll(existingFigures);
-                                        view.clearSelection();
-                                        view.addToSelection(importedFigures);
-                                        transferFigures.addAll(importedFigures);
-                                        moveToDropPoint(comp, transferFigures, dropPoint);
-                                        drawing.fireUndoableEditHappened(new AbstractUndoableEdit() {
-                                            private static final long serialVersionUID = 1L;
-
-                                            @Override
-                                            public String getPresentationName() {
-                                                ResourceBundleUtil labels = ResourceBundleUtil.getBundle(
-                                                        "org.jhotdraw.draw.Labels");
-                                                return labels.getString("edit.paste.text");
-                                            }
-
-                                            @Override
-                                            public void undo() throws CannotUndoException {
-                                                super.undo();
-                                                drawing.removeAll(importedFigures);
-                                            }
-
-                                            @Override
-                                            public void redo() throws CannotRedoException {
-                                                super.redo();
-                                                drawing.addAll(importedFigures);
-                                            }
-                                        });
+                                    if (importTransferData(comp, t, transferFigures, dropPoint, view, drawing, format)) {
                                         retValue = true;
                                         break SearchLoop;
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                        // failed to read transferalbe, try with next InputFormat
                                     }
                                 }
                             }
@@ -144,43 +110,9 @@ SearchLoop:             for (InputFormat format : drawing.getInputFormats()) {
 SearchLoop:             for (DataFlavor flavor : transferFlavors) {
                             for (InputFormat format : drawing.getInputFormats()) {
                                 if (format.isDataFlavorSupported(flavor)) {
-                                    LinkedList<Figure> existingFigures = new LinkedList<>(drawing.getChildren());
-                                    try {
-                                        format.read(t, drawing, false);
-                                        final LinkedList<Figure> importedFigures = new LinkedList<>(drawing.
-                                                getChildren());
-                                        importedFigures.removeAll(existingFigures);
-                                        view.clearSelection();
-                                        view.addToSelection(importedFigures);
-                                        transferFigures.addAll(importedFigures);
-                                        moveToDropPoint(comp, transferFigures, dropPoint);
-                                        drawing.fireUndoableEditHappened(new AbstractUndoableEdit() {
-                                            private static final long serialVersionUID = 1L;
-
-                                            @Override
-                                            public String getPresentationName() {
-                                                ResourceBundleUtil labels = ResourceBundleUtil.getBundle(
-                                                        "org.jhotdraw.draw.Labels");
-                                                return labels.getString("edit.paste.text");
-                                            }
-
-                                            @Override
-                                            public void undo() throws CannotUndoException {
-                                                super.undo();
-                                                drawing.removeAll(importedFigures);
-                                            }
-
-                                            @Override
-                                            public void redo() throws CannotRedoException {
-                                                super.redo();
-                                                drawing.addAll(importedFigures);
-                                            }
-                                        });
+                                    if (importTransferData(comp, t, transferFigures, dropPoint, view, drawing, format)) {
                                         retValue = true;
                                         break SearchLoop;
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                        // failed to read transferalbe, try with next InputFormat
                                     }
                                 }
                             }
@@ -218,28 +150,7 @@ FileFormatLoop:                     for (InputFormat format : drawing.getInputFo
                                         view.addToSelection(importedFigures);
                                         transferFigures.addAll(importedFigures);
                                         moveToDropPoint(comp, transferFigures, dropPoint);
-                                        drawing.fireUndoableEditHappened(new AbstractUndoableEdit() {
-                                            private static final long serialVersionUID = 1L;
-
-                                            @Override
-                                            public String getPresentationName() {
-                                                ResourceBundleUtil labels = ResourceBundleUtil.getBundle(
-                                                        "org.jhotdraw.draw.Labels");
-                                                return labels.getString("edit.paste.text");
-                                            }
-
-                                            @Override
-                                            public void undo() throws CannotUndoException {
-                                                super.undo();
-                                                drawing.removeAll(importedFigures);
-                                            }
-
-                                            @Override
-                                            public void redo() throws CannotRedoException {
-                                                super.redo();
-                                                drawing.addAll(importedFigures);
-                                            }
-                                        });
+                                        firePasteUndoableEdit(drawing, importedFigures);
                                     }
 
                                     view.getEditor().setEnabled(true);
@@ -260,10 +171,54 @@ FileFormatLoop:                     for (InputFormat format : drawing.getInputFo
         return retValue;
     }
 
+    private boolean importTransferData(final JComponent comp, Transferable t, final HashSet<Figure> transferFigures,
+                                       final Point dropPoint, final DrawingView view, final Drawing drawing,
+                                       InputFormat format) throws UnsupportedFlavorException {
+        LinkedList<Figure> existingFigures = new LinkedList<>(drawing.getChildren());
+        try {
+            format.read(t, drawing, false);
+            final LinkedList<Figure> importedFigures = new LinkedList<>(drawing.getChildren());
+            importedFigures.removeAll(existingFigures);
+            view.clearSelection();
+            view.addToSelection(importedFigures);
+            transferFigures.addAll(importedFigures);
+            moveToDropPoint(comp, transferFigures, dropPoint);
+            firePasteUndoableEdit(drawing, importedFigures);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Failed to read transferable; try with the next InputFormat.
+            return false;
+        }
+    }
+
+    private void firePasteUndoableEdit(final Drawing drawing, final LinkedList<Figure> importedFigures) {
+        drawing.fireUndoableEditHappened(new AbstractUndoableEdit() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getPresentationName() {
+                ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                return labels.getString("edit.paste.text");
+            }
+
+            @Override
+            public void undo() throws CannotUndoException {
+                super.undo();
+                drawing.removeAll(importedFigures);
+            }
+
+            @Override
+            public void redo() throws CannotRedoException {
+                super.redo();
+                drawing.addAll(importedFigures);
+            }
+        });
+    }
+
     protected void moveToDropPoint(JComponent component, HashSet<Figure> transferFigures, Point dropPoint) {
         if (dropPoint == null) {
-            // This ugly code sequence is needed to ensure that the drawing view
-            // repaints the area which contains the dropped figures.
+            // Ensure that the drawing view repaints the area containing the dropped figures.
             for (Figure fig : transferFigures) {
                 fig.willChange();
                 fig.changed();
@@ -491,10 +446,6 @@ SearchLoop: for (InputFormat format : drawing.getInputFormats()) {
             retValue = super.canImport(comp, transferFlavors);
         }
         return retValue;
-    }
-
-    private void getDrawing() {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
