@@ -37,12 +37,6 @@ public class CompositeEdit extends CompoundEdit {
     private static final long serialVersionUID = 1L;
     private String presentationName;
     private boolean isSignificant;
-    private boolean isVerbose;
-
-    public void setVerbose(boolean b) {
-        isVerbose = b;
-    }
-
     /**
      * Creates a new {@code CompositeEdit} which uses CompoundEdit#getPresentationName()
      * and is significant..
@@ -144,6 +138,7 @@ public class CompositeEdit extends CompoundEdit {
      */
     @Override
     public boolean addEdit(UndoableEdit anEdit) {
+        assert anEdit != null : "Cannot add a null edit to CompositeEdit"; //NOSONAR java:S4274
         if (anEdit == this) {
             end();
             return true;
@@ -161,8 +156,7 @@ public class CompositeEdit extends CompoundEdit {
      */
     @Override
     public boolean isSignificant() {
-        return (isSignificant) ? super.isSignificant() : false;
-        //return isSignificant;
+        return isSignificant && super.isSignificant();
     }
 
     public void setSignificant(boolean newValue) {

@@ -187,6 +187,9 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      */
     @Override
     public boolean addEdit(UndoableEdit anEdit) {
+        // Invariant: callers must never pass null.
+        // assert is intentional (enabled with -ea) to catch programming errors during development. //NOSONAR java:S4274
+        assert anEdit != null : "UndoableEdit must not be null";
         if (DEBUG) {
             System.out.println("UndoRedoManager@" + hashCode() + ".add " + anEdit);
         }
@@ -255,6 +258,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
     @Override
     public void undo()
             throws CannotUndoException {
+        assert canUndo() : "undo() called with nothing to undo — check canUndo() first"; //NOSONAR java:S4274
         undoOrRedoInProgress = true;
         try {
             super.undo();
@@ -272,6 +276,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
     @Override
     public void redo()
             throws CannotUndoException {
+        assert canRedo() : "redo() called with nothing to redo — check canRedo() first"; //NOSONAR java:S4274
         undoOrRedoInProgress = true;
         try {
             super.redo();
