@@ -34,6 +34,7 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
         implements ImageHolderFigure {
 
     private static final long serialVersionUID = 1L;
+    private static final String IMAGE_DATA_STRING = "imageData";
     /**
      * This rectangle describes the bounds into which we draw the image.
      */
@@ -117,8 +118,7 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
     // SHAPE AND BOUNDS
     @Override
     public Rectangle2D.Double getBounds() {
-        Rectangle2D.Double bounds = (Rectangle2D.Double) rectangle.clone();
-        return bounds;
+        return (Rectangle2D.Double) rectangle.clone();
     }
 
     @Override
@@ -170,14 +170,13 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
 
     @Override
     public Object getTransformRestoreData() {
-        return (Rectangle2D.Double) rectangle.clone();
+        return rectangle.clone();
     }
 
     // EDITING
     @Override
     public Collection<Action> getActions(Point2D.Double p) {
-        LinkedList<Action> actions = new LinkedList<>();
-        return actions;
+        return new LinkedList<>();
     }
 
     // CONNECTING
@@ -193,20 +192,11 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
         return new ChopRectangleConnector(this);
     }
 
-    // COMPOSITE FIGURES
-    // CLONING
-    @Override
-    public ImageFigure clone() {
-        ImageFigure that = (ImageFigure) super.clone();
-        that.rectangle = (Rectangle2D.Double) this.rectangle.clone();
-        return that;
-    }
-
     @Override
     public void read(DOMInput in) throws IOException {
         super.read(in);
-        if (in.getElementCount("imageData") > 0) {
-            in.openElement("imageData");
+        if (in.getElementCount(IMAGE_DATA_STRING) > 0) {
+            in.openElement(IMAGE_DATA_STRING);
             String base64Data = in.getText();
             if (base64Data != null) {
                 setImageData(Base64.decode(base64Data));
@@ -219,7 +209,7 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
     public void write(DOMOutput out) throws IOException {
         super.write(out);
         if (getImageData() != null) {
-            out.openElement("imageData");
+            out.openElement(IMAGE_DATA_STRING);
             out.addText(Base64.encodeBytes(getImageData()));
             out.closeElement();
         }
@@ -274,7 +264,6 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
             try {
                 bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
             } catch (IOException e) {
-                e.printStackTrace();
                 // If we can't create a buffered image from the image data,
                 // there is no use to keep the image data and try again, so
                 // we drop the image data.
@@ -300,7 +289,6 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
                 bout.close();
                 imageData = bout.toByteArray();
             } catch (IOException e) {
-                e.printStackTrace();
                 // If we can't create image data from the buffered image,
                 // there is no use to keep the buffered image and try again, so
                 // we drop the buffered image.
@@ -314,7 +302,7 @@ public class ImageFigure extends AbstractAttributedDecoratedFigure
     public void loadImage(File file) throws IOException {
         try (InputStream in = new FileInputStream(file)) {
             loadImage(in);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
             IOException e = new IOException(labels.getFormatted("file.failedToLoadImage.message", file.getName()));
             e.initCause(t);

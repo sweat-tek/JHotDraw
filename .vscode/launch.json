@@ -1,0 +1,259 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CIELABColorSpace",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.color.CIELABColorSpace",
+            "projectName": "jhotdraw-gui"
+        },
+        {
+            "type": "java",
+            "name": "CIELCHabColorSpace",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.color.CIELCHabColorSpace",
+            "projectName": "jhotdraw-gui"
+        },
+        {
+            "type": "java",
+            "name": "EditCanvasPanel",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.gui.action.EditCanvasPanel",
+            "projectName": "jhotdraw-gui"
+        },
+        {
+            "type": "java",
+            "name": "CIEXYChromaticityDiagram",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.color.CIEXYChromaticityDiagram",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "JMixer",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.color.JMixer",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "WheelsAndSlidersMain",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.color.WheelsAndSlidersMain",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "FontChooserMain",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.font.FontChooserMain",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "ActivityMonitorSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.ActivityMonitorSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "AnimationSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.AnimationSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "BezierDemo",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.BezierDemo",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "ConnectingFiguresSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.ConnectingFiguresSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "CreationToolSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.CreationToolSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "DefaultDOMStorableSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.DefaultDOMStorableSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "DnDMultiEditorSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.DnDMultiEditorSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "EditorSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.EditorSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "FileIconsSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.FileIconsSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "LabeledLineConnectionFigureSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.LabeledLineConnectionFigureSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "LayouterSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.LayouterSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "MovableChildFiguresSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.MovableChildFiguresSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "MovableChildFiguresSampleWithAbstractDrawingView",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.MovableChildFiguresSampleWithAbstractDrawingView",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "MovableChildFiguresSampleWithDelegatorDrawingView",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.MovableChildFiguresSampleWithDelegatorDrawingView",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "MultiEditorSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.MultiEditorSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "SVGDrawingPanelSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.SVGDrawingPanelSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "SelectionToolSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.SelectionToolSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "SmartConnectionFigureSample",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.mini.SmartConnectionFigureSample",
+            "projectName": "jhotdraw-samples-mini"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.draw.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Main(1)",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.net.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "NetApplet",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.net.NetApplet",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Main(2)",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.odg.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Main(3)",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.pert.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "PertApplet",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.pert.PertApplet",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Main(4)",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.svg.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "SVGApplet",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.svg.SVGApplet",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Main(5)",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.samples.teddy.Main",
+            "projectName": "jhotdraw-samples-misc"
+        },
+        {
+            "type": "java",
+            "name": "Bezier",
+            "request": "launch",
+            "mainClass": "org.jhotdraw.geom.Bezier",
+            "projectName": "jhotdraw-utils"
+        }
+    ]
+}

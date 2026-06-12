@@ -80,60 +80,14 @@ public class ImageTool extends CreationTool {
     @Override
     public void activate(DrawingEditor editor) {
         super.activate(editor);
-        final DrawingView v = getView();
-        if (v == null) {
+        final DrawingView view = getView();
+        if (view == null) {
             return;
         }
-        final File file;
-        if (useFileDialog) {
-            getFileDialog().setVisible(true);
-            if (getFileDialog().getFile() != null) {
-                file = new File(getFileDialog().getDirectory(), getFileDialog().getFile());
-            } else {
-                file = null;
-            }
-        } else {
-            if (getFileChooser().showOpenDialog(v.getComponent()) == JFileChooser.APPROVE_OPTION) {
-                file = getFileChooser().getSelectedFile();
-            } else {
-                file = null;
-            }
-        }
+        final File file = selectImageFile(view);
         if (file != null) {
-            final ImageHolderFigure loaderFigure = ((ImageHolderFigure) prototype.clone());
-            new SwingWorker() {
-                @Override
-                protected Object doInBackground() throws Exception {
-                    loaderFigure.loadImage(file);
-                    return null;
-                }
-
-                @Override
-                protected void done() {
-                    try {
-                        get();  //will throw an ExecutionException if in doInBackground something went wrong.
-                        if (createdFigure == null) {
-                            ((ImageHolderFigure) prototype).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
-                        } else {
-                            ((ImageHolderFigure) createdFigure).setImage(loaderFigure.getImageData(), loaderFigure.getBufferedImage());
-                        }
-                    } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(v.getComponent(),
-                                ex.getMessage(),
-                                null,
-                                JOptionPane.ERROR_MESSAGE);
-                    } catch (InterruptedException | ExecutionException ex) {
-                        JOptionPane.showMessageDialog(v.getComponent(),
-                            ex.getMessage(),
-                            null,
-                            JOptionPane.ERROR_MESSAGE);
-                        getDrawing().remove(createdFigure);
-                        fireToolDone();
-                    }
-                }
-            }.execute();
+            loadImageAsync(file, view);
         } else {
-            //getDrawing().remove(createdFigure);
             if (isToolDoneAfterCreation()) {
                 fireToolDone();
             }
@@ -152,5 +106,59 @@ public class ImageTool extends CreationTool {
             fileDialog = new FileDialog(new Frame());
         }
         return fileDialog;
+    }
+
+    private File selectImageFile(DrawingView view) {
+        if (useFileDialog) {
+            getFileDialog().setVisible(true);
+            if (getFileDialog().getFile() != null) {
+                return new File(getFileDialog().getDirectory(), getFileDialog().getFile());
+            } else {
+                return null;
+            }
+        } else {
+            if (getFileChooser().showOpenDialog(view.getComponent()) == JFileChooser.APPROVE_OPTION) {
+                return getFileChooser().getSelectedFile();
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private void loadImageAsync(File file, DrawingView view) {
+        final ImageHolderFigure loaderFigure = ((ImageHolderFigure) prototype.clone());
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                loaderFigure.loadImage(file);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    get(); // will throw an ExecutionException if in doInBackground something went wrong.
+                    if (createdFigure == null) {
+                        ((ImageHolderFigure) prototype).setImage(loaderFigure.getImageData(),
+                                loaderFigure.getBufferedImage());
+                    } else {
+                        ((ImageHolderFigure) createdFigure).setImage(loaderFigure.getImageData(),
+                                loaderFigure.getBufferedImage());
+                    }
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(view.getComponent(),
+                            ex.getMessage(),
+                            null,
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (InterruptedException | ExecutionException ex) {
+                    JOptionPane.showMessageDialog(view.getComponent(),
+                            ex.getMessage(),
+                            null,
+                            JOptionPane.ERROR_MESSAGE);
+                    getDrawing().remove(createdFigure);
+                    fireToolDone();
+                }
+            }
+        }.execute();
     }
 }
